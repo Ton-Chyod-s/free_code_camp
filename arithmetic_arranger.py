@@ -28,12 +28,9 @@ def arithmetic_arranger(problems, resposta=False):
     else:
       resposta = ''
 
-    conta = f'{linha1}\n{linha2}\n-----\n{resposta}'
+    print(f'{linha1}\n{linha2}\n-----\n{resposta}')
     
-    contas.append(conta)
-
-  print(contas[0]+ contas[1])
-
+    
 if __name__ == '__main__':
   arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"])
   arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"],True)

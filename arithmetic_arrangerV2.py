@@ -1,39 +1,47 @@
 def arithmetic_arranger(problems, resposta=False):
-  res = []
-  qtde = len(problems)
-  contas = []
-  for linha in problems:
-    valor1 = linha.split()
-    for i in range(3):
-      valor2 = valor1[i]
-      res.append(valor2)
+    numerador = []
+    denominador = []
+    traco = []
+    resultado = []
 
-  for lin in range(qtde):
-    indice = lin * 3
-    linha1 = res[indice]
-    linha2 = res[indice + 1] +' '+ res[indice + 2]
-    valo1 = int(res[indice])
-    valo3 = int(res[indice + 2])
+    if len(problems) > 5:
+        return "Error: Too many problems."
 
-    operadores = {
-      '+': lambda x, y: x + y,
-      '-': lambda x, y: x - y,
-      '*': lambda x, y: x * y,
-      '/': lambda x, y: x / y
-    }
+    for problem in problems:
+        num1, operador, num2 = problem.split()
 
-    if resposta:
-      if res[indice + 1] in operadores:
-          resposta = operadores[res[indice + 1]](valo1, valo3)
-    else:
-      resposta = ''
+        if operador not in ['+', '-']:
+            return "Error: Operator must be '+' or '-'."
 
-    conta = f'{linha1}\n{linha2}\n-----\n{resposta}'
+        if not (num1.isdigit() and num2.isdigit()):
+            return "Error: Numbers must only contain digits."
+
+        if len(num1) > 4 or len(num2) > 4:
+            return "Error: Numbers cannot be more than four digits."
+
+        width = max(len(num1), len(num2)) + 2
+        numerador.append(num1.rjust(width))
+        denominador.append(operador + num2.rjust(width - 1))
+        traco.append('-' * width)
+
+        if resposta:
+            if operador == '+':
+                result = int(num1) + int(num2)
+            else:
+                result = int(num1) - int(num2)
+            resultado.append(str(result).rjust(width))
+
+    formatted_problems = [
+        '    '.join(numerador),
+        '    '.join(denominador),
+        '    '.join(traco)
+    ]
     
-    contas.append(conta)
+    if resposta:
+        formatted_problems.append('    '.join(resultado))
 
-  print(contas[0]+ contas[1])
+    return '\n'.join(formatted_problems)
 
 if __name__ == '__main__':
-  arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"])
-  arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"],True)
+    print(arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49"], True))
+    print(arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"]))
