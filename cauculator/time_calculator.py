@@ -1,64 +1,68 @@
-def add_time(start, duration):
+def add_time(start, duration,day=None):
     inicio = start
     duracao = duration
+    days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
     def hora(txt):
-       try:
-        hora_dividida = txt.split(":")
-        hor = int(hora_dividida[0])
-        minuto_sem_indicador = hora_dividida[1].split(" ")
-        minuto = int(minuto_sem_indicador[0])
-        return hor, minuto, minuto_sem_indicador[1]
-       except:
-          return hor, minuto
+        hora_dividida = txt.split()
+        hh, mm = map(int, hora_dividida[0].split(':'))
+        try:
+            if 'PM' in hora_dividida[1]:
+                hh += 12
+        except:
+            pass
+        return hh * 60 + mm
+
+    def format_time(minutes):
+        hh = minutes // 60
+        mm = minutes % 60
+        period = 'AM'
+        if hh >= 12:
+            period = 'PM'
+            if hh > 12:
+                hh -= 12
+        if hh == 0:
+            hh = 12
+        # Remover o zero à esquerda se a hora for menor que 10
+        hh_str = str(hh)
+        mm_str = str(mm).rjust(2, '0')  # Garante que os minutos tenham pelo menos dois dígitos
+
+        return f'{hh_str}:{mm_str} {period}'
         
-    hora_inicio = hora(inicio)[0]
-    minuto_inicio = hora(inicio)[1]
-    hora_duracao = hora(duracao)[0]
-    minuto_duracao = hora(duracao)[1]
+    minutos_inicio = hora(inicio)
+    minutos_duracao = hora(duracao)
     
-    soma_hora = hora_inicio + hora_duracao
-    soma_minuto  = minuto_inicio + minuto_duracao   
-
-    if hora_duracao >= 24:
-        # dias
-        dia = hora_duracao / 24
-        if dia % 1 != 0.0:
-           dia = int(hora_duracao / 24) + 1
-        
-        dias_extras = float(hora_duracao / 24)
-        minutos_extras = (dias_extras % 1) 
-        # minutos_extras = str(round(minutos_extras,2)).split('.')
-        # minutos_extras = int(minutos_extras[1])
-        
-        minutos_extras = minutos_extras * 60
-        hora_duracao = 0
-        soma_hora = hora_inicio + hora_duracao
-        
-
-    # Verificar se os minutos ultrapassam 60 e ajustar as horas e minutos
-    if soma_minuto >= 60:
-        soma_hora += 1
-        soma_minuto -= 60
+    total_minutos = minutos_inicio + minutos_duracao
     
-    resultado_hora = "{}:{:02d}".format(soma_hora, soma_minuto)
-    # Dividir a hora formatada em horas e minutos
-    hora_ = resultado_hora.split(':')
-    hora_ = int(hora_[0])
+     # Cálculo de dias e tempo final formatado
+    days = total_minutos // (24 * 60)
+    final_minutes = total_minutos % (24 * 60)
+    final_time = format_time(final_minutes) 
 
-    if hora_ <= 12:
-        if dia > 2:
-            print(F'{resultado_hora} AM ({dia} days later)')
-        elif dia == 1:
-            print(F'{resultado_hora} AM (next day)')
+    if day != None:
+        novo_dia =  days_of_week.index(day)
+        next_index = (novo_dia + days) % 7
+        next_day = days_of_week[next_index]
+
+    # Imprimir resultado
+    if days == 0:
+        if day:
+            result = f'{final_time}, {day}'
         else:
-            print(F'{resultado_hora} AM') 
+            result = final_time
+    elif days == 1:
+        if day:
+            result = f'{final_time}, {next_day} (next day)'
+        else:
+            result = f'{final_time} (next day)'
+    else:
+        if day:
+            result = f'{final_time}, {next_day} ({days} days later)'
+        else:
+            result = f'{final_time} ({days} days later)'
 
-    elif hora_ < 18:
-       print(F'{resultado_hora} PM') 
+    return result
 
 if __name__ == '__main__':
-    add_time("6:30 PM", "205:12")
-    # Returns: 7:42 AM (9 days later)
-    add_time("11:43 PM", "24:20")
-    # Returns: 12:03 AM, Thursday (2 days later)
+    print(add_time("2:59 AM", "24:00", "Saturday"))
+

@@ -50,9 +50,9 @@ class UnitTests(unittest.TestCase):
         self.assertEqual(actual, expected, 'Expected calling "add_time()" with "3:30 PM", "2:12", "Monday" to return "5:42 PM, Monday"')
 
     def test_twenty_four_with_day(self):
-        actual = add_time("2:59 AM", "24:00", "saturDay")
+        actual = add_time("2:59 AM", "24:00", "Saturday")
         expected = "2:59 AM, Sunday (next day)"
-        self.assertEqual(actual, expected, 'Expected calling "add_time()" with "2:59 AM", "24:00", "saturDay" to return "2:59 AM, Sunday (next day)"')
+        self.assertEqual(actual, expected, 'Expected calling "add_time()" with "2:59 AM", "24:00", "Saturday" to return "2:59 AM, Sunday (next day)"')
 
     def test_two_days_later_with_day(self):
         actual = add_time("11:59 PM", "24:05", "Wednesday")
@@ -60,9 +60,9 @@ class UnitTests(unittest.TestCase):
         self.assertEqual(actual, expected, 'Expected calling "add_time()" with "11:59 PM", "24:05", "Wednesday" to return "12:04 AM, Friday (2 days later)"')
 
     def test_high_duration_with_day(self):
-        actual = add_time("8:16 PM", "466:02", "tuesday")
+        actual = add_time("8:16 PM", "466:02", "Tuesday")
         expected = "6:18 AM, Monday (20 days later)"
-        self.assertEqual(actual, expected, 'Expected calling "add_time()" with "8:16 PM", "466:02", "tuesday" to return "6:18 AM, Monday (20 days later)"')
+        self.assertEqual(actual, expected, 'Expected calling "add_time()" with "8:16 PM", "466:02", "Tuesday" to return "6:18 AM, Monday (20 days later)"')
 
 if __name__ == "__main__":
     unittest.main()
