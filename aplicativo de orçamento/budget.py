@@ -6,8 +6,9 @@ class Category:
     def deposit(self,qtde,descricao):
         self.ledger.append({"quantidade": qtde, "Descrição":descricao})
         lol = lol
-    def withdraw(sef):
-        pass
+
+    def withdraw(self,qtde,descricao): #sacar
+        self.ledger.append({"quantidade": qtde, "Descrição":descricao})
     
     def get_balance(self):
         pass
