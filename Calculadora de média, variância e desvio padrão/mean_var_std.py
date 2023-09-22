@@ -17,9 +17,8 @@ def calculate(data):
     matriz_primeiro_elemento = []
     matriz_segundo_elemento = []
     matriz_terceiro_elemento = []
-    
     try:
-        data_matriz = np.matrix(data).reshape(3, 3)
+        data_matriz = np.array(data).reshape(3, 3)
         for i, modulo in enumerate(data_matriz):
             lista_modulo = list(str(data_matriz[i]).replace('[','').replace(']','').replace(' ',''))
             for lis, num in enumerate(lista_modulo):
@@ -57,8 +56,6 @@ def calculate(data):
             sum_total = np.sum(data_matriz)
             sum_ = np.sum(modulo)
             soma[f'valor {i}'] = sum_
-
-
         for i, modulo in enumerate(data_matriz):
             def calculo(txt,txt1):
                 txt[f'desvio_total_{i}'] = txt1(matriz_primeiro_elemento)
@@ -75,7 +72,6 @@ def calculate(data):
             #sum
             calculo(sum_elementos_modulo,np.sum)
             break
-            
         modulo2 = data_matriz[1]
         modulo2 = modulo2.tolist()
         #variação
@@ -98,30 +94,11 @@ def calculate(data):
         calculations['max'] = lista_max
         calculations['min'] = lista_min
         calculations['sum'] = lista_sum
-        print(calculations)
-
-    
     except ValueError as e:
-        print(e)
         print("List must contain nine numbers.")
-
-    return #calculations
-
+    return calculations
 
 if __name__ == '__main__':
     calculate([0,1,2,3,4,5,6,7,8])
 
-    '''
-    Por exemplo, calculate([0,1,2,3,4,5,6,7,8]) deve retornar:
-
-    {
-  'mean': [[3.0, 4.0, 5.0], [1.0, 4.0, 7.0], 4.0],
-  'variance': [[6.0, 6.0, 6.0], [0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 6.666666666666667],
-  'standard deviation': [[2.449489742783178, 2.449489742783178, 2.449489742783178], [0.816496580927726, 0.816496580927726, 0.816496580927726], 2.581988897471611],
-  'max': [[6, 7, 8], [2, 5, 8], 8],
-  'min': [[0, 1, 2], [0, 3, 6], 0],
-  'sum': [[9, 12, 15], [3, 12, 21], 36]
-    }
-
     
-    '''
