@@ -73,7 +73,7 @@ def calculate(data):
             #min
             calculo(min_elementos_modulo,np.min)
             #sum
-            #calculo(sum_elementos_modulo,np.sum)
+            calculo(sum_elementos_modulo,np.sum)
             break
             
         modulo2 = data_matriz[1]
@@ -90,14 +90,14 @@ def calculate(data):
         #min
         lista_min = f'[{list(min_elementos_modulo.values())}, {list(min.values())},{min_total}]'
         #sum
-        #lista_sum = f'[{list(min_elementos_modulo.values())}, {list(min.values())},{min_total}]'
+        lista_sum = f'[{list(sum_elementos_modulo.values())}, {list(soma.values())},{sum_total}]'
 
         calculations['mean'] = lista_media
         calculations['variance'] = lista_variacao
         calculations['standard deviation'] = lista_desvio
         calculations['max'] = lista_max
         calculations['min'] = lista_min
-        calculations['sum'] = 0 #lista_sum
+        calculations['sum'] = lista_sum
         print(calculations)
 
     
