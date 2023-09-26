@@ -1,7 +1,6 @@
 import numpy as np
 
 def calculate(data):
-    calculations = {}
     variacao_arredondar = {}
     variacao_modulo = {}
     media_modulo = {}
@@ -75,30 +74,31 @@ def calculate(data):
         modulo2 = data_matriz[1]
         modulo2 = modulo2.tolist()
         #variação
-        lista_variaçao = list(variacao_arredondar.values())
-        lista_variacao = f'[{lista_variaçao}, {list(variacao_modulo.values())}, {variance_total}]'
+        lista_variacao = [list(variacao_arredondar.values()), list(variacao_modulo.values()), {variance_total}]
         #media
-        lista_media = f'[{list(media_elementos_modulo.values())}, {list(media_modulo.values())}, {media_total}]'
+        lista_media = [list(media_elementos_modulo.values()), list(media_elementos_modulo.values()), media_total]
         #desvio padrão 
-        lista_desvio = f'[{list(desvio_elementos_modulo.values())}, {list(desvio_padrao.values())}, {desvio_padrao_total}]'
+        lista_desvio = [list(desvio_elementos_modulo.values()), list(desvio_padrao.values()), desvio_padrao_total]
         #max
-        lista_max = f'[{list(max_elementos_modulo.values())}, {list(max.values())}, {max_total}]'
+        lista_max = [list(max_elementos_modulo.values()), list(max.values()), max_total]
         #min
-        lista_min = f'[{list(min_elementos_modulo.values())}, {list(min.values())},{min_total}]'
+        lista_min = [list(min_elementos_modulo.values()), list(min.values()),min_total]
         #sum
-        lista_sum = f'[{list(sum_elementos_modulo.values())}, {list(soma.values())},{sum_total}]'
+        lista_sum = [list(sum_elementos_modulo.values()), list(soma.values()),sum_total]
 
-        calculations['mean'] = lista_media
-        calculations['variance'] = lista_variacao
-        calculations['standard deviation'] = lista_desvio
-        calculations['max'] = lista_max
-        calculations['min'] = lista_min
-        calculations['sum'] = lista_sum
+        calculations = {
+            'mean': lista_media,
+            'variance': lista_variacao,
+            'standard deviation': lista_desvio,
+            'max': lista_max,
+            'min': lista_min,
+            'sum': lista_sum
+        }
     except ValueError as e:
-        print("List must contain nine numbers.")
+        print("ValueError not raised by calculate.")
     return calculations
 
 if __name__ == '__main__':
-    calculate([0,1,2,3,4,5,6,7,8])
+    print(calculate([2,6,2,8,4,0,1,5,7]))
 
     
