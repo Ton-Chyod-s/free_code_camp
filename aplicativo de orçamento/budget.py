@@ -3,12 +3,13 @@ class Category:
         self.category = category
         self.ledger = []
 
-    def deposit(self,qtde,descricao):
+    def deposit(self,qtde,descricao): #deposito
         self.ledger.append({"quantidade": qtde, "Descrição":descricao})
-        lol = lol
+        
 
     def withdraw(self,qtde,descricao): #sacar
         self.ledger.append({"quantidade": qtde, "Descrição":descricao})
+    
     
     def get_balance(self):
         pass
@@ -22,3 +23,4 @@ def create_spend_chart(categories):
 if __name__ == '__main__':
     food = Category("Food")
     food.deposit(1000, "initial deposit")
+    
