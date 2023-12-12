@@ -45,8 +45,26 @@ class Category:
             pass
 
 def create_spend_chart(categories):
-    food_category = food
+    for i in range(0,110,10):
+        print(i)
+        
+    for i in categories:
+        dicionario_da_classe = vars(i)
+        categoria = dicionario_da_classe["category"]
+        print(f'{dicionario_da_classe["retirada_deposito"]:.2f}')
     
+
+
+    """soma_valores = 0
+    for k, v in dicionario_da_classe.items():
+        if k == 'ledger':
+            for valor in v:
+                for num, val in valor.items():
+                    val_bol = val.replace('-','').replace('.','')
+                    if val_bol.isnumeric():
+                        if '-' in val:
+                            soma_valores += float(val) * -1
+    return float(f'{soma_valores:.2f}')"""
 
 if __name__ == '__main__':
     food = Category("Food")
@@ -54,20 +72,20 @@ if __name__ == '__main__':
     food.withdraw(10.15, "groceries")
     food.withdraw(15.89, "restaurant and more food for dessert")
     food.withdraw(50,'Transfer to Clothing')
-    print(food.get_balance())
+    #print(food.get_balance())
 
     clothing = Category("Clothing")
     food.transfer(50, clothing)
     clothing.withdraw(25.55)
     clothing.withdraw(100)
-    print(clothing.get_balance())
+    #print(clothing.get_balance())
 
     auto = Category("Auto")
     auto.deposit(1000, "initial deposit")
     auto.withdraw(15)
-    print(auto.get_balance())
+    #print(auto.get_balance())
 
-    print(food)
-    print(clothing)
+    #print(food)
+    #print(clothing)
 
-    print(create_spend_chart([food, clothing, auto]))
+    print(create_spend_chart([food,clothing,auto]))
