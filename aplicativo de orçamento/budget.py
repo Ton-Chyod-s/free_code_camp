@@ -10,7 +10,7 @@ class Category:
         self.ledger.append({"Descrição":descricao, "quantidade": float(qtde)})
         
 
-    def withdraw(self,qtde,descricao): #sacar
+    def withdraw(self,qtde,descricao='Apenas retirada'): #sacar
         self.retirada_deposito += qtde
         self.ledger.append({"Descrição":descricao, "quantidade": float(qtde*-1)})
     
@@ -22,12 +22,13 @@ class Category:
                 return txt
             else:
                 return ''.join(txt[:max_palavras])
-        def linha(tamanho = 13):
-            print('*' * tamanho,end = '')
-        linha()
-        print(self.category,end = '')
-        linha()
-        print()
+        def linha_cat(cat):
+            print('*' * 13,end = '')
+            print(cat,end = '')
+            print('*' * 13)
+            return 26 + len(cat)
+        linha_cat(self.category)
+        
         for value in self.ledger:
             for num, valor in value.items():  
                 try:
@@ -39,8 +40,12 @@ class Category:
         print(f'Total: {calc}')
         return ''
 
-    def transfer(self):
-        pass
+    def transfer(self,qtde,categoria):
+        if self.deposito_inicial >= qtde:
+            categoria.deposit(qtde,descricao=f'Transfer to {self.category:<17}')
+            pass
+        else: 
+            pass
 
 def create_spend_chart(categories):
     pass
@@ -53,14 +58,16 @@ if __name__ == '__main__':
     food.withdraw(50,'Transfer to Clothing')
     print(food.get_balance())
 
-    """clothing = Category("Clothing")
+    clothing = Category("Clothing")
     food.transfer(50, clothing)
     clothing.withdraw(25.55)
-    clothing.withdraw(100)"""
-    
+    clothing.withdraw(100)
+    print(clothing.get_balance())
+
     auto = Category("Auto")
     auto.deposit(1000, "initial deposit")
-    #auto.withdraw(15)
+    auto.withdraw(15)
+    print(auto.get_balance())
 
     #print(food)
     #print(clothing)
