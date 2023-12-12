@@ -6,13 +6,13 @@ class Category:
         self.retirada_deposito = 0
 
     def deposit(self,qtde,descricao): #deposito
-        self.deposito_inicial += qtde 
-        self.ledger.append({"Descrição":descricao, "quantidade": float(qtde)})
+        self.deposito_inicial += qtde
+        self.ledger.append({"Descrição":descricao, "quantidade": f"{qtde:.2f}"})
         
 
     def withdraw(self,qtde,descricao='Apenas retirada'): #sacar
         self.retirada_deposito += qtde
-        self.ledger.append({"Descrição":descricao, "quantidade": float(qtde*-1)})
+        self.ledger.append({"Descrição":descricao, "quantidade": f"{qtde*-1:.2f}"})
     
     
     def get_balance(self):
@@ -27,13 +27,13 @@ class Category:
             print(cat,end = '')
             print('*' * 13)
         linha_cat(self.category)
-        numero_espaço = 26 + len(self.category) - 7
+        numero_espaço = len(self.category) + 26
         for value in self.ledger:
             for num, valor in value.items():  
                 try:
-                    print(f'{restringir_str(valor):<{numero_espaço}}',end = ' ')
+                    print(f'{restringir_str(valor)}',end = ' ')
                 except:
-                    print(f'{valor:<23}',end = ' ') 
+                    print(f'{valor}',end = ' ') 
             print()
         calc = self.deposito_inicial - self.retirada_deposito
         print(f'Total: {calc:.2f}')
@@ -41,13 +41,12 @@ class Category:
 
     def transfer(self,qtde,categoria):
         if self.deposito_inicial >= qtde:
-            categoria.deposit(qtde,descricao=f'Transfer to {self.category:<17}')
-            pass
-        else: 
+            categoria.deposit(qtde,descricao=f'Transfer to {self.category}')
             pass
 
 def create_spend_chart(categories):
-    pass
+    food_category = food
+    
 
 if __name__ == '__main__':
     food = Category("Food")
@@ -68,7 +67,7 @@ if __name__ == '__main__':
     auto.withdraw(15)
     print(auto.get_balance())
 
-    #print(food)
-    #print(clothing)
+    print(food)
+    print(clothing)
 
-    #print(create_spend_chart([food, clothing, auto]))
+    print(create_spend_chart([food, clothing, auto]))
