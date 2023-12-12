@@ -19,23 +19,24 @@ class Category:
         def restringir_str(txt, max_palavras=23):
             palavras = len(txt.strip())
             conv_txt = txt.replace('.','').replace('-','')
-            if palavras < max_palavras and not conv_txt.isnumeric():
-                qtde_esp = ' ' * (23 - palavras)
+            if palavras > max_palavras and not conv_txt.isnumeric():
+                qtde_esp = ' ' * (22 - palavras)
                 return f'{txt}{qtde_esp}'
             else:
-                return ''.join(txt[:max_palavras])
+                if palavras < max_palavras:
+                    return f'{txt}'
+                else:
+                    return ''.join(txt[:max_palavras])
+                    
         def linha_cat(cat):
             print('*' * 13,end = '')
             print(cat,end = '')
             print('*' * 13)
         linha_cat(self.category)
-        numero_espaço = len(self.category) + 30
         for value in self.ledger:
             for num, valor in value.items():  
-                try:
-                    print(f'{restringir_str(valor)}',end = ' ')
-                except:
-                    print(f'{valor}',end = ' ') 
+                print(f'{restringir_str(valor):>8}', end = '')
+                
             print()
         calc = self.deposito_inicial - self.retirada_deposito
         print(f'Total: {calc:.2f}')
@@ -74,7 +75,7 @@ if __name__ == '__main__':
     food.transfer(50, clothing)
     clothing.withdraw(25.55)
     clothing.withdraw(100)
-    print(clothing.get_balance())
+    #print(clothing.get_balance())
 
     auto = Category("Auto")
     auto.deposit(1000, "initial deposit")
