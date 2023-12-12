@@ -26,18 +26,17 @@ class Category:
             print('*' * 13,end = '')
             print(cat,end = '')
             print('*' * 13)
-            return 26 + len(cat)
         linha_cat(self.category)
-        
+        numero_espaço = 26 + len(self.category) - 7
         for value in self.ledger:
             for num, valor in value.items():  
                 try:
-                    print(f'{restringir_str(valor):<23}',end = ' ')
+                    print(f'{restringir_str(valor):<{numero_espaço}}',end = ' ')
                 except:
                     print(f'{valor:<23}',end = ' ') 
             print()
         calc = self.deposito_inicial - self.retirada_deposito
-        print(f'Total: {calc}')
+        print(f'Total: {calc:.2f}')
         return ''
 
     def transfer(self,qtde,categoria):
