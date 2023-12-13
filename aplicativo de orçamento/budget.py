@@ -9,13 +9,12 @@ class Category:
         self.deposito_inicial += qtde
         self.ledger.append({"Descrição":descricao, "quantidade": f"{qtde:.2f}"})
         
-
     def withdraw(self,qtde,descricao='withdrawal only'): #sacar
         self.retirada_deposito += qtde
         self.ledger.append({"Descrição":descricao, "quantidade": f"{qtde*-1:.2f}"})
     
-    
     def get_balance(self):
+        tamanho = (len(self.category) + 26) - 23
         def restringir_str(txt, max_palavras=23):
             # tirando os espaços e contando a palavra
             palavras = len(txt.strip())
@@ -31,7 +30,7 @@ class Category:
                 #teste logico para ver se a variavel palavras é um inteiro
                 if palavras < max_palavras:
                     #retornando txt alinhado a esquerda com 6 espaços 
-                    return f'{txt:>7}'
+                    return f'{txt:>{tamanho}}'
                 else:
                     return txt[:max_palavras]
         def linha_cat(cat):
@@ -91,7 +90,7 @@ if __name__ == '__main__':
     auto.withdraw(15)
     print(auto.get_balance())
 
-    #print(food)
-    #print(clothing)
+    print(food)
+    print(clothing)
 
-    #print(create_spend_chart([food,clothing,auto]))
+    print(create_spend_chart([food,clothing,auto]))
