@@ -83,12 +83,10 @@ if __name__ == '__main__':
     food.transfer(50, clothing)
     clothing.withdraw(25.55)
     clothing.withdraw(100)
-    print(clothing.get_balance())
 
     auto = Category("Auto")
     auto.deposit(1000, "initial deposit")
     auto.withdraw(15)
-    print(auto.get_balance())
 
     print(food)
     print(clothing)
