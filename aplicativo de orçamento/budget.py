@@ -17,26 +17,34 @@ class Category:
     
     def get_balance(self):
         def restringir_str(txt, max_palavras=23):
+            # tirando os espaços e contando a palavra
             palavras = len(txt.strip())
+            #tirando os . e - dos numeros
             conv_txt = txt.replace('.','').replace('-','')
+            #fazendo um teste logico para ver se é uma frase
             if palavras < max_palavras and not conv_txt.isnumeric():
-                qtde_esp = ' ' * (22 - palavras)
+                #determinando o tamanho da palavra
+                qtde_esp = ' ' * (23 - palavras)
+                #retornando a palavra com o tanho ja determinado
                 return f'{txt}{qtde_esp}'
             else:
+                #teste logico para ver se a variavel palavras é um inteiro
                 if palavras < max_palavras:
-                    return f'{txt}'
+                    #retornando txt alinhado a esquerda com 6 espaços 
+                    return f'{txt:>7}'
                 else:
-                    return txt[:max_palavras-1]
-                    
+                    return txt[:max_palavras]
         def linha_cat(cat):
             print('*' * 13,end = '')
             print(cat,end = '')
             print('*' * 13)
+        
         linha_cat(self.category)
+        
         tamanho_lin = len(self.category) + 4
         for value in self.ledger:
-            for num, valor in value.items():  
-                print(f'{restringir_str(valor):>{tamanho_lin}}', end = '')
+            for num, valor in value.items():
+                print(f'{restringir_str(valor)}', end = '')
             print()
 
         calc = self.deposito_inicial - self.retirada_deposito
