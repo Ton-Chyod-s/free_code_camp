@@ -5,7 +5,7 @@ class Category:
         self.deposito_inicial = 0
         self.retirada_deposito = 0
 
-    def deposit(self,qtde,descricao): #deposito
+    def deposit(self,qtde,descricao='without description'): #deposito
         self.deposito_inicial += qtde
         self.ledger.append({"Descrição":descricao, "quantidade": f"{qtde:.2f}"})
         
@@ -54,6 +54,9 @@ class Category:
         if self.deposito_inicial >= qtde:
             categoria.deposit(qtde,descricao=f'Transfer to {self.category}')
 
+    def check_funds(self,valor):
+        return valor < self.deposito_inicial
+
 def create_spend_chart(categories):
     lista_numeral = []
     percentual_cat = {}
@@ -77,6 +80,7 @@ if __name__ == '__main__':
     food.withdraw(10.15, "groceries")
     food.withdraw(15.89, "restaurant and more food for dessert")
     food.withdraw(50,'Transfer to Clothing')
+    print(food.check_funds(5000))
     print(food.get_balance())
 
     clothing = Category("Clothing")
