@@ -1,3 +1,4 @@
+from collections import OrderedDict
 class Category:
     def __init__(self, category):
         self.category = category
@@ -5,21 +6,23 @@ class Category:
         self.deposito_inicial = 0
         self.retirada_deposito = 0
 
-    def deposit(self,qtde,descricao='without description'): #deposito
+    def deposit(self,qtde,descricao=''): #deposito
         self.deposito_inicial += qtde
-        self.ledger.append({"Descrição":descricao, "quantidade": f"{qtde:.2f}"})
+        self.ledger.append({"amount": qtde, "description":descricao})
         
-    def withdraw(self,qtde,descricao='withdrawal only'): #sacar
+    def withdraw(self,qtde,descricao=''): #sacar
         self.retirada_deposito += qtde
-        self.ledger.append({"Descrição":descricao, "quantidade": f"{qtde*-1:.2f}"})
+        if self.deposito_inicial > 0:
+            self.ledger.append({"amount": f"{qtde*-1:.2f}", "description":descricao})
+        return False
     
     def get_balance(self):
         tamanho = (len(self.category) + 26) - 23
         def restringir_str(txt, max_palavras=23):
             # tirando os espaços e contando a palavra
-            palavras = len(txt.strip())
+            palavras = len(str(txt).strip())
             #tirando os . e - dos numeros
-            conv_txt = txt.replace('.','').replace('-','')
+            conv_txt = str(txt).replace('.','').replace('-','')
             #fazendo um teste logico para ver se é uma frase
             if palavras < max_palavras and not conv_txt.isnumeric():
                 #determinando o tamanho da palavra
@@ -29,7 +32,11 @@ class Category:
             else:
                 #teste logico para ver se a variavel palavras é um inteiro
                 if palavras < max_palavras:
-                    #retornando txt alinhado a esquerda com 6 espaços 
+                    #retornando txt alinhado a esquerda com 6 espaços
+                    try:
+                        txt = f'{int(txt):.2f}'
+                    except:
+                        pass
                     return f'{txt:>{tamanho}}'
                 else:
                     return txt[:max_palavras]
@@ -40,22 +47,26 @@ class Category:
         
         linha_cat(self.category)
         
-        tamanho_lin = len(self.category) + 4
         for value in self.ledger:
-            for num, valor in value.items():
+            novo_dicionario = OrderedDict(reversed(list(value.items())))
+            for num, valor in novo_dicionario.items():
                 print(f'{restringir_str(valor)}', end = '')
             print()
 
         calc = self.deposito_inicial - self.retirada_deposito
-        print(f'Total: {calc:.2f}')
-        return ''
+        print(f'Total: ',end = '')
+        return calc
 
     def transfer(self,qtde,categoria):
         if self.deposito_inicial >= qtde:
             categoria.deposit(qtde,descricao=f'Transfer to {self.category}')
-
+            res = True
+        else:
+            res = False
+        return res
+    
     def check_funds(self,valor):
-        return valor < self.deposito_inicial
+        return valor > self.deposito_inicial
 
 def create_spend_chart(categories):
     lista_numeral = []
@@ -87,10 +98,12 @@ if __name__ == '__main__':
     food.transfer(50, clothing)
     clothing.withdraw(25.55)
     clothing.withdraw(100)
+    print(clothing.get_balance())
 
     auto = Category("Auto")
     auto.deposit(1000, "initial deposit")
     auto.withdraw(15)
+    print(auto.get_balance())
 
     print(food)
     print(clothing)
