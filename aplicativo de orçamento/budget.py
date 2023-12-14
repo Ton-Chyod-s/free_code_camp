@@ -13,7 +13,7 @@ class Category:
     def withdraw(self,qtde,descricao=''): #sacar
         self.retirada_deposito += qtde
         if self.deposito_inicial > 0:
-            self.ledger.append({"amount": f"{qtde*-1:.2f}", "description":descricao})
+            self.ledger.append({"amount": qtde*-1, "description":descricao})
         return False
     
     def get_balance(self):
@@ -54,7 +54,7 @@ class Category:
             print()
 
         calc = self.deposito_inicial - self.retirada_deposito
-        print(f'Total: ',end = '')
+        print(f'Total: ')
         return calc
 
     def transfer(self,qtde,categoria):
@@ -87,14 +87,18 @@ def create_spend_chart(categories):
     
 if __name__ == '__main__':
     food = Category("Food")
-    food.deposit(1000, "initial deposit")
-    food.withdraw(10.15, "groceries")
-    food.withdraw(15.89, "restaurant and more food for dessert")
-    food.withdraw(50,'Transfer to Clothing')
-    print(food.check_funds(5000))
-    print(food.get_balance())
+    food.deposit(900, "deposit")
+    food.withdraw(45.67, "milk, cereal, eggs, bacon, bread")
+    transfer_amount = 20
+    food_balance_before = food.get_balance()
+    entertainment_balance_before = entertainment.get_balance()
+    good_transfer = food.transfer(transfer_amount, entertainment)
+    food_balance_after = food.get_balance()
+    entertainment_balance_after = entertainment.get_balance()
+    actual = food.ledger[2]
+    print(actual)
 
-    clothing = Category("Clothing")
+    """clothing = Category("Clothing")
     food.transfer(50, clothing)
     clothing.withdraw(25.55)
     clothing.withdraw(100)
@@ -108,4 +112,4 @@ if __name__ == '__main__':
     print(food)
     print(clothing)
 
-    print(create_spend_chart([food,clothing,auto]))
+    print(create_spend_chart([food,clothing,auto]))"""
