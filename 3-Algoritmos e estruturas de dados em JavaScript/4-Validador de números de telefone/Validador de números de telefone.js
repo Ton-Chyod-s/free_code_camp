@@ -1,6 +1,6 @@
 function telephoneCheck(str) {
     const strLista = str.replace(/-/g," ").split(" ");
-    const verificador = /^(\d{1})?[-.\s]?[\W]?(\d{3})[\W]?[-.\s]?(\d{3})[-.\s]?(\d{4})$/g;
+    const  verificador = /^(1\s?)?(\(\d{3}\)|\d{3})([\s\-]?)\d{3}([\s\-]?)\d{4}$/;
     const res = verificador.test(str);
     const regStr = /757/g
 
