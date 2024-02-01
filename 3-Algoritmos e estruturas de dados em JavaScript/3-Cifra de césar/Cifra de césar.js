@@ -22,18 +22,19 @@ function rot13(str) {
         }
 
         cifraROT13 = Inverter(cifraROT13)
-        
+
         for (let j in cifraROT13) {
             if (strLista[i] === cifraROT13[j]) {
                 res += j
                 break
             }
         }
+        res += i
     }
 
     return res;
   }
   
-  console.log(rot13("SERR CVMMN!"))
+  console.log(rot13("?"))
 
  
