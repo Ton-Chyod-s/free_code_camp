@@ -1,6 +1,8 @@
 function rot13(str) {
     const strLista = str.toLowerCase().split("");
     let cifraROT13 = { a: 'n', b: 'o', c: 'p', d: 'q', e: 'r', f: 's', g: 't', h: 'u', i: 'v', j: 'w', k: 'x', l: 'y', m: 'z' };
+    let simbolos = ["-", "_", ".", "&","?", "!", "@", "#", "/"]
+
     let res = "";
     for (let i = 0; i < strLista.length; i++) {
         if (strLista[i] == " ") {
@@ -29,12 +31,15 @@ function rot13(str) {
                 break
             }
         }
-        res += i
+        for (let s = 0; s < simbolos.length; s++) {
+            if (strLista[i] === simbolos[s]) {
+                res += simbolos[s]
+            }
+        }
     }
-
-    return res;
+    return res.toUpperCase();
   }
   
-  console.log(rot13("?"))
+  console.log(rot13("SERR CVMMN!"))
 
  
