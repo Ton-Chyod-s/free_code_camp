@@ -1,7 +1,11 @@
 function telephoneCheck(str) {
-    const lol = parseInt(str)
-    
-    return true;
+    const verificador = /\d{3}\-\d{3}\-\d{4}/g
+    const res = str.match(verificador)
+    if (res) {
+        return true
+    } else {    
+        return false
+    }
   }
   
-  telephoneCheck("555-555-5555");
+  telephoneCheck("525-555-5555");
