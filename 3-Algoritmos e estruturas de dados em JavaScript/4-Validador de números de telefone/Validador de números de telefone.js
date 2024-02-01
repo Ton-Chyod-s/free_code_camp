@@ -1,11 +1,10 @@
 function telephoneCheck(str) {
-    const verificador = /(\-|\s)?(\d{3})(\-|\s)?(\d{3})(\W)?(\d{4})/g
-    // ^(\d{1,2})[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$
-    
-    const res = verificador.test(str)
+    const strLista = str.replace(/-/g," ").split(" ");
+    const verificador = /(\d{1,2})?[-.\s]?(\d{3})[-.\s]?(\d{3})[-.\s]?(\d{4})$/g;
+    const res = verificador.test(str);
     if (res) {
         return true
-    } else {    
+    } else {  
         return false
     }
   }
