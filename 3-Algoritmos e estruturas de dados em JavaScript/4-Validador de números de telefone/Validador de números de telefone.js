@@ -1,6 +1,6 @@
 function telephoneCheck(str) {
     const strLista = str.replace(/-/g," ").split(" ");
-    const verificador = /(\d{1,2})?[-.\s]?[\W]?(\d{3})[\W]?[-.\s]?(\d{3})[-.\s]?(\d{4})$/g;
+    const verificador = /^(\d{1})?[-.\s]?[\W]?(\d{3})[\W]?[-.\s]?(\d{3})[-.\s]?(\d{4})$/g;
     const res = verificador.test(str);
     const regStr = /757/g
 
@@ -12,4 +12,4 @@ function telephoneCheck(str) {
     return false
   }
   
-  console.log(telephoneCheck("2(757)6227382"));
+  console.log(telephoneCheck("11 555-555-5555"));
