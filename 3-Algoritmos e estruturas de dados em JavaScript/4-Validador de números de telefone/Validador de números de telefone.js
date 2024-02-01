@@ -1,6 +1,8 @@
 function telephoneCheck(str) {
-    const verificador = /\d{3}\-\d{3}\-\d{4}/g
-    const res = str.match(verificador)
+    const verificador = /(\-|\s)?(\d{3})(\-|\s)?(\d{3})(\W)?(\d{4})/g
+    // ^(\d{1,2})[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$
+    
+    const res = verificador.test(str)
     if (res) {
         return true
     } else {    
@@ -8,4 +10,4 @@ function telephoneCheck(str) {
     }
   }
   
-  telephoneCheck("525-555-5555");
+  console.log(telephoneCheck("1 555-555-5555"));
