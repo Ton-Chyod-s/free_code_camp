@@ -1,35 +1,49 @@
 function checkCashRegister(price, cash, cid) {
-    let change = new Array();
-    let calculo = cash - price;
-    let valorTotalCid = 0;
-    let count = 0;
-    for (let i in cid) {
-      if (count >= 3 && calculo > valorTotalCid) {
-        break
-      } else {
-        valorTotalCid += cid[i][1];
-      }
-      count++;
-    }
-    if (calculo > valorTotalCid) {
-      return {status: "INSUFFICIENT_FUNDS", change}
-    } else if (calculo === 0 || calculo === valorTotalCid) {
-      change = [...cid]
-      return {status: "CLOSED", change}
-    } else {
-      const valorUnidadeDeMoeda = { "Penny": .01, "Nickel": .05, "Dime": .1, "Quarter": .25, "Dollar": 1, "Five Dollars": 5, "Ten Dollars": 10, "Twenty Dollars": 20, "One-hundred Dollars": 100 }
-      
-      for (let i in cid) {
-        const valorAtual = cid[i][1]
-        if (calculo > valorAtual) {
-          console.log("lol")
-        } 
-      }
-      
+  let change = [];
+  let calculo = cash - price;
+  let valorTotalCid = 0;
 
-      return {status: "OPEN", change}
-    }
-
+  for (let i = 0; i < cid.length; i++) {
+    valorTotalCid += cid[i][1];
   }
-  
-  console.log(checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+
+  if (calculo > valorTotalCid) {
+    return { status: "INSUFFICIENT_FUNDS", change };
+  } else if (calculo === 0 || calculo === valorTotalCid) {
+    change = [...cid];
+    return { status: "CLOSED", change };
+  } else {
+    const valorUnidadeDeMoeda = { "PENNY": 0.01, "NICKEL": 0.05, "DIME": 0.1, "QUARTER": 0.25, "ONE": 1, "FIVE": 5, "TEN": 10, "TWENTY": 20, "ONE HUNDRED": 100 };
+
+    for (let i = cid.length - 1; i >= 0; i--) {
+      const nomeMoeda = cid[i][0];
+      const valorAtual = cid[i][1];
+
+      if (calculo >= valorUnidadeDeMoeda[nomeMoeda]) {
+        let quantidadeUsada = 0;
+        if (nomeMoeda === 'PENNY') {
+          quantidadeUsada = Math.min(Math.floor(calculo / valorUnidadeDeMoeda[nomeMoeda]), valorAtual / valorUnidadeDeMoeda[nomeMoeda]) + 1;
+        } else {
+          quantidadeUsada = Math.min(Math.floor(calculo / valorUnidadeDeMoeda[nomeMoeda]), valorAtual / valorUnidadeDeMoeda[nomeMoeda])
+        }
+        const valorDeduzido = quantidadeUsada * valorUnidadeDeMoeda[nomeMoeda];
+        change.push([nomeMoeda, valorDeduzido]);
+        const calculoFixed = calculo.toFixed(2)
+        if (calculoFixed == valorDeduzido) {
+          calculo = 0
+        } else {
+          calculo -= valorDeduzido;
+        }
+        
+      }
+    }
+
+    if (calculo === 0 || calculo.toFixed(2) == 0.01) {
+      return { status: "OPEN", change };
+    } else {
+      return { status: "INSUFFICIENT_FUNDS", change: [] };
+    }
+  }
+}
+
+console.log(checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
