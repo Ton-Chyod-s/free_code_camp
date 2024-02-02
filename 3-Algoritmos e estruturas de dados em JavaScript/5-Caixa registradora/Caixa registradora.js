@@ -18,7 +18,7 @@ function checkCashRegister(price, cash, cid) {
       return {status: "CLOSED", change}
     } else {
       const valorUnidadeDeMoeda = { "Penny": .01, "Nickel": .05, "Dime": .1, "Quarter": .25, "Dollar": 1, "Five Dollars": 5, "Ten Dollars": 10, "Twenty Dollars": 20, "One-hundred Dollars": 100 }
-      let res = 0;
+      
       for (let i in cid) {
         const valorAtual = cid[i][1]
         if (calculo > valorAtual) {
