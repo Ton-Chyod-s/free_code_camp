@@ -34,7 +34,6 @@ function checkCashRegister(price, cash, cid) {
         } else {
           calculo -= valorDeduzido;
         }
-        
       }
     }
 
