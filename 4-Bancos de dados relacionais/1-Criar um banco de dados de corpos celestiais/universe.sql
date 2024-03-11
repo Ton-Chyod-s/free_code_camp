@@ -33,7 +33,7 @@ CREATE table planet(
     planet_types VARCHAR(30),
     distance_from_earth NUMERIC(10,2),
     star_id serial,
-    FOREIGN KEY(star_id) REFERENCES star(star_id)
+    FOREIGN KEY(star_id UNIQUE) REFERENCES star(star_id)
 );
 
 CREATE table moon(
