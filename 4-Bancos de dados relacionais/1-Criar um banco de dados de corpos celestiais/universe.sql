@@ -1,7 +1,8 @@
-CREATE database universe;
-/* \c universe; */
+/*
+1 - CREATE database universe;
+2 - \c universe; 
 
-CREATE table galaxy(
+3 - CREATE table galaxy(
     galaxy_id serial PRIMARY KEY,
     name VARCHAR(30),
     has_life BOOLEAN,
@@ -54,8 +55,8 @@ CREATE table join_especific_planet(
     FOREIGN key(planet_id) REFERENCES planet(planet_id)
 );
 
-/* 
-insert into galaxy(name,has_life,is_spherical,age_in_millions_of_years,many_hole,galaxy_types,distance_from_earth)
+
+4 - insert into galaxy(name,has_life,is_spherical,age_in_millions_of_years,many_hole,galaxy_types,distance_from_earth)
 values ('Andrômeda-m31','yes','yes',null,2,'espiral',2000000),
 ('Galáxia Olho Negro','yes','yes',null,2,'espiral',2000000),
 ('Galáxia de Bode','yes','yes',null,2,'espiral',2000000),
