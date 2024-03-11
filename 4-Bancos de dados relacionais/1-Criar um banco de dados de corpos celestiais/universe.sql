@@ -39,7 +39,7 @@ CREATE table planet(
 CREATE table moon(
     moon_id serial PRIMARY KEY,
     name VARCHAR(30) not null,
-    age_in_millions_of_years int not null,
+    age_in_millions_of_years int,
     distance_from_earth NUMERIC(10,2),
     planet_id serial,
     FOREIGN KEY(planet_id) REFERENCES planet(planet_id)
