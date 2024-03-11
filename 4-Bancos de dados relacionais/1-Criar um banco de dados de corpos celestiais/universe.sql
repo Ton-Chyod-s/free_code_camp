@@ -121,7 +121,7 @@ values('terra',2,4,6),
 ('Vênus',1,3,8),
 ('Ceres',3,1,7);
 
-5 - 
+5 - alter table moon rename moon_id to moon_id;
 
 
 */
