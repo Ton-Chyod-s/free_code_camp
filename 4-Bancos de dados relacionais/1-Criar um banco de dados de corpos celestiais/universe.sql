@@ -1,10 +1,11 @@
+
 /*
 1 - CREATE database universe;
 2 - \c universe; 
 
 3 - CREATE table galaxy(
     galaxy_id serial PRIMARY KEY,
-    name VARCHAR(30) not null,
+    name VARCHAR(30) not null UNIQUE,
     has_life BOOLEAN,
     is_spherical BOOLEAN,
     age_in_millions_of_years int,
@@ -19,7 +20,7 @@ CREATE table star(
     has_life BOOLEAN not null,
     age_in_millions_of_years int,
     distance_from_earth NUMERIC(10,2),
-    galaxy_id serial,
+    galaxy_id serial UNIQUE,
     FOREIGN key(galaxy_id) REFERENCES galaxy(galaxy_id)
 );
 
@@ -47,9 +48,9 @@ CREATE table moon(
 CREATE table join_especific_planet(
     especific_planet_id serial primary key,
     name VARCHAR(30) not null,
-    galaxy_id serial not null,
-    star_id serial not null,
-    planet_id serial not null,
+    galaxy_id serial not null , 
+    star_id serial not null ,
+    planet_id serial not null ,
     FOREIGN key(galaxy_id) REFERENCES galaxy(galaxy_id),
     FOREIGN KEY(star_id) REFERENCES star(star_id),
     FOREIGN key(planet_id) REFERENCES planet(planet_id)
