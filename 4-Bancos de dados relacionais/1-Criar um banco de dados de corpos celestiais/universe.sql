@@ -48,9 +48,9 @@ CREATE table moon(
 CREATE table join_especific_planet(
     especific_planet_id serial primary key,
     name VARCHAR(30) not null,
-    galaxy_id serial UNIQUE , 
-    star_id serial  UNIQUE,
-    planet_id serial  UNIQUE,
+    galaxy_id serial  , 
+    star_id serial  ,
+    planet_id serial  ,
     FOREIGN key(galaxy_id) REFERENCES galaxy(galaxy_id),
     FOREIGN KEY(star_id) REFERENCES star(star_id),
     FOREIGN key(planet_id) REFERENCES planet(planet_id)
