@@ -27,7 +27,7 @@ CREATE table star(
 CREATE table planet(
     planet_id serial PRIMARY KEY,
     name VARCHAR(30) not null,
-    has_life BOOLEAN not null,
+    has_life BOOLEAN,
     is_spherical BOOLEAN,
     age_in_millions_of_years int,
     planet_types VARCHAR(30),
@@ -48,9 +48,9 @@ CREATE table moon(
 CREATE table join_especific_planet(
     especific_planet_id serial primary key,
     name VARCHAR(30) not null,
-    galaxy_id serial not null , 
-    star_id serial not null ,
-    planet_id serial not null ,
+    galaxy_id serial UNIQUE , 
+    star_id serial  UNIQUE,
+    planet_id serial  UNIQUE,
     FOREIGN key(galaxy_id) REFERENCES galaxy(galaxy_id),
     FOREIGN KEY(star_id) REFERENCES star(star_id),
     FOREIGN key(planet_id) REFERENCES planet(planet_id)
