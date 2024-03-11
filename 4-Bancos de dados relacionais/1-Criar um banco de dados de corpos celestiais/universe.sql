@@ -123,5 +123,7 @@ values('terra',2,4,6),
 
 5 - alter table moon rename moon_id to moon_id;
 
+ALTER TABLE moon DROP CONSTRAINT <constraint_name>;
+
 
 */
