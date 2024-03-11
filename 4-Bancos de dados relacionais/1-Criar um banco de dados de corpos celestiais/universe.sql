@@ -55,7 +55,6 @@ CREATE table join_especific_planet(
 );
 
 /* 
- 
 insert into galaxy(name,has_life,is_spherical,age_in_millions_of_years,many_hole,galaxy_types,distance_from_earth)
 values ('Andrômeda-m31','yes','yes',null,2,'espiral',2000000),
 ('Galáxia Olho Negro','yes','yes',null,2,'espiral',2000000),
@@ -97,5 +96,9 @@ values('luas',384.399,150,4),
 ('Lisiteia',384.399,150,6),
 ('Carme',384.399,150,7);
 
-   
+insert into join_especific_planet(name,galaxy_id,star_id,planet_id)
+values('terra',2,4,6),
+('Vênus',1,3,8),
+('Ceres',3,1,7);
+
 */
