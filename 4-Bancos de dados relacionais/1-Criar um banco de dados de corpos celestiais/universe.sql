@@ -72,5 +72,30 @@ values('Stephenson 2-18','yes',null,200000,2),
 ('RW Cephei','yes',null,200000,6),
 ('SKY Cygni','yes',null,200000,5);
 
+insert into planet(name,has_life,is_spherical,age_in_millions_of_years,planet_types,distance_from_earth,star_id)
+values('Mercúrio','yes','yes',150,'oval',2,2),
+('Mercúrio','yes','yes',150,'oval',2,2),
+('Vênus','yes','yes',150,'oval',2,3),
+('Terra','yes','yes',150,'oval',2,4),
+('Marte','yes','yes',150,'oval',2,4),
+('Júpiter','yes','yes',150,'oval',2,6),
+('Saturno','yes','yes',150,'oval',2,3),
+('Urano','yes','yes',150,'oval',2,1);
 
+insert into moon(name,age_in_millions_of_years,distance_from_earth,planet_id)
+values('luas',384.399,150,4),
+('Fobos',384.399,150,3),
+('Deimos',384.399,150,5),
+('Io',384.399,150,7),
+('Europa',384.399,150,9),
+('Ganimedes',384.399,150,3),
+('Calisto',384.399,150,4),
+('Amalteia',384.399,150,1),
+('Himalia',384.399,150,12),
+('Pasife',384.399,150,10),
+('Sinope',384.399,150,9),
+('Lisiteia',384.399,150,6),
+('Carme',384.399,150,7);
+
+   
 */
