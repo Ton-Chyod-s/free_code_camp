@@ -56,7 +56,6 @@ CREATE table join_especific_planet(
     FOREIGN key(planet_id) REFERENCES planet(planet_id)
 );
 
-
 4 - insert into galaxy(name,has_life,is_spherical,age_in_millions_of_years,many_hole,galaxy_types,distance_from_earth)
 values ('Andrômeda-m31','yes','yes',null,2,'espiral',2000000),
 ('Galáxia Olho Negro','yes','yes',null,2,'espiral',2000000),
