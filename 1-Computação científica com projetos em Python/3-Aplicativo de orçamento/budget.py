@@ -35,6 +35,8 @@ class Category:
     def get_balance(self):
         return self.deposito_retirada
     
+
+    
     #Um método transfer, que aceita um valor e outra categoria de orçamento como argumentos. 
     def transfer(self,qtde,categoria):
         if self.check_funds(qtde):
