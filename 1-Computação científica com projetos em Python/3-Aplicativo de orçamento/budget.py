@@ -39,22 +39,18 @@ class Category:
         else:
             return False
 
-
     #Um método check_funds que aceita um valor como um argumento. Ele retorna False se o valor for maior que o saldo da categoria do orçamento e, caso contrário, retorna True. Este método deve ser usado tanto pelo método withdraw como pelo método transfer.
     def check_funds(self,valor):
         pass
+    
 
 def create_spend_chart(categories):
     pass
 
-
 if __name__ == '__main__':
     food = Category("Food")
-    food.deposit(1000, "deposit")
-    food.withdraw(10.15, "groceries")
-    food.withdraw(15.89, "restaurant and more food for dessert")
-    clothing = Category("Clothing")
-    food.transfer(50, clothing)
+    food.deposit(900, "deposit")
+    food.withdraw(45.67, "milk, cereal, eggs, bacon, bread")
     print(food)
 
     """
