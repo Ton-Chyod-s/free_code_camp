@@ -11,10 +11,13 @@ class Category:
         self.ledger.append({"amount": qtde, "description":descricao})
         
     def withdraw(self,qtde,descricao=''): #sacar
-        self.retirada_deposito += qtde
+        self.retirada_deposito += qtde 
         if self.deposito_inicial > 0:
-            self.ledger.append({"amount": qtde*-1, "description":descricao})
-        return True
+            self.deposito_inicial -= qtde
+            self.ledger.append({"amount": qtde *-1, "description":descricao})
+            return True
+        else:
+            return False
     
     def get_balance(self):
         tamanho = (len(self.category) + 26) - 23
