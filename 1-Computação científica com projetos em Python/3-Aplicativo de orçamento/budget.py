@@ -32,11 +32,12 @@ class Category:
         #O método deverá adicionar uma retirada com o valor e a descrição "Transfer to [categoria de destino no orçamento]".
         self.deposito_retirada -= qtde
         self.ledger.append({"amount": qtde *-1, "description":f"Transfer to {categoria}"})
-        #O método deve, então, adicionar um depósito à outra categoria do orçamento, com o valor e a descrição "Transfer from [categoria de origem no orçamento]". 
-        self.deposit(qtde,f'Transfer from {categoria}')
-        # Se não houver fundos suficientes, nada deve ser adicionado ao ledger. Este método deve retornar True se a transferência acontecer e, caso contrário, False.
-
-        
+        #O método deve, então, adicionar um depósito à outra categoria do orçamento, com o valor e a descrição "Transfer from [categoria de origem no orçamento]". Se não houver fundos suficientes, nada deve ser adicionado ao ledger. Este método deve retornar True se a transferência acontecer e, caso contrário, False.
+        if self.deposito_retirada > qtde:
+            self.deposit(qtde,f'Transfer from {categoria}')
+            return True
+        else:
+            return False
 
 
     #Um método check_funds que aceita um valor como um argumento. Ele retorna False se o valor for maior que o saldo da categoria do orçamento e, caso contrário, retorna True. Este método deve ser usado tanto pelo método withdraw como pelo método transfer.
