@@ -35,6 +35,9 @@ class Category:
         #O método deve, então, adicionar um depósito à outra categoria do orçamento, com o valor e a descrição "Transfer from [categoria de origem no orçamento]". 
         self.deposit(qtde,f'Transfer from ')
 
+
+
+    #Um método check_funds que aceita um valor como um argumento. Ele retorna False se o valor for maior que o saldo da categoria do orçamento e, caso contrário, retorna True. Este método deve ser usado tanto pelo método withdraw como pelo método transfer.
     def check_funds(self,valor):
         pass
 
