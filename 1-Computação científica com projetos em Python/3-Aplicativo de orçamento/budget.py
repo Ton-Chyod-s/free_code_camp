@@ -33,7 +33,7 @@ class Category:
 
     #Um método get_balance, que retorna o saldo atual da categoria de orçamento com base nos depósitos e retiradas que ocorreram
     def get_balance(self):
-        pass
+        return self.deposito_retirada
     
     #Um método transfer, que aceita um valor e outra categoria de orçamento como argumentos. 
     def transfer(self,qtde,categoria):
