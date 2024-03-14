@@ -6,7 +6,7 @@ class Category:
         self.deposito_inicial = 0
         self.retirada_deposito = 0
         self.deposito_retirada = 0
-
+    
     #Um método deposit, que aceita um valor e uma descrição. Se nenhuma descrição for dada, o padrão deverá ser uma string vazia. O método deve acrescentar um objeto à lista ledger na forma de {"amount": amount, "description": description}.
     def deposit(self,qtde,descricao=''): 
         self.deposito_inicial += qtde
@@ -40,10 +40,12 @@ class Category:
             return False
 
     #Um método check_funds que aceita um valor como um argumento. Ele retorna False se o valor for maior que o saldo da categoria do orçamento e, caso contrário, retorna True. Este método deve ser usado tanto pelo método withdraw como pelo método transfer.
-    def check_funds(self,valor):
-        pass
+    def check_funds(self,qtde):
+        if qtde > self.deposito_retirada:
+            return False
+        else:
+            return True
     
-
 def create_spend_chart(categories):
     pass
 
