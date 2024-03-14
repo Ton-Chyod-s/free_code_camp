@@ -90,30 +90,7 @@ def create_spend_chart(categories):
     return ''
     
 if __name__ == '__main__':
-    """food = Category("Food")
+    food = Category("Food")
     food.deposit(900, "deposit")
     food.withdraw(45.67, "milk, cereal, eggs, bacon, bread")
-    transfer_amount = 20
-    food_balance_before = food.get_balance()
-    entertainment_balance_before = entertainment.get_balance()
-    good_transfer = food.transfer(transfer_amount, entertainment)
-    food_balance_after = food.get_balance()
-    entertainment_balance_after = entertainment.get_balance()
-    actual = food.ledger[2]
-    print(actual)"""
-
-    """clothing = Category("Clothing")
-    food.transfer(50, clothing)
-    clothing.withdraw(25.55)
-    clothing.withdraw(100)
-    print(clothing.get_balance())
-
-    auto = Category("Auto")
-    auto.deposit(1000, "initial deposit")
-    auto.withdraw(15)
-    print(auto.get_balance())
-
     print(food)
-    print(clothing)
-
-    print(create_spend_chart([food,clothing,auto]))"""
