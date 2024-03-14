@@ -22,14 +22,17 @@ class Category:
             return True
         else:
             return False
-        
+
+    #Um método get_balance, que retorna o saldo atual da categoria de orçamento com base nos depósitos e retiradas que ocorreram
     def get_balance(self):
         pass
     
     #Um método transfer, que aceita um valor e outra categoria de orçamento como argumentos. 
     def transfer(self,qtde,categoria):
+        #O método deverá adicionar uma retirada com o valor e a descrição "Transfer to [categoria de destino no orçamento]".
         self.deposito_retirada -= qtde
         self.ledger.append({"amount": qtde *-1, "description":f"Transfer to {categoria}"})
+        #O método deve, então, adicionar um depósito à outra categoria do orçamento, com o valor e a descrição "Transfer from [categoria de origem no orçamento]". 
         self.deposit(qtde,f'Transfer from ')
 
     def check_funds(self,valor):
