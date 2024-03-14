@@ -14,7 +14,7 @@ class Category:
         self.retirada_deposito += qtde
         if self.deposito_inicial > 0:
             self.ledger.append({"amount": qtde*-1, "description":descricao})
-        return False
+        return True
     
     def get_balance(self):
         tamanho = (len(self.category) + 26) - 23
