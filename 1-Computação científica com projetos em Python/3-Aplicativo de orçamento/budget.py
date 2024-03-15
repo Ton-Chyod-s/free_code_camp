@@ -5,7 +5,7 @@ class Category:
         self.ledger = []
         self.balance = 0
         self.withdraw_deposit = 0
-    
+
     #Um método deposit, que aceita um valor e uma descrição. Se nenhuma descrição for dada, o padrão deverá ser uma string vazia. O método deve acrescentar um objeto à lista ledger na forma de {"amount": amount, "description": description}.
     def deposit(self,qtde,descricao=''): 
         self.balance += qtde
@@ -102,14 +102,60 @@ class Category:
         return linha + dicionario + total
     
 def create_spend_chart(categories):
-    pass
+    lista_numeral = []
+    percentual_cat = {}
+    category_words = []
+
+    print('Percentage spent by category')
+
+    # Calcular percentual gasto e armazenar as palavras das categorias
+    for category in categories:
+        categoria = category.category
+        balanco = category.balance
+        vendas = category.withdraw_deposit
+        calc = round((vendas * -1 / balanco) * 100, 2)
+        percentual_cat[categoria] = calc
+
+        # Adicionar a palavra da categoria formatada
+        category_words.append(f'{categoria.capitalize():>6}')
+
+    # Gerar lista de números para o eixo Y
+    for i in range(0, 110, 10):
+        lista_numeral.append(i)
+    lista_numeral.reverse()
+
+    # Imprimir números do eixo Y
+    for i in lista_numeral:
+        print(f'{i:>3}|')
+
+    print(f'{"-" * 10:>14}')
+
+    # Imprimir palavras das categorias
+    for char_index in range(len(max(category_words, key=len))):
+        row = []
+        for word in category_words:
+            word = word.strip()
+            if char_index < len(word):
+                row.append(word[char_index])
+            else:
+                row.append(' ')
+        print('     ' + '  '.join(row))
+
+    return ''
+
 
 if __name__ == '__main__':
-    
-    food = Category("Food")
-    food.deposit(1000, "deposit")
-    food.withdraw(10.15, "groceries")
-    food.withdraw(15.89, "restaurant and more food for dessert")
-    clothing = Category("Clothing")
-    food.transfer(50, clothing)
-    print(food)
+    food = Category('food')
+    food.deposit(900, "deposit")
+    entertainment = Category('entertainment')
+    entertainment.deposit(900, "deposit")
+    business = Category('business')
+    business.deposit(900, "deposit")
+    food.withdraw(105.55)
+    entertainment.withdraw(33.40)
+    business.withdraw(10.99)
+    create_spend_chart([business, food, entertainment])
+
+
+    expected = "Percentage spent by category\n100|          \n 90|          \n 80|          \n 70|    o     \n 60|    o     \n 50|    o     \n 40|    o     \n 30|    o     \n 20|    o  o  \n 10|    o  o  \n  0| o  o  o  \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t  "
+    print(expected)
