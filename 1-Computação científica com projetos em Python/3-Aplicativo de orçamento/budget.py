@@ -33,9 +33,9 @@ class Category:
 
     #Um método get_balance, que retorna o saldo atual da categoria de orçamento com base nos depósitos e retiradas que ocorreram
     def get_balance(self):
-        return self.ledger[0]['amount']
+        balance = self.ledger[0]['amount']
+        return balance
     
-
     #Um método transfer, que aceita um valor e outra categoria de orçamento como argumentos. 
     def transfer(self,qtde,category):
         if self.check_funds(qtde):
@@ -60,6 +60,49 @@ if __name__ == '__main__':
     food.deposit(1000, "deposit")
     food.withdraw(10.15, "groceries")
     food.withdraw(15.89, "restaurant and more food for dessert")
+    food.get_balance()
     clothing = Category("Clothing")
     food.transfer(50, clothing)
     print(food)
+
+
+
+    """tamanho = (len(self.category) + 26) - 23
+        def restringir_str(txt, max_palavras=23):
+            # tirando os espaços e contando a palavra
+            palavras = len(str(txt).strip())
+            #tirando os . e - dos numeros
+            conv_txt = str(txt).replace('.','').replace('-','')
+            #fazendo um teste logico para ver se é uma frase
+            if palavras < max_palavras and not conv_txt.isnumeric():
+                #determinando o tamanho da palavra
+                qtde_esp = ' ' * (23 - palavras)
+                #retornando a palavra com o tanho ja determinado
+                return f'{txt}{qtde_esp}'
+            else:
+                #teste logico para ver se a variavel palavras é um inteiro
+                if palavras < max_palavras:
+                    #retornando txt alinhado a esquerda com 6 espaços
+                    try:
+                        txt = f'{int(txt):.2f}'
+                    except:
+                        pass
+                    return f'{txt:>{tamanho}}'
+                else:
+                    return txt[:max_palavras]
+        def linha_cat(cat):
+            print('*' * 13,end = '')
+            print(cat,end = '')
+            print('*' * 13)
+        
+        linha_cat(self.category)
+        
+        for value in self.ledger:
+            novo_dicionario = OrderedDict(reversed(list(value.items())))
+            for num, valor in novo_dicionario.items():
+                print(f'{restringir_str(valor)}', end = '')
+            print()
+
+        calc = self.ledger[0]['amount']
+        print(f'Total: ')
+        return calc"""
