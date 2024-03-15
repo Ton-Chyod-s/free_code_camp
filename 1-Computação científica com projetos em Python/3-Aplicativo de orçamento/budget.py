@@ -52,6 +52,9 @@ class Category:
         else:
             return False
 
+    def __str__(self):
+        return 'lol'
+     
 def create_spend_chart(categories):
     pass
 
@@ -90,6 +93,7 @@ if __name__ == '__main__':
                     return f'{txt:>{tamanho}}'
                 else:
                     return txt[:max_palavras]
+                    
         def linha_cat(cat):
             print('*' * 13,end = '')
             print(cat,end = '')
