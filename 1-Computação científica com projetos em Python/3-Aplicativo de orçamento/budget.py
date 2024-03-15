@@ -117,6 +117,7 @@ def create_spend_chart(categories):
         # Adicionar a palavra da categoria formatada
         category_words.append(f'{categoria.capitalize():>6}')
 
+    # Imprimir título
     print('Percentage spent by category')
 
     # Gerar lista de números para o eixo Y
@@ -126,9 +127,16 @@ def create_spend_chart(categories):
 
     # Imprimir números do eixo Y
     for i in lista_numeral:
-        print(f'{i:>3}|')
+        print(f'{i:>3}|', end='')
+        for cat in percentual_cat.values():
+            if cat >= i:
+                print('  o', end='')
+            else:
+                print('   ', end='')
+        print()
 
-    print(f'{"-" * 10:>14}')
+    # Imprimir linha horizontal
+    print(f'{" " * 4}{"-" * (len(percentual_cat) * 3)}')
 
     # Imprimir palavras das categorias
     for char_index in range(len(max(category_words, key=len))):
@@ -140,8 +148,6 @@ def create_spend_chart(categories):
             else:
                 row.append(' ')
         print('     ' + '  '.join(row))
-
-    return ''
 
 
 if __name__ == '__main__':
