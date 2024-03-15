@@ -41,6 +41,7 @@ class Category:
         if self.check_funds(qtde):
             #atualizando deposito inicial
             self.ledger[0]['amount'] = self.ledger[0]['amount'] - qtde
+
             #O método deverá adicionar uma retirada com o valor e a descrição "Transfer to [categoria de destino no orçamento]".
             self.ledger.append({"amount": qtde *-1, "description":f"Transfer to {category.category}"})
             #O método deve, então, adicionar um depósito à outra categoria do orçamento, com o valor e a descrição "Transfer from [categoria de origem no orçamento]". Se não houver fundos suficientes, nada deve ser adicionado ao ledger. Este método deve retornar True se a transferência acontecer e, caso contrário, False.
