@@ -3,17 +3,17 @@ class Category:
     def __init__(self, category):
         self.category = category
         self.ledger = []
-        self.initial_deposit = 0
+        self.balance = 0
         self.withdraw_deposit = 0
     
     #Um método deposit, que aceita um valor e uma descrição. Se nenhuma descrição for dada, o padrão deverá ser uma string vazia. O método deve acrescentar um objeto à lista ledger na forma de {"amount": amount, "description": description}.
     def deposit(self,qtde,descricao=''): 
-        self.initial_deposit += qtde
+        self.balance += qtde
         self.ledger.append({"amount": qtde, "description":descricao})
 
     #Um método check_funds que aceita um valor como um argumento. Ele retorna False se o valor for maior que o saldo da categoria do orçamento e, caso contrário, retorna True. Este método deve ser usado tanto pelo método withdraw como pelo método transfer.
     def check_funds(self,qtde):
-        if qtde > self.initial_deposit:
+        if qtde > self.balance:
             return False
         else:
             return True
@@ -22,7 +22,7 @@ class Category:
     def withdraw(self,qtde,descricao=''): #sacar
         self.withdraw_deposit += qtde *-1
         if self.check_funds(qtde):
-            if self.initial_deposit > 0:
+            if self.balance > 0:
                 #atualizando deposito inicial
                 self.ledger[0]['amount'] = self.ledger[0]['amount'] - qtde
                 #adicionando dicionario na lista
@@ -45,13 +45,8 @@ class Category:
             self.ledger.append({"amount": qtde *-1, "description":f"Transfer to {category.category}"})
             #O método deve, então, adicionar um depósito à outra categoria do orçamento, com o valor e a descrição "Transfer from [categoria de origem no orçamento]". Se não houver fundos suficientes, nada deve ser adicionado ao ledger. Este método deve retornar True se a transferência acontecer e, caso contrário, False.
             if self.ledger[0]['amount'] > qtde:
-                if category.initial_deposit == 0:
-                    category.initial_deposit += qtde
-                else:
-                    category.ledger[0]['amount'] += qtde
-        
+                category.balance += qtde
                 category.ledger.append({"amount":qtde, "description": f'Transfer from {self.category}'})
-                
                 return True
         else:
             return False
