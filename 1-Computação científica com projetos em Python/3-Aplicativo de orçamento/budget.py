@@ -53,8 +53,45 @@ class Category:
             return False
 
     def __str__(self):
-        return 'lol'
-     
+        tamanho = (len(self.category) + 26) - 23
+        def restringir_str(txt, max_palavras=23):
+            # tirando os espaços e contando a palavra
+            palavras = len(str(txt).strip())
+            #tirando os . e - dos numeros
+            conv_txt = str(txt).replace('.','').replace('-','')
+            #fazendo um teste logico para ver se é uma frase
+            if palavras < max_palavras and not conv_txt.isnumeric():
+                #determinando o tamanho da palavra
+                qtde_esp = ' ' * (23 - palavras)
+                #retornando a palavra com o tanho ja determinado
+                return f'{txt}{qtde_esp}'
+            else:
+                #teste logico para ver se a variavel palavras é um inteiro
+                if palavras < max_palavras:
+                    #retornando txt alinhado a esquerda com 6 espaços
+                    try:
+                        txt = f'{int(txt):.2f}'
+                    except:
+                        pass
+                    return f'{txt:>{tamanho}}'
+                else:
+                    return txt[:max_palavras]
+                
+        def linha_cat(cat):
+            print('*' * 13,end = '')
+            print(cat,end = '')
+            print('*' * 13)
+        
+        linha_cat(self.category)
+
+        for value in self.ledger:
+            novo_dicionario = OrderedDict(reversed(list(value.items())))
+            for num, valor in novo_dicionario.items():
+                print(f'{restringir_str(valor)}', end = '')
+            print()
+
+        return f'Total: {self.ledger[0]['amount']}'
+    
 def create_spend_chart(categories):
     pass
 
@@ -93,7 +130,7 @@ if __name__ == '__main__':
                     return f'{txt:>{tamanho}}'
                 else:
                     return txt[:max_palavras]
-                    
+
         def linha_cat(cat):
             print('*' * 13,end = '')
             print(cat,end = '')
