@@ -33,7 +33,10 @@ class Category:
 
     #Um método get_balance, que retorna o saldo atual da categoria de orçamento com base nos depósitos e retiradas que ocorreram
     def get_balance(self):
-        balance = self.ledger[0]['amount']
+        try:
+            balance = self.ledger[0]['amount']
+        except:
+            balance = 0
         return balance
     
     #Um método transfer, que aceita um valor e outra categoria de orçamento como argumentos. 
@@ -70,7 +73,7 @@ class Category:
                 if palavras < max_palavras:
                     #retornando txt alinhado a esquerda com 6 espaços
                     try:
-                        txt = f'{int(txt):.2f}'
+                        txt = f'{float(txt):.2f}'
                     except:
                         pass
                     return f'{txt:>{tamanho}}'
@@ -78,33 +81,40 @@ class Category:
                     return txt[:max_palavras]
                 
         def linha_cat(cat):
-            linha1 = f"{'*' * 13}{cat}{'*' * 13}"
+            linha1 = f"{'*' * 13}{cat}{'*' * 13}\n"
             return linha1
         
         linha = linha_cat(self.category)
-
+        dicionario = ""
         for value in self.ledger:
             novo_dicionario = OrderedDict(reversed(list(value.items())))
             for num, valor in novo_dicionario.items():
                 if num == 'amount' and novo_dicionario['description'] == 'deposit':
-                    print(f'{restringir_str(self.balance)}', end = '')
+                    dicionario += restringir_str(self.balance)
                 else:
-                    print(f'{restringir_str(valor)}', end = '')
-            print()
+                    if type(valor) == str:
+                        dicionario += restringir_str(valor)
+                    else:
+                        dicionario += restringir_str(valor)
+            dicionario += "\n"
+        total = f'Total: {self.ledger[0]["amount"]}'
 
-        total = f'Total: {self.ledger[0]['amount']}'
-
-        return linha + total
+        return linha + dicionario + total
     
 def create_spend_chart(categories):
     pass
 
 if __name__ == '__main__':
+    
     food = Category("Food")
-    food.deposit(1000, "deposit")
-    food.withdraw(10.15, "groceries")
-    food.withdraw(15.89, "restaurant and more food for dessert")
-    food.get_balance()
-    clothing = Category("Clothing")
-    food.transfer(50, clothing)
+    food.deposit(900, "deposit")
+    food.withdraw(45.67, "milk, cereal, eggs, bacon, bread")
+    food.transfer(20, Category('entertainment'))
     print(food)
+
+
+
+
+
+    expected = f"*************Food*************\ndeposit                 900.00\nmilk, cereal, eggs, bac -45.67\nTransfer to Entertainme -20.00\nTotal: 834.33"
+    print(expected)
