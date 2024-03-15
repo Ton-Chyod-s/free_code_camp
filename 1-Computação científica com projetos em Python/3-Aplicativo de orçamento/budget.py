@@ -19,7 +19,7 @@ class Category:
             return True
         
     #Um método withdraw, semelhante ao método deposit, mas a quantia passada deve ser armazenada no ledger como um número negativo. Se não houver fundos suficientes, nada deve ser adicionado ao ledger. Este método deve retornar True se a retirada acontecer e, caso contrário, False.
-    def withdraw(self,qtde,descricao=''): #sacar
+    def withdraw(self,qtde,descricao=''): 
         self.withdraw_deposit += qtde *-1
         if self.check_funds(qtde):
             if self.balance > 0:
@@ -104,46 +104,3 @@ if __name__ == '__main__':
     clothing = Category("Clothing")
     food.transfer(50, clothing)
     print(food)
-
-
-
-    """tamanho = (len(self.category) + 26) - 23
-        def restringir_str(txt, max_palavras=23):
-            # tirando os espaços e contando a palavra
-            palavras = len(str(txt).strip())
-            #tirando os . e - dos numeros
-            conv_txt = str(txt).replace('.','').replace('-','')
-            #fazendo um teste logico para ver se é uma frase
-            if palavras < max_palavras and not conv_txt.isnumeric():
-                #determinando o tamanho da palavra
-                qtde_esp = ' ' * (23 - palavras)
-                #retornando a palavra com o tanho ja determinado
-                return f'{txt}{qtde_esp}'
-            else:
-                #teste logico para ver se a variavel palavras é um inteiro
-                if palavras < max_palavras:
-                    #retornando txt alinhado a esquerda com 6 espaços
-                    try:
-                        txt = f'{int(txt):.2f}'
-                    except:
-                        pass
-                    return f'{txt:>{tamanho}}'
-                else:
-                    return txt[:max_palavras]
-
-        def linha_cat(cat):
-            print('*' * 13,end = '')
-            print(cat,end = '')
-            print('*' * 13)
-        
-        linha_cat(self.category)
-        
-        for value in self.ledger:
-            novo_dicionario = OrderedDict(reversed(list(value.items())))
-            for num, valor in novo_dicionario.items():
-                print(f'{restringir_str(valor)}', end = '')
-            print()
-
-        calc = self.ledger[0]['amount']
-        print(f'Total: ')
-        return calc"""
