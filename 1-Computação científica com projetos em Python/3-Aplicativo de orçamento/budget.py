@@ -106,8 +106,6 @@ def create_spend_chart(categories):
     percentual_cat = {}
     category_words = []
 
-    print('Percentage spent by category')
-
     # Calcular percentual gasto e armazenar as palavras das categorias
     for category in categories:
         categoria = category.category
@@ -118,6 +116,8 @@ def create_spend_chart(categories):
 
         # Adicionar a palavra da categoria formatada
         category_words.append(f'{categoria.capitalize():>6}')
+
+    print('Percentage spent by category')
 
     # Gerar lista de números para o eixo Y
     for i in range(0, 110, 10):
@@ -147,12 +147,12 @@ def create_spend_chart(categories):
 if __name__ == '__main__':
     food = Category('food')
     food.deposit(900, "deposit")
+    food.withdraw(105.55)
     entertainment = Category('entertainment')
     entertainment.deposit(900, "deposit")
+    entertainment.withdraw(33.40)
     business = Category('business')
     business.deposit(900, "deposit")
-    food.withdraw(105.55)
-    entertainment.withdraw(33.40)
     business.withdraw(10.99)
     create_spend_chart([business, food, entertainment])
 
