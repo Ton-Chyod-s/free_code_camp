@@ -119,9 +119,11 @@ def create_spend_chart(categories):
         line = f'{i:>3}|'
         for cat in percentual_cat.values():
             if cat >= i:
-                line += ' o '
+                line += '  o'
             else:
                 line += '   '
+        if 'o' not in line:
+            line += ' '
         graph_lines.append(line)
 
     # Construindo a linha horizontal
@@ -158,10 +160,7 @@ if __name__ == '__main__':
     print(create_spend_chart([business, food, entertainment]))
 
     #tem que ficar
-    """Percentage spent by category\n100|          \n 90|          \n 80|          \n 70|    o     \n 60|    o     \n 50|    o     \n 40|    o     
-    \n 30|    o     \n 20|    o  o  \n 10|    o  o  \n  0| o  o  o  \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  
-    \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t  """
+    """Percentage spent by category\n100|          \n 90|          \n 80|          \n 70|    o     \n 60|    o     \n 50|    o     \n 40|    o  \n 30|    o     \n 20|    o  o  \n 10|    o  o  \n  0| o  o  o  \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t  """
     #como fica
-    """Percentage spent by category\n100|         \n 90|         \n 80|         \n 70|    o    \n 60|    o    \n 50|    o    \n 40|    o    \n 30|    o   
-    \n 20|    o  o \n 10|    o  o \n  0| o  o  o \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n    
-    e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t"""
+    
+    """Percentage spent by category\n100|          \n 90|          \n 80|          \n 70|     o    \n 60|     o    \n 50|     o    \n 40|     o  \n 30|     o  \n 20|     o  o  \n 10|     o  o \n  0|  o  o  o \n    ----------\n     b  f  e  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t  """
