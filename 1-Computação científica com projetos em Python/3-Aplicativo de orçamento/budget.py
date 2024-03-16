@@ -102,25 +102,18 @@ class Category:
         return linha + dicionario + total
     
 def create_spend_chart(categories):
-    lista_numeral = []
+    # Calculando percentual gasto por categoria
     percentual_cat = {}
-    category_words = []
-
-    # Calcular percentual gasto e armazenar as palavras das categorias
     for category in categories:
         categoria = category.category
-        balanco = category.balance
         vendas = category.withdraw_deposit
-        calc = round((vendas / sum(category.withdraw_deposit for category in categories)) * 100, 2)
+        calc = round((vendas / sum(cat.withdraw_deposit for cat in categories)) * 100, 2)
         percentual_cat[categoria] = calc
 
-        # Adicionar a palavra da categoria formatada
-        category_words.append(f'{categoria.capitalize()}')
-
-    # Construir o título
+    # Construindo o título
     titulo = 'Percentage spent by category'
 
-    # Construir a parte do gráfico invertido
+    # Construindo a parte do gráfico invertido
     graph_lines = []
     for i in range(100, -1, -10):
         line = f'{i:>3}|'
@@ -131,24 +124,24 @@ def create_spend_chart(categories):
                 line += '   '
         graph_lines.append(line)
 
-    # Construir a linha horizontal
+    # Construindo a linha horizontal
     rodape = '    ' + '-' * (len(percentual_cat) * 3 + 1) + '\n'
 
-    # Construir as palavras das categorias
+    # Construindo as palavras das categorias
     category_lines = []
-    max_word_length = max(len(word) for word in category_words) + 1
+    max_word_length = max(len(word) for word in percentual_cat.keys())
     for i in range(max_word_length):
         row = '     '
-        for word in category_words:
+        for word in percentual_cat.keys():
             if i < len(word):
                 row += word[i] + '  '
             else:
                 row += '   '
         category_lines.append(row)
 
-    # Juntar todas as partes em uma única string
+    # Juntando todas as partes em uma única string
     final = titulo + '\n' + '\n'.join(graph_lines) + '\n' + rodape + '\n'.join(category_lines)
-    final = final.rstrip()
+
     return final
 
 
@@ -164,6 +157,11 @@ if __name__ == '__main__':
     business.withdraw(10.99)
     print(create_spend_chart([business, food, entertainment]))
 
-    "Percentage spent by category\n100|          \n 90|          \n 80|          \n 70|    o     \n 60|    o     \n 50|    o     \n 40|    o     \n 30|    o     \n 20|    o  o  \n 10|    o  o  \n  0| o  o  o  \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t  "
-    
-    'Percentage spent by category\n100|         \n 90|         \n 80|         \n 70|    o    \n 60|    o    \n 50|    o    \n 40|    o    \n 30|    o    \n 20|    o  o \n 10|    o  o \n  0| o  o  o \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t'
+    #tem que ficar
+    """Percentage spent by category\n100|          \n 90|          \n 80|          \n 70|    o     \n 60|    o     \n 50|    o     \n 40|    o     
+    \n 30|    o     \n 20|    o  o  \n 10|    o  o  \n  0| o  o  o  \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  
+    \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t  """
+    #como fica
+    """Percentage spent by category\n100|         \n 90|         \n 80|         \n 70|    o    \n 60|    o    \n 50|    o    \n 40|    o    \n 30|    o   
+    \n 20|    o  o \n 10|    o  o \n  0| o  o  o \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n    
+    e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t"""
