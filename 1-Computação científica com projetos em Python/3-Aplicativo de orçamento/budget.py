@@ -119,11 +119,14 @@ def create_spend_chart(categories):
         line = f'{i:>3}|'
         for cat in percentual_cat.values():
             if cat >= i:
-                line += '  o'
+                if i == 30:
+                    line += ' o'
+                else:
+                    line += ' o '
             else:
                 line += '   '
-        if 'o' not in line:
-            line += ' '
+        
+        line += ' '
         graph_lines.append(line)
 
     # Construindo a linha horizontal
@@ -135,8 +138,9 @@ def create_spend_chart(categories):
     for i in range(max_word_length):
         row = '     '
         for word in percentual_cat.keys():
-            if i < len(word):
-                row += word[i] + '  '
+            primeiraMaiuscula = word.capitalize()
+            if i < len(primeiraMaiuscula):
+                row += primeiraMaiuscula[i] + '  '
             else:
                 row += '   '
         category_lines.append(row)
@@ -163,4 +167,4 @@ if __name__ == '__main__':
     """Percentage spent by category\n100|          \n 90|          \n 80|          \n 70|    o     \n 60|    o     \n 50|    o     \n 40|    o  \n 30|    o     \n 20|    o  o  \n 10|    o  o  \n  0| o  o  o  \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t  """
     #como fica
     
-    """Percentage spent by category\n100|          \n 90|          \n 80|          \n 70|     o    \n 60|     o    \n 50|     o    \n 40|     o  \n 30|     o  \n 20|     o  o  \n 10|     o  o \n  0|  o  o  o \n    ----------\n     b  f  e  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t  """
+    """Percentage spent by category\n100|          \n 90|          \n 80|          \n 70|    o     \n 60|    o     \n 50|    o     \n 40|    o     \n 30|    o    \n 20|    o  o  \n 10|    o  o  \n  0| o  o  o  \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t  """
