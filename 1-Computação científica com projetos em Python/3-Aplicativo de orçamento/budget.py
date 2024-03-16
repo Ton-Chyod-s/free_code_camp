@@ -111,43 +111,45 @@ def create_spend_chart(categories):
         categoria = category.category
         balanco = category.balance
         vendas = category.withdraw_deposit
-        calc = round((vendas * -1 / balanco) *100, 2)
+        calc = round((vendas / sum(category.withdraw_deposit for category in categories)) * 100, 2)
         percentual_cat[categoria] = calc
 
         # Adicionar a palavra da categoria formatada
-        category_words.append(f'{categoria.capitalize():>6}')
+        category_words.append(f'{categoria.capitalize()}')
 
-    # Imprimir título
-    print('Percentage spent by category')
+    # Construir o título
+    titulo = 'Percentage spent by category'
 
-    # Gerar lista de números para o eixo Y
-    for i in range(0, 110, 10):
-        lista_numeral.append(i)
-    lista_numeral.reverse()
-
-    # Imprimir números do eixo Y
-    for i in lista_numeral:
-        print(f'{i:>3}|', end='')
+    # Construir a parte do gráfico invertido
+    graph_lines = []
+    for i in range(100, -1, -10):
+        line = f'{i:>3}|'
         for cat in percentual_cat.values():
             if cat >= i:
-                print('  o', end='')
+                line += ' o '
             else:
-                print('   ', end='')
-        print()
+                line += '   '
+        graph_lines.append(line)
 
-    # Imprimir linha horizontal
-    print(f'{" " * 4}{"-" * (len(percentual_cat) * 3)}')
+    # Construir a linha horizontal
+    rodape = '    ' + '-' * (len(percentual_cat) * 3 + 1) + '\n'
 
-    # Imprimir palavras das categorias
-    for char_index in range(len(max(category_words, key=len))):
-        row = []
+    # Construir as palavras das categorias
+    category_lines = []
+    max_word_length = max(len(word) for word in category_words) + 1
+    for i in range(max_word_length):
+        row = '     '
         for word in category_words:
-            word = word.strip()
-            if char_index < len(word):
-                row.append(word[char_index])
+            if i < len(word):
+                row += word[i] + '  '
             else:
-                row.append(' ')
-        print('     ' + '  '.join(row))
+                row += '   '
+        category_lines.append(row)
+
+    # Juntar todas as partes em uma única string
+    final = titulo + '\n' + '\n'.join(graph_lines) + '\n' + rodape + '\n'.join(category_lines)
+    final = final.rstrip()
+    return final
 
 
 if __name__ == '__main__':
@@ -160,8 +162,8 @@ if __name__ == '__main__':
     business = Category('business')
     business.deposit(900, "deposit")
     business.withdraw(10.99)
-    create_spend_chart([business, food, entertainment])
+    print(create_spend_chart([business, food, entertainment]))
 
-
-    expected = "Percentage spent by category\n100|          \n 90|          \n 80|          \n 70|    o     \n 60|    o     \n 50|    o     \n 40|    o     \n 30|    o     \n 20|    o  o  \n 10|    o  o  \n  0| o  o  o  \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t  "
-    print(expected)
+    "Percentage spent by category\n100|          \n 90|          \n 80|          \n 70|    o     \n 60|    o     \n 50|    o     \n 40|    o     \n 30|    o     \n 20|    o  o  \n 10|    o  o  \n  0| o  o  o  \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t  "
+    
+    'Percentage spent by category\n100|         \n 90|         \n 80|         \n 70|    o    \n 60|    o    \n 50|    o    \n 40|    o    \n 30|    o    \n 20|    o  o \n 10|    o  o \n  0| o  o  o \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t'
