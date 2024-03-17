@@ -103,34 +103,25 @@ class Category:
     
 def create_spend_chart(categories):
     # Calculando percentual gasto por categoria
-    percentual_cat = {}
-    for category in categories:
-        categoria = category.category
-        vendas = category.withdraw_deposit
-        calc = round((vendas / sum(cat.withdraw_deposit for cat in categories)) * 100, 2)
-        percentual_cat[categoria] = calc
+    total_withdrawals = sum(category.withdraw_deposit for category in categories)
+    percentual_cat = {category.category: category.withdraw_deposit / total_withdrawals * 100 for category in categories}
 
     # Construindo o título
-    titulo = 'Percentage spent by category'
+    title = 'Percentage spent by category\n'
 
     # Construindo a parte do gráfico invertido
     graph_lines = []
     for i in range(100, -1, -10):
-        line = f'{i:>3}|'
-        for cat in percentual_cat.values():
-            if cat >= i:
-                if i == 30:
-                    line += ' o'
-                else:
-                    line += ' o '
+        line = f'{i:>3}| '
+        for cat_percent in percentual_cat.values():
+            if cat_percent >= i:
+                line += 'o  '
             else:
                 line += '   '
-        
-        line += ' '
         graph_lines.append(line)
 
     # Construindo a linha horizontal
-    rodape = '    ' + '-' * (len(percentual_cat) * 3 + 1) + '\n'
+    footer = '    ' + '-' * (len(percentual_cat) * 3 + 1) + '\n'
 
     # Construindo as palavras das categorias
     category_lines = []
@@ -138,17 +129,18 @@ def create_spend_chart(categories):
     for i in range(max_word_length):
         row = '     '
         for word in percentual_cat.keys():
-            primeiraMaiuscula = word.capitalize()
-            if i < len(primeiraMaiuscula):
-                row += primeiraMaiuscula[i] + '  '
+            primeira_maiuscula = word.capitalize()
+            if i < len(primeira_maiuscula):
+                row += primeira_maiuscula[i] + '  '
             else:
                 row += '   '
         category_lines.append(row)
 
     # Juntando todas as partes em uma única string
-    final = titulo + '\n' + '\n'.join(graph_lines) + '\n' + rodape + '\n'.join(category_lines)
+    final_output = title + '\n'.join(graph_lines) + '\n' + footer + '\n'.join(category_lines)
 
-    return final
+    return final_output
+
 
 
 if __name__ == '__main__':
@@ -163,8 +155,4 @@ if __name__ == '__main__':
     business.withdraw(10.99)
     print(create_spend_chart([business, food, entertainment]))
 
-    #tem que ficar
-    """Percentage spent by category\n100|          \n 90|          \n 80|          \n 70|    o     \n 60|    o     \n 50|    o     \n 40|    o  \n 30|    o     \n 20|    o  o  \n 10|    o  o  \n  0| o  o  o  \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t  """
-    #como fica
     
-    """Percentage spent by category\n100|          \n 90|          \n 80|          \n 70|    o     \n 60|    o     \n 50|    o     \n 40|    o     \n 30|    o    \n 20|    o  o  \n 10|    o  o  \n  0| o  o  o  \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t  """
