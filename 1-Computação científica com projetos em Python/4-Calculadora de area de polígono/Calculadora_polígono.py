@@ -4,10 +4,10 @@ class Rectangle:
         self.height = height
 
     def set_width(self):
-        pass
+        return
     
     def set_height(self):
-        pass
+        return
 
     def get_area(self):
         return self.width * self.height
@@ -19,10 +19,10 @@ class Rectangle:
         return (self.width ** 2 + self.height ** 2) ** .5
     
     def get_picture(self):
-        pass
+        return
 
     def get_amount_inside(self):
-        pass
+        return
 
 class Square:
     def __init__(self,width,height):
@@ -30,10 +30,10 @@ class Square:
         self.height = height
 
     def set_side(self):
-        pass
+        return
 
 
-if __name__ == "__init__":
+if __name__ == '__main__':
     rect = Rectangle(10, 5)
     print(rect.get_area())
     rect.set_height(3)
