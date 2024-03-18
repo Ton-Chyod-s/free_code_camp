@@ -23,12 +23,16 @@ class Rectangle:
     def get_picture(self):
         return f'{self.width * '*'} \n' * self.height
     
-    def get_amount_inside(self):
-        return
+    def get_amount_inside(self,obj):
+        return obj
     
     def __str__(self):
-        return f'Rectangle(width={self.width},height={self.height})'
-
+        if self.height % 2 == 0:
+            x = f'Square(side={self.height})'
+        else:
+            x = f'Rectangle(width={self.width},height={self.height})'
+        return x
+    
 class Square(Rectangle):
     def __init__(self,side):
         super().__init__(side, side)
@@ -37,7 +41,6 @@ class Square(Rectangle):
         self.width = side
         self.height = side
         return side
-
 
 if __name__ == '__main__':
     rect = Rectangle(10, 5)
