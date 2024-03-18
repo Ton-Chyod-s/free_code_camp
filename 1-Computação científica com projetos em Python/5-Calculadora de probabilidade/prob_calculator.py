@@ -38,7 +38,7 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
 
     probability = num_experiments / num_matches
 
-    return print(probability)
+    return probability
 
 if __name__ == '__main__':
     hat = Hat(black=6, red=4, green=3)
