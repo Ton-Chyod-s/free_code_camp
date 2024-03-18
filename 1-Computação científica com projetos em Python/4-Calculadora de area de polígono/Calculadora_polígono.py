@@ -2,7 +2,7 @@ class Rectangle:
     def __init__(self,width,height):
         self.width = width
         self.height = height
-
+        
     def set_width(self,num):
         self.width = num
         return self.width
@@ -35,7 +35,7 @@ class Rectangle:
         return area_rect // area_square
     
     def __str__(self):
-        if self.height % 2 != 0:
+        if self.width == self.height:
             x = f'Square(side={self.height})'
         else:
             x = f'Rectangle(width={self.width}, height={self.height})'
@@ -51,6 +51,9 @@ class Square(Rectangle):
         return side
 
 if __name__ == '__main__':
-    rect = Rectangle(3, 6)
-    print(rect)
-
+    sq = Square(9)
+    print(sq.get_area())
+    sq.set_side(4)
+    print(sq.get_diagonal())
+    print(sq)
+    print(sq.get_picture())
