@@ -35,7 +35,10 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
         balls = hat.draw(num_balls_drawn)
         if set(balls) == set(expected_balls):
             num_matches += 1
-    return num_matches
+
+    probability = num_experiments / num_matches
+
+    return print(probability)
 
 if __name__ == '__main__':
     hat = Hat(black=6, red=4, green=3)
