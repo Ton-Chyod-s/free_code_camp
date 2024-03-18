@@ -50,10 +50,19 @@ class Square(Rectangle):
         self.height = side
         return side
 
+    def set_width(self, side):
+        self.width = side
+        self.height = side
+        return side
+
+    def set_height(self, side):
+        self.width = side
+        self.height = side
+        return side
+    
 if __name__ == '__main__':
-    sq = Square(9)
-    print(sq.get_area())
-    sq.set_side(4)
-    print(sq.get_diagonal())
-    print(sq)
-    print(sq.get_picture())
+    rect = Rectangle(10, 5)
+    print(rect.get_area())
+    rect.set_height(3)
+    rect.set_width(7)
+    print(rect)
