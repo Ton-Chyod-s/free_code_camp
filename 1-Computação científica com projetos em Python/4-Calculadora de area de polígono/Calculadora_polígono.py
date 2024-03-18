@@ -3,10 +3,12 @@ class Rectangle:
         self.width = width
         self.height = height
 
-    def set_width(self):
+    def set_width(self,num):
+        self.width = num
         return self.width
     
-    def set_height(self):
+    def set_height(self,num): #mudar largura
+        self.height = num
         return self.height
 
     def get_area(self):
@@ -19,33 +21,30 @@ class Rectangle:
         return (self.width ** 2 + self.height ** 2) ** .5
     
     def get_picture(self):
-        width = []
-        height = []
-        if self.width < 50 or self.height < 50 :
-            for i in range(self.width):
-                width.append(1 * '*')
-            height.append(self.height * '*')
-        for key, value in enumerate(width):
-            print(value)
-            if len(width) == key + 1:
-                print(height)
-        else:
-            return "Too big for picture."
-
+        return f'{self.width * '*'} \n' * self.height
+    
     def get_amount_inside(self):
         return
+    
+    def __str__(self):
+        return f'Rectangle(width={self.width},height={self.height})'
 
-class Square:
-    def __init__(self,width,height):
-        self.width = width
-        self.height = height
+class Square(Rectangle):
+    def __init__(self,side):
+        super().__init__(side, side)
 
-    def set_side(self):
-        return
+    def set_side(self,side):
+        self.width = side
+        self.height = side
+        return side
 
 
 if __name__ == '__main__':
     rect = Rectangle(10, 5)
+    print(rect.get_area())
+    rect.set_height(3)
+    print(rect.get_perimeter())
+    print(rect)
     print(rect.get_picture())
 
     sq = Square(9)
