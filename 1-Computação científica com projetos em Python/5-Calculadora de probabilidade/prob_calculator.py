@@ -26,7 +26,6 @@ class Hat:
     def __str__(self):
         return self.dictContents
     
-
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     num_matches = 0
     for i in range(num_experiments):
@@ -34,7 +33,7 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
         if set(balls) == set(expected_balls):
             num_matches += 1
     probability = num_experiments / num_matches
-    
+
     return probability
 
 if __name__ == '__main__':
