@@ -6,16 +6,16 @@ class Hat:
         self.dictContents  = {}
         for color, quantity in kwargs.items():
             self.dictContents[color] = quantity
-        self.contents = list(self.dictContents.keys())
+        self.contents = []
+        for color, quantity in self.dictContents.items():
+            self.contents.extend([color] * quantity)
 
     def draw(self,num_balls_drawn):
         coresSelecionadas = []
         self.selecionado = {}
-        for i in range(0,num_balls_drawn):
-            bola_Retiradas = random.randint(0,len(self.dictContents))
-            corSelecionada = self.contents[bola_Retiradas - 1]
-            novoValor = (self.dictContents[corSelecionada]) - 1
-            self.dictContents[corSelecionada] = novoValor
+        for i in range(0,min(num_balls_drawn, len(self.contents))):
+            bola_Retiradas = random.randint(0,len(self.contents) - 1)
+            corSelecionada = self.contents.pop(bola_Retiradas)
             coresSelecionadas.append(corSelecionada)
             if corSelecionada in self.selecionado:
                 qtd = self.selecionado[corSelecionada]
@@ -23,18 +23,27 @@ class Hat:
             else: 
                 self.selecionado[corSelecionada] = 1
         return self.selecionado
+    
     def __str__(self):
-        return self.dictContents
+        return str(self.dictContents)
     
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     num_matches = 0
     for i in range(num_experiments):
-        balls = hat.draw(num_balls_drawn)
-        if set(balls) == set(expected_balls):
-            num_matches += 1
-    probability = num_experiments / num_matches
+        copied_hat = copy.deepcopy(hat)
+        balls = copied_hat.draw(num_balls_drawn)
+        if set(balls.keys()) == set(expected_balls.keys()):
+            match = True
+            for color, count in expected_balls.items():
+                if balls.get(color, 0) < count:
+                    match = False
+                    break
+            if match:
+                num_matches += 1
+    probability = num_matches / num_experiments
 
     return probability
+
 
 if __name__ == '__main__':
     hat = Hat(black=6, red=4, green=3)
@@ -42,3 +51,4 @@ if __name__ == '__main__':
                     expected_balls={"red":2,"green":1},
                     num_balls_drawn=5,
                     num_experiments=2000)
+    print(probability)
