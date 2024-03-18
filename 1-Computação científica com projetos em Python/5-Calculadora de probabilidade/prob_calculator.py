@@ -22,9 +22,7 @@ class Hat:
                 self.selecionado[corSelecionada] = qtd + 1
             else: 
                 self.selecionado[corSelecionada] = 1
-
         return self.selecionado
-        
     def __str__(self):
         return self.dictContents
     
@@ -35,9 +33,8 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
         balls = hat.draw(num_balls_drawn)
         if set(balls) == set(expected_balls):
             num_matches += 1
-
     probability = num_experiments / num_matches
-
+    
     return probability
 
 if __name__ == '__main__':
