@@ -141,8 +141,6 @@ def create_spend_chart(categories):
 
     return final_output
 
-
-
 if __name__ == '__main__':
     food = Category('food')
     food.deposit(900, "deposit")
