@@ -21,16 +21,24 @@ class Rectangle:
         return (self.width ** 2 + self.height ** 2) ** .5
     
     def get_picture(self):
-        return f'{self.width * '*'} \n' * self.height
-    
+        picture = ""
+        if self.width >= 50 or self.height >= 50:
+            return 'Too big for picture.'
+        else:
+            for _ in range(self.height):
+                picture += '*' * self.width + '\n'
+            return picture
+        
     def get_amount_inside(self,obj):
-        return obj
+        area_rect = self.get_area()
+        area_square = obj.get_area()
+        return area_rect // area_square
     
     def __str__(self):
-        if self.height % 2 == 0:
+        if self.height % 2 != 0:
             x = f'Square(side={self.height})'
         else:
-            x = f'Rectangle(width={self.width},height={self.height})'
+            x = f'Rectangle(width={self.width}, height={self.height})'
         return x
     
 class Square(Rectangle):
@@ -43,20 +51,6 @@ class Square(Rectangle):
         return side
 
 if __name__ == '__main__':
-    rect = Rectangle(10, 5)
-    print(rect.get_area())
-    rect.set_height(3)
-    print(rect.get_perimeter())
+    rect = Rectangle(3, 6)
     print(rect)
-    print(rect.get_picture())
 
-    sq = Square(9)
-    print(sq.get_area())
-    sq.set_side(4)
-    print(sq.get_diagonal())
-    print(sq)
-    print(sq.get_picture())
-
-    rect.set_height(8)
-    rect.set_width(16)
-    print(rect.get_amount_inside(sq))
