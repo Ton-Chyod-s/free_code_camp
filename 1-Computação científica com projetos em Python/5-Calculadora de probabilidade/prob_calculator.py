@@ -28,19 +28,19 @@ class Hat:
         return str(self.dictContents)
     
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
-    num_matches = 0
+    num_successful_matches = 0
     for i in range(num_experiments):
         copied_hat = copy.deepcopy(hat)
         balls = copied_hat.draw(num_balls_drawn)
-        if set(balls.keys()) == set(expected_balls.keys()):
-            match = True
-            for color, count in expected_balls.items():
-                if balls.get(color, 0) < count:
-                    match = False
-                    break
-            if match:
-                num_matches += 1
-    probability = num_matches / num_experiments
+        success = True
+        for color, count in expected_balls.items():
+            if balls.get(color, 0) < count:
+                success = False
+                break
+        if success:
+            num_successful_matches += 1
+
+    probability = num_successful_matches / num_experiments
 
     return probability
 
