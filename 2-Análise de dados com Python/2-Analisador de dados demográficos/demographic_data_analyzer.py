@@ -5,59 +5,46 @@ def calculate_demographic_data(print_data=True):
     
     df = pd.read_csv(os.path.abspath('2-Análise de dados com Python\\2-Analisador de dados demográficos\\adult.data.csv')) 
 
-    # How many of each race are represented in this dataset? This should be a Pandas series with race names as the index labels.
+    #Quantas pessoas de cada raça estão representadas neste dataset? Esta deve ser uma série Pandas com nomes das raças como rótulos de índice. (coluna race)
     race_count = df.race.drop_duplicates()
 
-    # What is the average age of men?
+    #Qual é a média de idade dos homens?
     man_df_sex = df[df['sex'] == 'Male']
     num_sex = man_df_sex.age.count()
     num_sum = man_df_sex.age.sum()
     average_age_men =  round(num_sum / num_sex,2)
 
-    # What is the percentage of people who have a Bachelor's degree?
+    #Qual é a porcentagem de pessoas que têm um diploma de bacharel?
     educ = df[df['education'] == 'Bachelors']
     num_education = educ.education.count()
     total = df.shape[0]
     percentage_bachelors =  round((num_education / total) * 100, 2)
 
-    # What percentage of people with advanced education (`Bachelors`, `Masters`, or `Doctorate`) make more than 50K?
-    # Filter out rows with 'Bachelors', 'Masters', or 'Doctorate' education
+    #Qual é a porcentagem de pessoas com educação superior (Bachelors, Masters, ou Doctorate - graduados, mestres e doutores, respectivamente) que ganham mais de 50 mil?
     filtered_df_ = df[df['education'].isin(['Bachelors', 'Masters', 'Doctorate'])]
     pessoasComFaculdade = filtered_df_.salary.count()
-    # Count the number of people with a salary less than or equal to 50K
     upper_than_50k_count = filtered_df_[filtered_df_['salary'] == '>50K'].shape[0]
     
-    # Filter out rows with 'Bachelors', 'Masters', or 'Doctorate' education
+    #Qual é a porcentagem de pessoas sem educação superior que ganham mais de 50 mil?
     filtered_df = df[~df['education'].isin(['Bachelors', 'Masters', 'Doctorate'])]
     pessoasSemFaculdade = filtered_df.salary.count()
-
-    # Count the number of people with a salary less than or equal to 50K
     lower_than_50k_count = filtered_df[filtered_df['salary'] == '>50K'].shape[0]
     
-    # What percentage of people without advanced education make more than 50K?
+    higher_education_rich = round((upper_than_50k_count / total) * 100, 2)
+    lower_education_rich = round((lower_than_50k_count / total) * 100, 2)
 
-    # with and without `Bachelors`, `Masters`, or `Doctorate`
-    higher_education = pessoasComFaculdade
-    lower_education = pessoasSemFaculdade
+    #Qual é o número mínimo de horas que uma pessoa trabalha por semana?
+    min_work_hours = min(df['education-num'])
 
-    # percentage with salary >50K
-    higher_education_rich = round((upper_than_50k_count / total)*100,2)
-    lower_education_rich = round((lower_than_50k_count / total)*100,2)
-
-    # What is the minimum number of hours a person works per week (hours-per-week feature)?
-    min_work_hours = None
-
-    # What percentage of the people who work the minimum number of hours per week have a salary of >50K?
+    #Qual é a porcentagem das pessoas que trabalham o número mínimo de horas por semana e que têm um salário superior a 50 mil??
     num_min_workers = None
 
+    #Qual país tem a maior porcentagem de pessoas que ganham > 50mil e qual é essa porcentagem?
     rich_percentage = None
-
-    # What country has the highest percentage of people that earn >50K?
-    highest_earning_country = None
-    highest_earning_country_percentage = None
 
     # Identify the most popular occupation for those who earn >50K in India.
     top_IN_occupation = None
+    
 
     # DO NOT MODIFY BELOW THIS LINE
 
