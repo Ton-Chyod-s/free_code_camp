@@ -42,11 +42,20 @@ def calculate_demographic_data(print_data=True):
     print(round((num_min_workers / total)*100,3))
     
     #Qual país tem a maior porcentagem de pessoas que ganham > 50mil e qual é essa porcentagem?
-    rich_percentage = filtered_df_['native-country']
-
-    print(rich_percentage)
-
-
+    pais_porcentagem = []
+   
+    for value in filtered_df_['native-country'].unique():
+        pais = filtered_df_[filtered_df_['native-country'] == value].age.count()
+        porcentagem = round((pais / total) * 100,2)
+        if len(pais_porcentagem) == 0:
+            pais_porcentagem.append(value)
+            pais_porcentagem.append(porcentagem)
+        else:
+            if pais_porcentagem[1] < porcentagem:
+                pais_porcentagem[0] = value
+                pais_porcentagem[1] = porcentagem
+   
+           
     # Identify the most popular occupation for those who earn >50K in India.
     top_IN_occupation = filtered_df_[filtered_df_['native-country'] == 'India'].age.count()
     
