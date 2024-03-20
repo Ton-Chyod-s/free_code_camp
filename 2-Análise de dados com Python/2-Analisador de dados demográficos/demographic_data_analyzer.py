@@ -34,11 +34,13 @@ def calculate_demographic_data(print_data=True):
     lower_education_rich = round((lower_than_50k_count / total) * 100, 2)
 
     #Qual é o número mínimo de horas que uma pessoa trabalha por semana?
-    min_work_hours = min(df['education-num'])
-
+    min_work_hours = min(df['hours-per-week'])
+    
     #Qual é a porcentagem das pessoas que trabalham o número mínimo de horas por semana e que têm um salário superior a 50 mil??
-    num_min_workers = None
+    num_min_workers = df[(df['hours-per-week'] == min_work_hours) & (df['salary'] == '>50K')].shape[0]
 
+    print(round((num_min_workers / total)*100,3))
+    
     #Qual país tem a maior porcentagem de pessoas que ganham > 50mil e qual é essa porcentagem?
     rich_percentage = None
 
