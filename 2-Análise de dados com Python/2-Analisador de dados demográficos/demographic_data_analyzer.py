@@ -56,8 +56,6 @@ def calculate_demographic_data(print_data=True):
         print(f"Percentage without higher education that earn >50K: {lower_education_rich}%")
         print(f"Min work time: {min_work_hours} hours/week")
         print(f"Percentage of rich among those who work fewest hours: {rich_percentage}%")
-        print("Country with highest percentage of rich:", highest_earning_country)
-        print(f"Highest percentage of rich people in country: {highest_earning_country_percentage}%")
         print("Top occupations in India:", top_IN_occupation)
 
     return {
@@ -68,9 +66,6 @@ def calculate_demographic_data(print_data=True):
         'lower_education_rich': lower_education_rich,
         'min_work_hours': min_work_hours,
         'rich_percentage': rich_percentage,
-        'highest_earning_country': highest_earning_country,
-        'highest_earning_country_percentage':
-        highest_earning_country_percentage,
         'top_IN_occupation': top_IN_occupation
     }
 
