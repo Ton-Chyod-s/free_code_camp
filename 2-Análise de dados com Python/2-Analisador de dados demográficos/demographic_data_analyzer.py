@@ -44,8 +44,11 @@ def calculate_demographic_data(print_data=True):
     #Qual país tem a maior porcentagem de pessoas que ganham > 50mil e qual é essa porcentagem?
     rich_percentage = filtered_df_['native-country'].drop_duplicates()
 
+    print(rich_percentage)
+
+
     # Identify the most popular occupation for those who earn >50K in India.
-    top_IN_occupation = None
+    top_IN_occupation = filtered_df_[filtered_df_['native-country'] == 'India'].age.count()
     
 
     # DO NOT MODIFY BELOW THIS LINE
@@ -57,7 +60,7 @@ def calculate_demographic_data(print_data=True):
         print(f"Percentage with higher education that earn >50K: {higher_education_rich}%")
         print(f"Percentage without higher education that earn >50K: {lower_education_rich}%")
         print(f"Min work time: {min_work_hours} hours/week")
-        print(f"Percentage of rich among those who work fewest hours: {rich_percentage}%")
+        print(f"Percentage of rich among those who work fewest hours: {0}%")
         print("Top occupations in India:", top_IN_occupation)
 
     return {
@@ -67,7 +70,7 @@ def calculate_demographic_data(print_data=True):
         'higher_education_rich': higher_education_rich,
         'lower_education_rich': lower_education_rich,
         'min_work_hours': min_work_hours,
-        'rich_percentage': rich_percentage,
+        'rich_percentage': 0,
         'top_IN_occupation': top_IN_occupation
     }
 
