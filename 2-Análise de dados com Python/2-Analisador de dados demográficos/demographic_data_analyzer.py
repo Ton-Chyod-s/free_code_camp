@@ -11,8 +11,8 @@ def calculate_demographic_data(print_data=True):
     # What is the average age of men?
     man_df_sex = df[df['sex'] == 'Male']
     num_sex = man_df_sex.age.count()
-    soma_age = df.age.sum()
-    average_age_men = round(soma_age / num_sex,2)
+    num_sum = man_df_sex.age.sum()
+    average_age_men =  round(num_sum / num_sex,2)
 
     # What is the percentage of people who have a Bachelor's degree?
     percentage_bachelors = None
