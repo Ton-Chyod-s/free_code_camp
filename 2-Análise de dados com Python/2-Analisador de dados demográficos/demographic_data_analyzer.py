@@ -17,18 +17,27 @@ def calculate_demographic_data(print_data=True):
     # What is the percentage of people who have a Bachelor's degree?
     educ = df[df['education'] == 'Bachelors']
     num_education = educ.education.count()
-    total_edu = df.shape[0]
-    percentage_bachelors =  round((num_education / total_edu) * 100, 2)
+    total = df.shape[0]
+    percentage_bachelors =  round((num_education / total) * 100, 2)
 
     # What percentage of people with advanced education (`Bachelors`, `Masters`, or `Doctorate`) make more than 50K?
-
-
+    # Filter out rows with 'Bachelors', 'Masters', or 'Doctorate' education
+    filtered_df_ = df[df['education'].isin(['Bachelors', 'Masters', 'Doctorate'])]
+    # Count the number of people with a salary less than or equal to 50K
+    upper_than_50k_count = filtered_df_[filtered_df_['salary'] == '>50K'].shape[0]
     
+
+    # Filter out rows with 'Bachelors', 'Masters', or 'Doctorate' education
+    filtered_df = df[~df['education'].isin(['Bachelors', 'Masters', 'Doctorate'])]
+    # Count the number of people with a salary less than or equal to 50K
+    lower_than_50k_count = filtered_df[filtered_df['salary'] == '<=50K'].shape[0]
+    
+
     # What percentage of people without advanced education make more than 50K?
 
     # with and without `Bachelors`, `Masters`, or `Doctorate`
-    higher_education = None
-    lower_education = None
+    higher_education = round((upper_than_50k_count / total)*100,2)
+    lower_education = round((lower_than_50k_count / total)*100,2)
 
     # percentage with salary >50K
     higher_education_rich = None
