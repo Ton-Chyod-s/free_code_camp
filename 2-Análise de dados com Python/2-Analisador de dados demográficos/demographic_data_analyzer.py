@@ -32,7 +32,7 @@ def calculate_demographic_data(print_data=True):
     pessoasSemFaculdade = filtered_df.salary.count()
 
     # Count the number of people with a salary less than or equal to 50K
-    lower_than_50k_count = filtered_df[filtered_df['salary'] == '<=50K'].shape[0]
+    lower_than_50k_count = filtered_df[filtered_df['salary'] == '>50K'].shape[0]
     
     # What percentage of people without advanced education make more than 50K?
 
