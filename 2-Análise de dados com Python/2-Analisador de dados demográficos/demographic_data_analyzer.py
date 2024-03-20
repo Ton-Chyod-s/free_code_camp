@@ -42,7 +42,7 @@ def calculate_demographic_data(print_data=True):
     print(round((num_min_workers / total)*100,3))
     
     #Qual país tem a maior porcentagem de pessoas que ganham > 50mil e qual é essa porcentagem?
-    rich_percentage = filtered_df_['native-country'].drop_duplicates()
+    rich_percentage = filtered_df_['native-country']
 
     print(rich_percentage)
 
