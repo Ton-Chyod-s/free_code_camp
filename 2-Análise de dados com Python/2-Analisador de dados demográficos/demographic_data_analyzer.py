@@ -6,7 +6,7 @@ def calculate_demographic_data(print_data=True):
     df = pd.read_csv(os.path.abspath('2-Análise de dados com Python\\2-Analisador de dados demográficos\\adult.data.csv')) 
 
     #Quantas pessoas de cada raça estão representadas neste dataset? Esta deve ser uma série Pandas com nomes das raças como rótulos de índice. (coluna race)
-    race_count = df.race.drop_duplicates()
+    race_count = df.race.value_counts()
 
     #Qual é a média de idade dos homens?
     man_df_sex = df[df['sex'] == 'Male']
@@ -22,12 +22,10 @@ def calculate_demographic_data(print_data=True):
 
     #Qual é a porcentagem de pessoas com educação superior (Bachelors, Masters, ou Doctorate - graduados, mestres e doutores, respectivamente) que ganham mais de 50 mil?
     filtered_df_ = df[df['education'].isin(['Bachelors', 'Masters', 'Doctorate'])]
-    pessoasComFaculdade = filtered_df_.salary.count()
     upper_than_50k_count = filtered_df_[filtered_df_['salary'] == '>50K'].shape[0]
     
     #Qual é a porcentagem de pessoas sem educação superior que ganham mais de 50 mil?
     filtered_df = df[~df['education'].isin(['Bachelors', 'Masters', 'Doctorate'])]
-    pessoasSemFaculdade = filtered_df.salary.count()
     lower_than_50k_count = filtered_df[filtered_df['salary'] == '>50K'].shape[0]
     
     higher_education_rich = round((upper_than_50k_count / total) * 100, 2)
