@@ -2,14 +2,17 @@ import pandas as pd
 import os
 
 def calculate_demographic_data(print_data=True):
-    # Read data from file
-    df = pd.read_csv(os.path.abspath('adult.data.csv')) 
+    
+    df = pd.read_csv(os.path.abspath('2-Análise de dados com Python\\2-Analisador de dados demográficos\\adult.data.csv')) 
 
     # How many of each race are represented in this dataset? This should be a Pandas series with race names as the index labels.
-    race_count = None
+    race_count = df.race.drop_duplicates()
 
     # What is the average age of men?
-    average_age_men = None
+    man_df_sex = df[df['sex'] == 'Male']
+    num_sex = man_df_sex.age.count()
+    soma_age = df.age.sum()
+    average_age_men = round(soma_age / num_sex,2)
 
     # What is the percentage of people who have a Bachelor's degree?
     percentage_bachelors = None
