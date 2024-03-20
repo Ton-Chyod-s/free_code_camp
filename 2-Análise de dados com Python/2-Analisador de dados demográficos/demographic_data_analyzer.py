@@ -23,25 +23,26 @@ def calculate_demographic_data(print_data=True):
     # What percentage of people with advanced education (`Bachelors`, `Masters`, or `Doctorate`) make more than 50K?
     # Filter out rows with 'Bachelors', 'Masters', or 'Doctorate' education
     filtered_df_ = df[df['education'].isin(['Bachelors', 'Masters', 'Doctorate'])]
+    pessoasComFaculdade = filtered_df_.salary.count()
     # Count the number of people with a salary less than or equal to 50K
     upper_than_50k_count = filtered_df_[filtered_df_['salary'] == '>50K'].shape[0]
     
-
     # Filter out rows with 'Bachelors', 'Masters', or 'Doctorate' education
     filtered_df = df[~df['education'].isin(['Bachelors', 'Masters', 'Doctorate'])]
+    pessoasSemFaculdade = filtered_df.salary.count()
+
     # Count the number of people with a salary less than or equal to 50K
     lower_than_50k_count = filtered_df[filtered_df['salary'] == '<=50K'].shape[0]
     
-
     # What percentage of people without advanced education make more than 50K?
 
     # with and without `Bachelors`, `Masters`, or `Doctorate`
-    higher_education = round((upper_than_50k_count / total)*100,2)
-    lower_education = round((lower_than_50k_count / total)*100,2)
+    higher_education = pessoasComFaculdade
+    lower_education = pessoasSemFaculdade
 
     # percentage with salary >50K
-    higher_education_rich = None
-    lower_education_rich = None
+    higher_education_rich = round((upper_than_50k_count / total)*100,2)
+    lower_education_rich = round((lower_than_50k_count / total)*100,2)
 
     # What is the minimum number of hours a person works per week (hours-per-week feature)?
     min_work_hours = None
