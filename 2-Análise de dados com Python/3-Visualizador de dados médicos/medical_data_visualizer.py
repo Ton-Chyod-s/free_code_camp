@@ -5,5 +5,3 @@ df = pd.read_excel(os.path.abspath('2-Análise de dados com Python\\3-Visualizad
 print(df)
 
 #nova coluna
-imc = 
-overweight = 
