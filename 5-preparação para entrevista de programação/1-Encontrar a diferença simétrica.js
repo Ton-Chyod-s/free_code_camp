@@ -5,7 +5,14 @@ function sym(args) {
 
     for (let d = 0; d < args.length; d++) {
         if (tamanho != 0) {
-            tamanho = tamanho - 1;
+            if (tamanho === 1) {
+                tamanho = tamanho - 1;
+            } else if (tamanho === 2) {
+                tamanho = tamanho - 2;
+            } else if (tamanho === 3) {
+                tamanho = tamanho - 3;
+            }
+            
         } else {
             tamanho = args.length - 1;
         }
