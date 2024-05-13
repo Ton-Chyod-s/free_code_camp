@@ -12,11 +12,13 @@ function sym(args) {
         for (let i = 0; i < args[d].length; i++) {
             let element = args[d][i];
             if (!args[tamanho].includes(element)) {
-                result.push(element);
+                if (!result.includes(element)) {
+                    result.push(element);
+                }
             };
         }
     }   
     return result;
   }
   
-console.log(sym([1, 2, 3], [5, 2, 1, 4]));
+console.log(sym([1, 2, 3, 3], [5, 2, 1, 4]));
