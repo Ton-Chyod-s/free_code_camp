@@ -4,7 +4,7 @@ function sym(args) {
     
     for (let d = 0; d < args.length; d++) {
         let tamanho = d + 1;
-        if (d == args.length - 1) {
+        if (tamanho == args.length) {
             break;
         } 
 
