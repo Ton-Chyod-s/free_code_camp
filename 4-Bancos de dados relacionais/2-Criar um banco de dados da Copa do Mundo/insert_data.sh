@@ -8,3 +8,23 @@ else
 fi
 
 # Do not change code above this line. Use the PSQL variable above to query your database.
+
+echo "$($PSQL "Truncate games, teams")"
+
+cat games.csv | while IF="," read year round winner
+do
+
+#year
+ANO_ID=$($PSQL "")
+echo $ANO_ID
+#round
+
+#winner
+
+#opponent
+
+#winner_goals
+
+#opponent_goals
+
+done
