@@ -9,22 +9,19 @@ fi
 
 # Do not change code above this line. Use the PSQL variable above to query your database.
 
-echo "$($PSQL "Truncate games, teams")"
+echo "$($PSQL "TRUNCATE TABLE games, teams")"
 
-cat games.csv | while IF="," read year round winner
-do
+# Read the CSV file line by line
+cat games.csv | while IFS="," read YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS; do
+    # Print the year
+    echo "Year: $YEAR"
 
-#year
-ANO_ID=$($PSQL "")
-echo $ANO_ID
-#round
+    # Accessing each element
+    echo "Round: $ROUND"
+    echo "Winner: $WINNER"
+    echo "Opponent: $OPPONENT"
+    echo "Winner Goals: $WINNER_GOALS"
+    echo "Opponent Goals: $OPPONENT_GOALS"
 
-#winner
-
-#opponent
-
-#winner_goals
-
-#opponent_goals
-
+    # Perform other operations here
 done
