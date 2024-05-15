@@ -14,24 +14,21 @@ echo "$($PSQL "TRUNCATE TABLE games, teams")"
 # Read the CSV file line by line
 cat games.csv | while IFS="," read YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS; 
 do
-    # get game_id
-    GAME_ID=$($PSQL "SELECT game_id FROM games WHERE year='$YEAR'")
-
     TEAM_ID_WINNER=$($PSQL "SELECT name FROM teams WHERE name = '$WINNER'")
-    TEAM_ID_OPPONENT=$($PSQL "SELECT name FROM teams WHERE name = '$OPPONENT'")
-
     # if not found winner
-    if [[ -z $TEAM_ID_WINNER ]] 
+    if [[ -z $TEAM_ID_WINNER && $WINNER != 'winner' ]] 
     then
       echo "$($PSQL "INSERT INTO teams(name) values('$WINNER')")"
     fi
 
+    TEAM_ID_OPPONENT=$($PSQL "SELECT name FROM teams WHERE name = '$OPPONENT'")
     # if not found opponent
-    if [[ -z $TEAM_ID_OPPONENT ]] 
+    if [[ -z $TEAM_ID_OPPONENT && $OPPONENT != 'opponent' ]] 
     then
       echo "$($PSQL "INSERT INTO teams(name) values('$OPPONENT')")"
     fi
-done
+
+done < games.csv
 
 #echo "Year: $YEAR"
 #echo "Round: $ROUND"
