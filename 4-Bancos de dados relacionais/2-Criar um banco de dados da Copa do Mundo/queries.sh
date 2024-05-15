@@ -14,7 +14,7 @@ echo
 
 echo -e "\nAverage number of goals in all games from the winning teams:"
 #2.1250000000000000
-echo
+echo $($PSQL "select avg(winner_goals) from teams full join games on teams.team_id = games.winner_id ;")
 
 echo -e "\nAverage number of goals in all games from the winning teams rounded to two decimal places:"
 #2.13
@@ -53,7 +53,7 @@ echo -e "\nList of teams who played in the 2014 'Eighth-Final' round:"
 #Switzerland
 #United States
 #Uruguay
-echo
+echo select distinct(name) from teams full join games on teams.team_id = games.winner_id where year = '2014' and round = 'Eighth-Final' order by name;
 
 echo -e "\nList of unique winning team names in the whole data set:"
 #Argentina
@@ -80,3 +80,5 @@ echo -e "\nList of teams that start with 'Co':"
 #Colombia
 #Costa Rica
 echo
+
+#select * from teams full join games on teams.team_id = games.winner_id where name = 'France';
