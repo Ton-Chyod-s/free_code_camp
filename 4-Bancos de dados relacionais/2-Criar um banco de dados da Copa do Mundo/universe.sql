@@ -7,22 +7,43 @@ chmod +x insert_data.sh
 
 psql --username=freecodecamp --dbname=postgres
 
-create database worldcup;
+CREATE DATABASE worldcup;
 \c worldcup
 
-create table teams();
-create table games();
+CREATE TABLE teams();
+CREATE TABLE games();
 
-alter table teams add column team_id serial primary key;
+ALTER TABLE teams 
+ADD COLUMN team_id SERIAL PRIMARY KEY;
 
-alter table teams add column name varchar(50) not null unique;
+ALTER TABLE teams 
+ADD COLUMN name VARCHAR NOT NULL UNIQUE;
 
-alter table games add column game_id serial primary key;
+ALTER TABLE games 
+ADD COLUMN game_id SERIAL PRIMARY KEY;
 
-alter table games add column year int;
+ALTER TABLE games 
+ADD COLUMN year INT NOT NULL;
 
-alter table games add column round varchar;
+ALTER TABLE games 
+ADD COLUMN round VARCHAR NOT NULL;
 
+ALTER TABLE games 
+ADD COLUMN winner_id INT NOT NULL;
 
+ALTER TABLE games 
+ADD COLUMN opponent_id INT NOT NULL;
+
+ALTER TABLE games 
+ADD COLUMN winner_goals INT NOT NULL;
+
+ALTER TABLE games 
+ADD COLUMN opponent_goals INT NOT NULL;
+
+ALTER TABLE games
+ADD CONSTRAINT fk_winner_id FOREIGN KEY (winner_id) REFERENCES teams(team_id);
+
+ALTER TABLE games
+ADD CONSTRAINT fk_opponent_id FOREIGN KEY (opponent_id) REFERENCES teams(team_id);
 
 */
