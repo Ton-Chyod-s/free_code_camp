@@ -12,7 +12,8 @@ fi
 echo "$($PSQL "TRUNCATE TABLE games, teams")"
 
 # Read the CSV file line by line
-cat games.csv | while IFS="," read YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS; do
+cat games.csv | while IFS="," read YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS; 
+do
     # get game_id
     GAME_ID=$($PSQL "SELECT game_id FROM games WHERE year='$YEAR'")
 
