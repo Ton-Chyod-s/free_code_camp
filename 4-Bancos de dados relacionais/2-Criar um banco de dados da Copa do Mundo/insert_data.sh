@@ -28,11 +28,10 @@ do
       echo "$($PSQL "INSERT INTO teams(name) values('$OPPONENT')")"
     fi
 
-done < games.csv
+    #obtendo id vencedor e oponente
+    TEAM_ID_WINNER="$($PSQL "SELECT team_id from teams where name = '$WINNER'")"
+    TEAM_ID_OPPONENT="$($PSQL "SELECT team_id from teams where name = '$OPPONENT'")"
 
-#echo "Year: $YEAR"
-#echo "Round: $ROUND"
-#echo "Winner: $WINNER"
-#echo "Opponent: $OPPONENT"
-#echo "Winner Goals: $WINNER_GOALS"
-#echo "Opponent Goals: $OPPONENT_GOALS"
+    echo "$($PSQL "INSERT INTO games(year,round,winner_id,opponent_id,winner_goals,opponent_goals) values('$YEAR','$ROUND','$TEAM_ID_WINNER','$TEAM_ID_OPPONENT','$WINNER_GOALS','$OPPONENT_GOALS')")"
+
+done < games.csv
