@@ -33,9 +33,11 @@ CREATE TABLE games(
     FOREIGN KEY (opponent_id) REFERENCES teams(team_id),
     FOREIGN KEY (winner_id) REFERENCES teams(team_id)
 );
-INSERT INTO teams(name) VALUES''')
+\nINSERT INTO teams(name) VALUES''')
 
 timesDict = {}
+gamesList = []
+
 for key, value in enumerate(listaW):
     if key == len(listaW) - 1:
         timesDict[key + 1] = value
@@ -44,10 +46,28 @@ for key, value in enumerate(listaW):
         timesDict[key + 1] = value
         print(F"('{value}'),")
 
-print(F"INSERT INTO teams(year,round,winner,opponent,winner_goals,opponent_goals) VALUES")
+print(F"\nINSERT INTO games(year,round,winner_id,opponent_id,winner_goals,opponent_goals) VALUES")
 
-for i in timesDict:
-    print(i)
+for linha in dados:
+    numWinner = 0
+    numOpponent = 0
+    for i in linha:
+        winner = linha[2]
+        opponent = linha[3]  
+        for key, lin in timesDict.items():
+            
+            if winner == lin and numWinner == 0:
+                numWinner = key
+                break
+            elif opponent == lin:
+                numOpponent = key
+                break
+        if numOpponent != 0 and numWinner != 0:
+            gamesList.append((linha[0],linha[1],numWinner,numOpponent,linha[4],linha[len(linha) - 1]))
+            break
 
-
-lol = 'lol'
+for key, value in enumerate(gamesList):
+    if key == len(gamesList) - 1:
+        print(f'{value};')
+    else:
+        print(f'{value},')
