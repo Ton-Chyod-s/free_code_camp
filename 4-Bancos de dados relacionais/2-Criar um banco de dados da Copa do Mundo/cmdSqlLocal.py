@@ -63,8 +63,6 @@ for linha in dados[1:]:  # Ignora o cabeçalho
     if numWinner is not None and numOpponent is not None:
         gamesList.append((linha[0], linha[1], numWinner, numOpponent, linha[4], linha[-1]))
 
-print(gamesList)
-
 for key, value in enumerate(gamesList):
     if key == len(gamesList) - 1:
         print(f'{value};')
