@@ -68,5 +68,3 @@ for key, value in enumerate(gamesList):
         print(f'{value};')
     else:
         print(f'{value},')
-
-lol = 'lol'
