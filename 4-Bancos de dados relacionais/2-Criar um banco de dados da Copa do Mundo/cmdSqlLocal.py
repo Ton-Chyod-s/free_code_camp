@@ -44,7 +44,10 @@ for key, value in enumerate(listaW):
         timesDict[key + 1] = value
         print(F"('{value}'),")
 
+print(F"INSERT INTO teams(year,round,winner,opponent,winner_goals,opponent_goals) VALUES")
 
+for i in timesDict:
+    print(i)
 
 
 lol = 'lol'
