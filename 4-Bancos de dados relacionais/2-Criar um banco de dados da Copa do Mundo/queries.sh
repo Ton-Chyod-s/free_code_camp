@@ -10,7 +10,7 @@ echo "$($PSQL "SELECT SUM(winner_goals) FROM games")"
 
 echo -e "\nTotal number of goals in all games from both teams combined:"
 #90
-echo
+echo $($PSQL "SELECT SUM(winner_goals + opponent_goals) FROM games;")
 
 echo -e "\nAverage number of goals in all games from the winning teams:"
 #2.1250000000000000
@@ -30,11 +30,11 @@ echo $($PSQL "SELECT MAX(winner_goals) FROM games;")
 
 echo -e "\nNumber of games where the winning team scored more than two goals:"
 #6
-echo
+echo $($PSQL "SELECT COUNT(*) FROM games WHERE winner_goals > 2;")
 
 echo -e "\nWinner of the 2018 tournament team name:"
 #France
-echo
+echo $($PSQL "select name from teams inner join games on teams.team_id = games.winner_id where year = 2018 and round = 'Final';")
 
 echo -e "\nList of teams who played in the 2014 'Eighth-Final' round:"
 #Algeria
@@ -53,7 +53,7 @@ echo -e "\nList of teams who played in the 2014 'Eighth-Final' round:"
 #Switzerland
 #United States
 #Uruguay
-echo select distinct(name) from teams full join games on teams.team_id = games.winner_id where year = '2014' and round = 'Eighth-Final' order by name;
+echo $($PSQL "select name from games full join teams on ( games.winner_id = teams.team_id or games.opponent_id = teams.team_id ) where year = 2014 and round = 'Eighth-Final' order by name;")
 
 echo -e "\nList of unique winning team names in the whole data set:"
 #Argentina
@@ -69,20 +69,14 @@ echo -e "\nList of unique winning team names in the whole data set:"
 #Russia
 #Sweden
 #Uruguay
-echo
+echo $($PSQL "select distinct(name) from teams inner join games on teams.team_id = games.winner_id where round = 'Eighth-Final' order by name;")
 
 echo -e "\nYear and team name of all the champions:"
 #2014|Germany
 #2018|France
-echo
+echo $($PSQL "select year, name from teams inner join games on teams.team_id = games.winner_id where round = 'Final' order by year;")
 
 echo -e "\nList of teams that start with 'Co':"
 #Colombia
 #Costa Rica
-echo
-
-#select * from teams full join games on teams.team_id = games.winner_id where name = 'France';
-
-#select * from teams 
-#inner join games 
-#on teams.team_id = games.winner_id order by game_id;
+echo $($PSQL "select name from teams inner join games on teams.team_id = games.winner_id where name like 'Co%';")
