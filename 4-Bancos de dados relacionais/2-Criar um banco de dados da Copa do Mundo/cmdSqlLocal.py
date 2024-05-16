@@ -16,7 +16,7 @@ for linha in dados:
 
 
 print('''CREATE DATABASE worldcup;
-USE worldcup;   
+  
 CREATE TABLE teams(
     team_id SERIAL PRIMARY KEY,
     name VARCHAR NOT NULL UNIQUE
@@ -31,9 +31,13 @@ CREATE TABLE games(
     winner_goals INT NOT NULL,
     opponent_goals INT NOT NULL,
       
-    FOREIGN KEY (opponent_id) REFERENCES teams(id),
-    FOREIGN KEY (winner_id) REFERENCES teams(id)
+    FOREIGN KEY (opponent_id) REFERENCES teams(team_id),
+    FOREIGN KEY (winner_id) REFERENCES teams(team_id)
 );
 INSERT INTO teams(name) VALUES''')
-for i in listaW:
-    print(F"('{i}'),")
+
+for key, value in enumerate(listaW):
+    if key == len(listaW) - 1:
+        print(F"('{value}');")
+    else:
+        print(F"('{value}'),")
