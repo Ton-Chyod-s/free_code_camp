@@ -16,7 +16,7 @@ dados = [
 [2018,'Eighth-Final','Russia','Spain',2,1],
 [2018,'Eighth-Final','Uruguay','Portugal',2,1],
 [2018,'Eighth-Final','France','Argentina',4,3],
-[2014,'Final,Germany','Argentina',1,0],
+[2014,'Final', 'Germany','Argentina',1,0],
 [2014,'Third Place','Netherlands','Brazil',3,0],
 [2014,'Semi-Final','Argentina','Netherlands',1,0],
 [2014,'Semi-Final','Germany','Brazil',7,1],

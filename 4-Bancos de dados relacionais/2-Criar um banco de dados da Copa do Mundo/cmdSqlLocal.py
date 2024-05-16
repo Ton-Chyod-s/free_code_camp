@@ -4,8 +4,6 @@ for linha in dados:
     for i in linha:
         winner = linha[2]
         opponent = linha[3]
-        if winner == 1 or opponent == 1:
-            break
         if winner != 'winner' and winner not in listaW:
             listaW.append(winner)
             break
@@ -48,26 +46,29 @@ for key, value in enumerate(listaW):
 
 print(F"\nINSERT INTO games(year,round,winner_id,opponent_id,winner_goals,opponent_goals) VALUES")
 
-for linha in dados:
+for linha in dados[1:]:  # Ignora o cabeçalho
+    winner = linha[2]
+    opponent = linha[3]
     numWinner = 0
     numOpponent = 0
-    for i in linha:
-        winner = linha[2]
-        opponent = linha[3]  
-        for key, lin in timesDict.items():
-            
-            if winner == lin and numWinner == 0:
-                numWinner = key
-                break
-            elif opponent == lin:
-                numOpponent = key
-                break
-        if numOpponent != 0 and numWinner != 0:
-            gamesList.append((linha[0],linha[1],numWinner,numOpponent,linha[4],linha[len(linha) - 1]))
+    for key, value in timesDict.items():
+        if winner == value:
+            numWinner = key
             break
+    for key, value in timesDict.items():
+        if opponent == value:
+            numOpponent = key
+            break
+    
+    if numWinner is not None and numOpponent is not None:
+        gamesList.append((linha[0], linha[1], numWinner, numOpponent, linha[4], linha[-1]))
+
+print(gamesList)
 
 for key, value in enumerate(gamesList):
     if key == len(gamesList) - 1:
         print(f'{value};')
     else:
         print(f'{value},')
+
+lol = 'lol'
