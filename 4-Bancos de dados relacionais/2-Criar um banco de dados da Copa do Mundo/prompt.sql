@@ -1,4 +1,5 @@
 /* 
+
 chmod +x queries.sh
 chmod +x insert_data.sh
 
