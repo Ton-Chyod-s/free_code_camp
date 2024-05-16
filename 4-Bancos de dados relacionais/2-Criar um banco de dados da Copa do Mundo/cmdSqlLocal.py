@@ -1,6 +1,7 @@
 from games import dados
-
 listaW = []
+
+
 
 for linha in dados:
     for i in linha:
