@@ -5,7 +5,7 @@ for linha in dados:
         winner = linha[2]
         opponent = linha[3]
         if winner == 1 or opponent == 1:
-            opponent = ''
+            break
         if winner != 'winner' and winner not in listaW:
             listaW.append(winner)
             break
@@ -13,7 +13,6 @@ for linha in dados:
             listaW.append(opponent)
             break
         break
-
 
 print('''CREATE DATABASE worldcup;
   
@@ -36,8 +35,16 @@ CREATE TABLE games(
 );
 INSERT INTO teams(name) VALUES''')
 
+timesDict = {}
 for key, value in enumerate(listaW):
     if key == len(listaW) - 1:
+        timesDict[key + 1] = value
         print(F"('{value}');")
     else:
+        timesDict[key + 1] = value
         print(F"('{value}'),")
+
+
+
+
+lol = 'lol'
