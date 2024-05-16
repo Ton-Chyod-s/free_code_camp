@@ -18,15 +18,15 @@ echo $($PSQL "select avg(winner_goals) from teams full join games on teams.team_
 
 echo -e "\nAverage number of goals in all games from the winning teams rounded to two decimal places:"
 #2.13
-echo
+echo $($PSQL "select round(avg(winner_goals), 2) from teams full join games on teams.team_id = games.winner_id ;")
 
 echo -e "\nAverage number of goals in all games from both teams:"
 #2.8125000000000000
-echo
+echo $($PSQL "SELECT AVG(total_goals) AS average_goals FROM (SELECT winner_goals + opponent_goals AS total_goals FROM games) AS total_goals;")
 
 echo -e "\nMost goals scored in a single game by one team:"
 #7
-echo
+echo $($PSQL "SELECT MAX(winner_goals) FROM games;")
 
 echo -e "\nNumber of games where the winning team scored more than two goals:"
 #6
@@ -82,3 +82,7 @@ echo -e "\nList of teams that start with 'Co':"
 echo
 
 #select * from teams full join games on teams.team_id = games.winner_id where name = 'France';
+
+#select * from teams 
+#inner join games 
+#on teams.team_id = games.winner_id order by game_id;
