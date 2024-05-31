@@ -25,12 +25,8 @@ MAIN_MENU() {
 
   if [[ $MAIN_MENU_SELECTION > $SERVICES_LEN ]]
   then
-    case $MAIN_MENU_SELECTION in
-      1) RENT_MENU ;;
-      2) RETURN_MENU ;;
-      3) EXIT ;;
-    esac
-    
+    echo lol
+
   else
     echo -e "\nI could not find that service. What would you like today?"
     MAIN_MENU
@@ -38,15 +34,6 @@ MAIN_MENU() {
 
 }
 
-
-RENT_MENU(){
-  echo
-}
-
-
-RETURN_MENU(){
-  echo 
-}
 
 
 EXIT() {
