@@ -19,14 +19,14 @@ MAIN_MENU() {
       echo "$SERVICE_ID) $NAME"
     fi
   done
-  SERVICES_LEN=${#SERVICES}
+  SERVICES_COUNT=$(echo "$SERVICES" | grep -v "rows" | wc -l)
 
   read MAIN_MENU_SELECTION
 
-  if [[ $MAIN_MENU_SELECTION > $SERVICES_LEN ]]
+  # Validate user input
+  if [[ $MAIN_MENU_SELECTION -gt $SERVICES_COUNT ]]
   then
-    echo lol
-
+    echo "lol"
   else
     echo -e "\nI could not find that service. What would you like today?"
     MAIN_MENU
@@ -34,10 +34,5 @@ MAIN_MENU() {
 
 }
 
-
-
-EXIT() {
-  echo -e "\nThank you for stopping in.\n"
-}
 
 MAIN_MENU
