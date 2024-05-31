@@ -6,10 +6,9 @@ SERVICES=$($PSQL "select * from services;")
 
 echo -e "\n~~~~~ MY SALON ~~~~~"
 
+echo -e "\nWelcome to My Salon, how can I help you?\n"
+
 MAIN_MENU() {
-
-  echo -e "\nWelcome to My Salon, how can I help you?\n"
-
   echo "$SERVICES" | while IFS="|" read SERVICE_ID NAME
   do
     SERVICE_ID=$(echo "$SERVICE_ID" | xargs)
@@ -20,25 +19,28 @@ MAIN_MENU() {
       echo "$SERVICE_ID) $NAME"
     fi
   done
+  SERVICES_LEN=${#SERVICES}
+
   read MAIN_MENU_SELECTION
 
-  case $MAIN_MENU_SELECTION in
-    1) RENT_MENU ;;
-    2) RETURN_MENU ;;
-    3) EXIT ;;
-    *) MAIN_MENU "I could not find that service. What would you like today?" ;;
-  esac
+  if [[ $MAIN_MENU_SELECTION > $SERVICES_LEN ]]
+  then
+    case $MAIN_MENU_SELECTION in
+      1) RENT_MENU ;;
+      2) RETURN_MENU ;;
+      3) EXIT ;;
+    esac
+    
+  else
+    echo -e "\nI could not find that service. What would you like today?"
+    MAIN_MENU
+  fi
+
 }
 
 
 RENT_MENU(){
-  
-  echo SERVICES_LEN=${#SERVICES}
-
-  if [[ $MAIN_MENU_SELECTION > $SERVICES_LEN ]]
-  then
-    echo 
-  fi
+  echo
 }
 
 
