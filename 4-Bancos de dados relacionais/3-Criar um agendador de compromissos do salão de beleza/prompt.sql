@@ -2,14 +2,15 @@ create database salon;
 
 /* \c salon; */
 
-create table customers(
-  customer_id serial primary key,
-  name varchar not null,
-  phone varchar unique
-);
 create table services(
   service_id serial primary key,
+  name varchar not null
+);
+create table customers(
+  customer_id serial primary key,
+  service_id int not null,
   name varchar not null,
+  phone varchar unique not null,
   FOREIGN KEY (service_id) REFERENCES services(service_id)
 );
 create table appointments(
@@ -30,8 +31,8 @@ chmod +x salon.sh;
 insert into services(name) values('cut'), ('color'), ('perm'), ('style'), ('trim');
 
 DROP TABLE  appointments CASCADE;
-DROP TABLE customers CASCADE;
 DROP TABLE services CASCADE;
+DROP TABLE customers CASCADE;
 
 */
 
