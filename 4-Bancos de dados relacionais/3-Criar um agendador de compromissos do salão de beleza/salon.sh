@@ -19,7 +19,7 @@ MAIN_MENU() {
       echo "$SERVICE_ID) $NAME"
     fi
   done
-  SERVICES_COUNT=$(($(echo "$SERVICES" | wc -l) - 3))
+  SERVICES_COUNT=$(echo "$SERVICES" | wc -l)
 
   read MAIN_MENU_SELECTION
 
@@ -54,6 +54,7 @@ RENT_MENU() {
   else 
     echo -e "\nWhat time would you like your $SELECT_SERVICE, $EXIST_NAME?"
   fi
+  read TIME
 
 }
 
