@@ -1,6 +1,6 @@
 #! /bin/bash
 
-PSQL="psql --username=freecodecamp --dbname=salon -c"
+PSQL="psql --username=freecodecamp --dbname=salon -A -t -c"
 
 SERVICES=$($PSQL "select * from services;")
 
@@ -40,18 +40,22 @@ RENT_MENU() {
   read PHONE
 
   EXIST_NAME=$($PSQL "select name from customers where phone = '$PHONE'")
-  if [[ ! -z $EXIST_NAME ]]
+
+  if [[ -z $EXIST_NAME ]]
   then
     echo -e "\nI don't have a record for that phone number, what's your name?"
     read NEW_NAME
-    
-  else
-    echo -e "\nI don't have a record for that phone number, what's your name?"
+    INSERT_CUSTOMERS=$($PSQL "insert into customers(name) values('$NEW_NAME')")
+  fi
+
+  if [[ -z $EXIST_NAME ]]
+  then
+    echo -e "\nWhat time would you like your $SELECT_SERVICE, $NEW_NAME?"
+  else 
+    echo -e "\nWhat time would you like your $SELECT_SERVICE, $EXIST_NAME?"
   fi
 
 }
-
-
 
 
 MAIN_MENU
