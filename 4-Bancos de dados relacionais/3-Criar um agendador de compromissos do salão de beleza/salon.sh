@@ -44,12 +44,12 @@ RENT_MENU() {
   if [[ -z $CUSTOMER_NAME ]]
   then
     echo -e "\nI don't have a record for that phone number, what's your name?"
-    read NEW_NAME
-    INSERT_CUSTOMERS=$($PSQL "insert into customers(name, phone) values('$NEW_NAME', '$CUSTOMER_PHONE')")
-    echo -e "\nWhat time would you like your $SERVICE_ID_SELECTED, $NEW_NAME?"
+    read CUSTOMER_NAME
+    INSERT_CUSTOMERS=$($PSQL "insert into customers(name, phone) values('$CUSTOMER_NAME', '$CUSTOMER_PHONE')")
+    echo -e "\nWhat time would you like your $SERVICE_ID_SELECTED, $CUSTOMER_NAME?"
     read SERVICE_TIME
 
-    echo -e "\nI have put you down for a $SERVICE_ID_SELECTED at $SERVICE_TIME, $NEW_NAME."
+    echo -e "\nI have put you down for a $SERVICE_ID_SELECTED at $SERVICE_TIME, $CUSTOMER_NAME."
 
   else 
     echo -e "\nWhat time would you like your $SERVICE_ID_SELECTED, $CUSTOMER_NAME?"
