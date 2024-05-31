@@ -23,37 +23,35 @@ MAIN_MENU() {
 
   read MAIN_MENU_SELECTION
 
-
   if [[ $MAIN_MENU_SELECTION -gt 0 && $MAIN_MENU_SELECTION -le $SERVICES_COUNT ]]
     then
-      echo "You selected service ID: $MAIN_MENU_SELECTION"
+      RENT_MENU
     else
       echo -e "\nI could not find that service. What would you like today?"
       MAIN_MENU
     fi
-
-
-
-  # # Validate user input
-  # if [[ $MAIN_MENU_SELECTION -gt $SERVICES_COUNT ]]
-  # then
-  #   echo -e "\nI could not find that service. What would you like today?"
-  #   MAIN_MENU
-  # else
-  #   echo -e "\nWhat's your phone number?"
-  #   read PHONE
-
-  #   EXIST_PHONE=$($PSQL "select name from customers where phone = $PHONE")
-  #   if [[ ! -z $EXIST_PHONE ]]
-  #   then
-  #     echo -e "\nWhat time would you like your cut, Fabio?"
-  #     read TIME
-  #   else
-  #     echo -e "\nI don't have a record for that phone number, what's your name?"
-  #     read NEW_NAME
-  #   fi
-
   }
+
+RENT_MENU() {
+  SELECT_SERVICE=$($PSQL "select name from services where service_id = $MAIN_MENU_SELECTION")
+  SELECT_SERVICE=$(echo $SELECT_SERVICE | xargs)
+
+  echo -e "\nWhat's your phone number?"
+  read PHONE
+
+  EXIST_NAME=$($PSQL "select name from customers where phone = '$PHONE'")
+  if [[ ! -z $EXIST_NAME ]]
+  then
+    echo -e "\nI don't have a record for that phone number, what's your name?"
+    read NEW_NAME
+    
+  else
+    echo -e "\nI don't have a record for that phone number, what's your name?"
+  fi
+
+}
+
+
 
 
 MAIN_MENU
