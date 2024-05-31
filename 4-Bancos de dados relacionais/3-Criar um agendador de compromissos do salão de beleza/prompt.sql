@@ -6,13 +6,11 @@ create table customers(
   customer_id serial primary key,
   name varchar not null,
   phone varchar unique
-
 );
 create table services(
   service_id serial primary key,
   name varchar not null,
   FOREIGN KEY (service_id) REFERENCES services(service_id)
-
 );
 create table appointments(
   appointment_id serial primary key,
@@ -22,7 +20,6 @@ create table appointments(
   FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
   name varchar not null,
   time varchar
-
 );
 
 /* 
@@ -30,6 +27,7 @@ create table appointments(
 touch salon.sh; 
 chmod +x salon.sh; 
  
+insert into services(name) values('cut'), ('color'), ('perm'), ('style'), ('trim');
 
 DROP TABLE  appointments CASCADE;
 DROP TABLE customers CASCADE;
