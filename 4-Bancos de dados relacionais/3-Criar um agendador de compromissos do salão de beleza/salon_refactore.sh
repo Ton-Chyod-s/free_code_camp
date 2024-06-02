@@ -25,14 +25,14 @@ MAIN_MENU() {
 
   if [[ $MAIN_MENU_SELECTION -gt 0 && $MAIN_MENU_SELECTION -le $SERVICES_COUNT ]]
     then
-      insert_customer $MAIN_MENU_SELECTION
+      insert_data $MAIN_MENU_SELECTION
     else
       echo -e "\nI could not find that service. What would you like today?"
       MAIN_MENU
     fi
 }
 
-insert_customer() {
+insert_data() {
     echo -e "\nWhat's your phone number?"
     read CUSTOMER_PHONE
 
@@ -51,7 +51,7 @@ insert_customer() {
     echo -e "\nWhat time would you like your $SERVICE_NAME_SELECTED, $CUSTOMER_NAME?"
     read SERVICE_TIME
    
-    customer_id=$($PSQL "INSERT INTO customers(service_id, name, phone, service_time) VALUES ($SERVICE_ID_SELECTED, '$CUSTOMER_NAME', '$CUSTOMER_PHONE', '$SERVICE_TIME') RETURNING customer_id;")
+    customer_id=$($PSQL "INSERT INTO customers(service_id, name, phone) VALUES ($SERVICE_ID_SELECTED, '$CUSTOMER_NAME', '$CUSTOMER_PHONE') RETURNING customer_id;")
     
 }
 
