@@ -33,14 +33,24 @@ MAIN_MENU() {
 }
 
 insert_customer() {
+    echo -e "\nWhat's your phone number?"
+    read CUSTOMER_PHONE
+
+    CUSTOMER_NAME=$($PSQL "select name from customers where = '$CUSTOMER_PHONE';")
+
     local selection=$1
-    local service_id=$(echo "$SERVICES" | awk -F"|" -v sel="$selection" '$1 == sel {print $1}')
-    echo "Enter customer name:"
-    read name
-    echo "Enter customer phone number:"
-    read phone
+    local SERVICE_ID_SELECTED=$(echo "$SERVICES" | awk -F"|" -v sel="$selection" '$1 == sel {print $1}')
+
+    if [[ -z $CUSTOMER_NAME ]]
+    then
+      echo -e "\nI don't have a record for that phone number, what's your name?"
+      read CUSTOMER_NAME
+    fi
+    
+
+   
     # Insert the new customer into the customers table
-    customer_id=$($PSQL "INSERT INTO customers(service_id, name, phone) VALUES ($service_id, '$name', '$phone') RETURNING customer_id;")
+    customer_id=$($PSQL "INSERT INTO customers(service_id, name, phone) VALUES ($SERVICE_ID_SELECTED, '$name', '$phone') RETURNING customer_id;")
 }
 
 MAIN_MENU
