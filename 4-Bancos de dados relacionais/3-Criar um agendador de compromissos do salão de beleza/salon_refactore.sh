@@ -51,8 +51,12 @@ insert_data() {
     echo -e "\nWhat time would you like your $SERVICE_NAME_SELECTED, $CUSTOMER_NAME?"
     read SERVICE_TIME
    
-    customer_id=$($PSQL "INSERT INTO customers(service_id, name, phone) VALUES ($SERVICE_ID_SELECTED, '$CUSTOMER_NAME', '$CUSTOMER_PHONE') RETURNING customer_id;")
+    INSERT_CUSTOMER=$($PSQL "INSERT INTO customers(service_id, name, phone) VALUES ($SERVICE_ID_SELECTED, '$CUSTOMER_NAME', '$CUSTOMER_PHONE');")
     
+    customer_id=$($PSQL "select customer_id from customers where phone = $CUSTOMER_PHONE;")
+
+    INSERT_APPOIMENTS=$($PSQL "insert into appointments(customer_id,service_id,name,time) values($customer_id, $SERVICE_ID_SELECTED, $CUSTOMER_NAME, $CUSTOMER_PHONE)")
+
 }
 
 MAIN_MENU
