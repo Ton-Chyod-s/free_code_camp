@@ -51,7 +51,10 @@ RENT_MENU() {
     SERVICE_ID_SELECTED=$($PSQL -c "select service_id from services where name = '$SERVICE_NAME_SELECTED'")
     SERVICE_ID_SELECTED=$(echo $SERVICE_ID_SELECTED | xargs)
 
-    INSERT_CUSTOMERS=$($PSQL -c "insert into customers(service_id, name, phone) values($SERVICE_ID_SELECTED ,'$CUSTOMER_NAME', '$CUSTOMER_PHONE')")
+    if [[  ]]
+    then
+      INSERT_CUSTOMERS=$($PSQL -c "insert into customers(service_id, name, phone) values($SERVICE_ID_SELECTED ,'$CUSTOMER_NAME', '$CUSTOMER_PHONE')")
+    fi
 
     echo -e "\nWhat time would you like your $SERVICE_NAME_SELECTED, $CUSTOMER_NAME?"
     read SERVICE_TIME
