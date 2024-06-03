@@ -22,6 +22,7 @@ create table appointments(
 );
 
 /* 
+psql -U postgres -t --no-align --dbname=salon
 
 touch salon.sh; 
 chmod +x salon.sh; 

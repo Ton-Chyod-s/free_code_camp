@@ -48,7 +48,7 @@ insert_data() {
       echo -e "\nI don't have a record for that phone number, what's your name?"
       read CUSTOMER_NAME
 
-      INSERT_CUSTOMER=$($PSQL -c "INSERT INTO customers(service_id, name, phone) VALUES ($SERVICE_ID_SELECTED, '$CUSTOMER_NAME', '$CUSTOMER_PHONE');")
+      INSERT_CUSTOMER=$($PSQL -c "INSERT INTO customers(name, phone) VALUES ('$CUSTOMER_NAME', '$CUSTOMER_PHONE');")
     fi
 
     echo -e "\nWhat time would you like your $SERVICE_NAME_SELECTED, $CUSTOMER_NAME?"
