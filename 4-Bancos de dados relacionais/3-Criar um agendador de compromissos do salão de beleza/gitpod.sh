@@ -1,8 +1,9 @@
 #! /bin/bash
 
-PSQL="psql --username=freecodecamp --dbname=salon -A -t -c"
+#PSQL="psql --username=freecodecamp --dbname=salon -A -t -c"
+PSQL="psql -U postgres -t --no-align --dbname=salon"
 
-SERVICES=$($PSQL "select * from services;")
+SERVICES=$($PSQL -c "select * from services;")
 
 echo -e "\n~~~~~ MY SALON ~~~~~"
 
@@ -36,7 +37,7 @@ insert_data() {
     echo -e "\nWhat's your phone number?"
     read CUSTOMER_PHONE
 
-    CUSTOMER_NAME=$($PSQL "select name from customers where phone = '$CUSTOMER_PHONE';")
+    CUSTOMER_NAME=$($PSQL -c "select name from customers where phone = '$CUSTOMER_PHONE';")
 
     local selection=$1
     local SERVICE_ID_SELECTED=$(echo "$SERVICES" | awk -F"|" -v sel="$selection" '$1 == sel {print $1}')
@@ -51,11 +52,11 @@ insert_data() {
     echo -e "\nWhat time would you like your $SERVICE_NAME_SELECTED, $CUSTOMER_NAME?"
     read SERVICE_TIME
    
-    INSERT_CUSTOMER=$($PSQL "INSERT INTO customers(service_id, name, phone) VALUES ($SERVICE_ID_SELECTED, '$CUSTOMER_NAME', '$CUSTOMER_PHONE');")
+    INSERT_CUSTOMER=$($PSQL -c "INSERT INTO customers(service_id, name, phone) VALUES ($SERVICE_ID_SELECTED, '$CUSTOMER_NAME', '$CUSTOMER_PHONE');")
     
-    customer_id=$($PSQL "select customer_id from customers where phone = $CUSTOMER_PHONE;")
+    customer_id=$($PSQL -c "select customer_id from customers where phone = $CUSTOMER_PHONE;")
 
-    INSERT_APPOIMENTS=$($PSQL "insert into appointments(customer_id,service_id,name,time) values($customer_id, $SERVICE_ID_SELECTED, $CUSTOMER_NAME, $CUSTOMER_PHONE)")
+    INSERT_APPOIMENTS=$($PSQL -c "insert into appointments(customer_id,service_id,name,time) values($customer_id, $SERVICE_ID_SELECTED, $CUSTOMER_NAME, $CUSTOMER_PHONE)")
 
 }
 
