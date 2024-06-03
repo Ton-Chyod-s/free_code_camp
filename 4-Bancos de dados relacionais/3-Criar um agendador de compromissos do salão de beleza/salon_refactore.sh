@@ -19,6 +19,7 @@ MAIN_MENU() {
     then
       echo "$SERVICE_ID) $NAME"
     fi
+    
   done
   SERVICES_COUNT=$(echo "$SERVICES" | wc -l)
 
