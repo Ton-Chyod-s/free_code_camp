@@ -8,10 +8,8 @@ create table services(
 );
 create table customers(
   customer_id serial primary key,
-  service_id int not null,
   name varchar not null,
-  phone varchar unique,
-  FOREIGN KEY (service_id) REFERENCES services(service_id)
+  phone varchar unique
 );
 create table appointments(
   appointment_id serial primary key,
