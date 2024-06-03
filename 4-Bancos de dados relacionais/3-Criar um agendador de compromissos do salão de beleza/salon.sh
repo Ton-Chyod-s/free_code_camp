@@ -35,24 +35,24 @@ MAIN_MENU() {
   }
 
 RENT_MENU() {
-  SERVICE_NAME_SELECTED=$($PSQL "select name from services where service_id = $MAIN_MENU_SELECTION")
+  SERVICE_NAME_SELECTED=$($PSQL -c "select name from services where service_id = $MAIN_MENU_SELECTION")
   SERVICE_NAME_SELECTED=$(echo $SERVICE_NAME_SELECTED | xargs)
 
   echo -e "\nWhat's your phone number?"
   read CUSTOMER_PHONE
 
-  CUSTOMER_NAME=$($PSQL "select name from customers where phone = '$CUSTOMER_PHONE'")
+  CUSTOMER_NAME=$($PSQL -c "select name from customers where phone = '$CUSTOMER_PHONE'")
 
   if [[ -z $CUSTOMER_NAME ]]
   then
     echo -e "\nI don't have a record for that phone number, what's your name?"
     read CUSTOMER_NAME
     
-    SERVICE_ID_SELECTED=$($PSQL "select service_id from services where name = '$SERVICE_NAME_SELECTED'")
+    SERVICE_ID_SELECTED=$($PSQL -c "select service_id from services where name = '$SERVICE_NAME_SELECTED'")
     SERVICE_ID_SELECTED=$(echo $SERVICE_ID_SELECTED | xargs)
 
 
-    INSERT_CUSTOMERS=$($PSQL "insert into customers(service_id, name, phone) values($SERVICE_ID_SELECTED ,'$CUSTOMER_NAME', '$CUSTOMER_PHONE')")
+    INSERT_CUSTOMERS=$($PSQL -c "insert into customers(service_id, name, phone) values($SERVICE_ID_SELECTED ,'$CUSTOMER_NAME', '$CUSTOMER_PHONE')")
 
     echo -e "\nWhat time would you like your $SERVICE_NAME_SELECTED, $CUSTOMER_NAME?"
     read SERVICE_TIME
@@ -60,19 +60,19 @@ RENT_MENU() {
     echo -e "\nI have put you down for a $SERVICE_NAME_SELECTED at $SERVICE_TIME, $CUSTOMER_NAME."
 
   else
-    SERVICE_ID_SELECTED=$($PSQL "select service_id from services where name = '$SERVICE_NAME_SELECTED'")
+    SERVICE_ID_SELECTED=$($PSQL -c "select service_id from services where name = '$SERVICE_NAME_SELECTED'")
     SERVICE_ID_SELECTED=$(echo $SERVICE_ID_SELECTED | xargs)
     
     echo -e "\nWhat time would you like your $SERVICE_NAME_SELECTED, $CUSTOMER_NAME?"
 
     read SERVICE_TIME
 
-    INSERT_CUSTOMERS=$($PSQL "insert into customers(service_id, name, phone) values($SERVICE_ID_SELECTED ,'$CUSTOMER_NAME', '$CUSTOMER_PHONE')")
+    INSERT_CUSTOMERS=$($PSQL -c "insert into customers(service_id, name, phone) values($SERVICE_ID_SELECTED ,'$CUSTOMER_NAME', '$CUSTOMER_PHONE')")
 
     echo -e "\nI have put you down for a $SERVICE_NAME_SELECTED at $SERVICE_TIME, $CUSTOMER_NAME."
 
   fi
-  SELECT_CUSTOMERS_ID=$($PSQL "select customer_id from customers where phone = '$CUSTOMER_PHONE'")
+  SELECT_CUSTOMERS_ID=$($PSQL -c "select customer_id from customers where phone = '$CUSTOMER_PHONE'")
  
 
   #INSERT_APPOINTMENTS=$($PSQL "insert into appointments(customer_id,service_id,name,time) values($SELECT_CUSTOMERS_ID,$SELECT_SERVICES_ID,'$CUSTOMER_NAME','$SERVICE_TIME');") 
