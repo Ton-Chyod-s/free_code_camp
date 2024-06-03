@@ -26,14 +26,14 @@ MAIN_MENU() {
 
   if [[ $MAIN_MENU_SELECTION -gt 0 && $MAIN_MENU_SELECTION -le $SERVICES_COUNT ]]
     then
-      insert_data $MAIN_MENU_SELECTION
+      RENT_MENU $MAIN_MENU_SELECTION
     else
       echo -e "\nI could not find that service. What would you like today?"
       MAIN_MENU
     fi
 }
 
-insert_data() {
+RENT_MENU() {
     echo -e "\nWhat's your phone number?"
     read CUSTOMER_PHONE
 
