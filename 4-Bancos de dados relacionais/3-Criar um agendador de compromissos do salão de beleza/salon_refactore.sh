@@ -38,6 +38,7 @@ insert_data() {
     read CUSTOMER_PHONE
 
     CUSTOMER_NAME=$($PSQL -c "select name from customers where phone = '$CUSTOMER_PHONE';")
+    echo $CUSTOMER_NAME
 
     local selection=$1
     local SERVICE_ID_SELECTED=$(echo "$SERVICES" | awk -F"|" -v sel="$selection" '$1 == sel {print $1}')
@@ -48,13 +49,12 @@ insert_data() {
       echo -e "\nI don't have a record for that phone number, what's your name?"
       read CUSTOMER_NAME
     fi
-
     echo -e "\nWhat time would you like your $SERVICE_NAME_SELECTED, $CUSTOMER_NAME?"
     read SERVICE_TIME
 
-    if [[  ]]
+    if [[ -z $CUSTOMER_NAME ]]
     then
-      #INSERT_CUSTOMER=$($PSQL -c "INSERT INTO customers(service_id, name, phone) VALUES ($SERVICE_ID_SELECTED, '$CUSTOMER_NAME', '$CUSTOMER_PHONE');")
+      INSERT_CUSTOMER=$($PSQL -c "INSERT INTO customers(service_id, name, phone) VALUES ($SERVICE_ID_SELECTED, '$CUSTOMER_NAME', '$CUSTOMER_PHONE');")
     fi 
 
     SERVICE_ID_CUSTOMERS=$($PSQL -c "select customer_id from customers where phone = '$CUSTOMER_PHONE'")
