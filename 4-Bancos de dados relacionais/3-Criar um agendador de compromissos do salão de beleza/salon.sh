@@ -1,8 +1,10 @@
 #! /bin/bash
 
-PSQL="psql --username=freecodecamp --dbname=salon -A -t -c"
+#PSQL="psql --username=freecodecamp --dbname=salon -A -t -c"
+PSQL="psql -U postgres -t --no-align --dbname=salon"
 
-SERVICES=$($PSQL "select * from services;")
+#SERVICES=$($PSQL "select * from services;")
+SERVICES=$($PSQL -c "select * from services;")
 
 echo -e "\n~~~~~ MY SALON ~~~~~"
 
