@@ -1,0 +1,1 @@
+PSQL="psql -U postgres -t --no-align --dbname=salon"
