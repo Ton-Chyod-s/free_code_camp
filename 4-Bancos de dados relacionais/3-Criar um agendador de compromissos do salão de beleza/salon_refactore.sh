@@ -58,6 +58,8 @@ RENT_MENU() {
     SERVICE_ID_CUSTOMERS=$($PSQL -c "select customer_id from customers where phone = '$CUSTOMER_PHONE'")
     
     INSERT_APPOIMENTS=$($PSQL -c "insert into appointments(customer_id,service_id,name,time) values($SERVICE_ID_CUSTOMERS, $SERVICE_ID_SELECTED, '$CUSTOMER_NAME', '$SERVICE_TIME')")
+
+    echo "I have put you down for a $SERVICE_NAME_SELECTED at $SERVICE_TIME, $CUSTOMER_NAME."
 }
 
 MAIN_MENU
