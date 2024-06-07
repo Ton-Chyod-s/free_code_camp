@@ -21,17 +21,18 @@ MAIN_MENU() {
     fi
     
   done
-  SERVICES_COUNT=$(echo "$SERVICES" | wc -l)
 
-  read MAIN_MENU_SELECTION
+  read SERVICE_ID_SELECTED
 
-  if [[ $MAIN_MENU_SELECTION -gt 0 && $MAIN_MENU_SELECTION -le $SERVICES_COUNT ]]
-    then
-      RENT_MENU $MAIN_MENU_SELECTION
-    else
-      echo -e "\nI could not find that service. What would you like today?"
-      MAIN_MENU
-    fi
+  VALID_SERVICE=$($PSQL -c "SELECT service_id FROM services WHERE service_id = $SERVICE_ID_SELECTED;")
+
+  if [[ -z $VALID_SERVICE ]]
+  then
+  echo -e "\nI could not find that service. What would you like today?"
+  MAIN_MENU
+  else
+    RENT_MENU $SERVICE_ID_SELECTED
+  fi
 }
 
 RENT_MENU() {
