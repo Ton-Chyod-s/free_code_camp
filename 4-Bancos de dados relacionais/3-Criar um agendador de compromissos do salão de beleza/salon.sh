@@ -19,7 +19,6 @@ MAIN_MENU() {
     then
       echo "$SERVICE_ID) $NAME"
     fi
-    
   done
 
   read SERVICE_ID_SELECTED
