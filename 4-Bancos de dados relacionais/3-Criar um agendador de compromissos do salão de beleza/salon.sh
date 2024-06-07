@@ -3,7 +3,6 @@
 #PSQL="psql --username=freecodecamp --dbname=salon -A -t -c"
 PSQL="psql -U postgres -t --no-align --dbname=salon"
 
-#SERVICES=$($PSQL "select * from services;")
 SERVICES=$($PSQL -c "select * from services;")
 
 echo -e "\n~~~~~ MY SALON ~~~~~"
@@ -13,70 +12,55 @@ echo -e "\nWelcome to My Salon, how can I help you?\n"
 MAIN_MENU() {
   echo "$SERVICES" | while IFS="|" read SERVICE_ID NAME
   do
-    SERVICE_ID=$(echo "$SERVICE_ID" | xargs)
+    local service_id=$(echo "$SERVICE_ID" | xargs)
     NAME=$(echo "$NAME" | xargs)
 
     if [[ ! $SERVICE_ID =~ rows && $SERVICE_ID != 'service_id' && $SERVICE_ID != '------------+-------' ]]
     then
       echo "$SERVICE_ID) $NAME"
     fi
+    
   done
-  SERVICES_COUNT=$(echo "$SERVICES" | wc -l)
 
-  read MAIN_MENU_SELECTION
+  read SERVICE_ID_SELECTED
 
-  if [[ $MAIN_MENU_SELECTION -gt 0 && $MAIN_MENU_SELECTION -le $SERVICES_COUNT ]]
-    then
-      RENT_MENU
-    else
-      echo -e "\nI could not find that service. What would you like today?"
-      MAIN_MENU
-    fi
-  }
+  VALID_SERVICE=$($PSQL -c "SELECT service_id FROM services WHERE service_id = $SERVICE_ID_SELECTED;")
+
+  if [[ -z $VALID_SERVICE ]]
+  then
+  echo -e "\nI could not find that service. What would you like today?"
+  MAIN_MENU
+  else
+    RENT_MENU $SERVICE_ID_SELECTED
+  fi
+}
 
 RENT_MENU() {
-  SERVICE_NAME_SELECTED=$($PSQL -c "select name from services where service_id = $MAIN_MENU_SELECTION")
-  SERVICE_NAME_SELECTED=$(echo $SERVICE_NAME_SELECTED | xargs)
+    echo -e "\nWhat's your phone number?"
+    read CUSTOMER_PHONE
 
-  echo -e "\nWhat's your phone number?"
-  read CUSTOMER_PHONE
+    CUSTOMER_NAME=$($PSQL -c "select name from customers where phone = '$CUSTOMER_PHONE';")
 
-  CUSTOMER_NAME=$($PSQL -c "select name from customers where phone = '$CUSTOMER_PHONE'")
+    local selection=$1
+    local SERVICE_ID_SELECTED=$(echo "$SERVICES" | awk -F"|" -v sel="$selection" '$1 == sel {print $1}')
+    local SERVICE_NAME_SELECTED=$(echo "$SERVICES" | awk -F"|" -v sel="$selection" '$1 == sel {print $2}')
 
-  if [[ -z $CUSTOMER_NAME ]]
-  then
-    echo -e "\nI don't have a record for that phone number, what's your name?"
-    read CUSTOMER_NAME
-    
-    SERVICE_ID_SELECTED=$($PSQL -c "select service_id from services where name = '$SERVICE_NAME_SELECTED'")
-    SERVICE_ID_SELECTED=$(echo $SERVICE_ID_SELECTED | xargs)
-
-    if [[  ]]
+    if [[ -z $CUSTOMER_NAME ]]
     then
-      INSERT_CUSTOMERS=$($PSQL -c "insert into customers(service_id, name, phone) values($SERVICE_ID_SELECTED ,'$CUSTOMER_NAME', '$CUSTOMER_PHONE')")
+      echo -e "\nI don't have a record for that phone number, what's your name?"
+      read CUSTOMER_NAME
+
+      INSERT_CUSTOMER=$($PSQL -c "INSERT INTO customers(name, phone) VALUES ('$CUSTOMER_NAME', '$CUSTOMER_PHONE');")
     fi
 
     echo -e "\nWhat time would you like your $SERVICE_NAME_SELECTED, $CUSTOMER_NAME?"
     read SERVICE_TIME
 
-    echo -e "\nI have put you down for a $SERVICE_NAME_SELECTED at $SERVICE_TIME, $CUSTOMER_NAME."
-
-  else
-    SERVICE_ID_SELECTED=$($PSQL -c "select service_id from services where name = '$SERVICE_NAME_SELECTED'")
-    SERVICE_ID_SELECTED=$(echo $SERVICE_ID_SELECTED | xargs)
+    SERVICE_ID_CUSTOMERS=$($PSQL -c "select customer_id from customers where phone = '$CUSTOMER_PHONE'")
     
-    echo -e "\nWhat time would you like your $SERVICE_NAME_SELECTED, $CUSTOMER_NAME?"
+    INSERT_APPOIMENTS=$($PSQL -c "insert into appointments(customer_id,service_id,name,time) values($SERVICE_ID_CUSTOMERS, $SERVICE_ID_SELECTED, '$CUSTOMER_NAME', '$SERVICE_TIME')")
 
-    read SERVICE_TIME
-
-    INSERT_CUSTOMERS=$($PSQL -c "insert into customers(service_id, name, phone) values($SERVICE_ID_SELECTED ,'$CUSTOMER_NAME', '$CUSTOMER_PHONE')")
-
-    echo -e "\nI have put you down for a $SERVICE_NAME_SELECTED at $SERVICE_TIME, $CUSTOMER_NAME."
-
-  fi
-  SERVICE_ID_CUSTOMERS=$($PSQL -c "select customer_id from customers where phone = '$CUSTOMER_PHONE'")
- 
-  INSERT_APPOINTMENTS=$($PSQL -c "insert into appointments(customer_id,service_id,name,time) values($SERVICE_ID_CUSTOMERS,$SERVICE_ID_SELECTED,'$CUSTOMER_NAME','$SERVICE_TIME');") 
+    echo "I have put you down for a $SERVICE_NAME_SELECTED at $SERVICE_TIME, $CUSTOMER_NAME."
 }
 
 MAIN_MENU
