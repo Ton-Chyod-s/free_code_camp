@@ -14,10 +14,16 @@ if [[ ! -z $ELEMENT ]]; then
   if [[ $ELEMENT =~ ^(0|[1-9][0-9]?|1[01][0-8])$ ]]; then
     ATOMIC_NUMBER=$($PSQL -c "SELECT atomic_number FROM elements WHERE atomic_number = $ELEMENT;")
   else
-    if [[ $ELEMENT =~ ^[A-Z][a-z]*$ ]]; then
-      ATOMIC_NUMBER=$($PSQL -c "SELECT atomic_number FROM elements WHERE symbol = '$ELEMENT';")
+    ATOMIC_NUMBER=$($PSQL -c "SELECT atomic_number FROM elements WHERE symbol = '$ELEMENT';")
+  
+    if [[ -z $ATOMIC_NUMBER || $ATOMIC_NUMBER =~ ^[[:space:]]*$ ]]; then
+      ATOMIC_NUMBER=$($PSQL -c "SELECT atomic_number FROM elements WHERE name = '$ELEMENT';")
+
     fi
+
   fi
+
+  echo $ATOMIC_NUMBER
 
   NAME_ELEMENT=$($PSQL -c "select name from elements where atomic_number = $ATOMIC_NUMBER")
   SYMBOL_ELEMENT=$($PSQL -c "select symbol from elements where atomic_number = $ATOMIC_NUMBER")
