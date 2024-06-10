@@ -65,6 +65,8 @@ git commit -m "feat: msg"
 git commit -m "refactor: one chance"
 
 
+
+
 DELETE FROM properties WHERE atomic_number = 1000;
 DELETE FROM elements WHERE atomic_number = 1000;
 
