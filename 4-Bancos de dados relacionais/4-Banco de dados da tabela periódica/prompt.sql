@@ -52,13 +52,18 @@ git branch -b main
 
 touch element.sh
 
+chmod +x element.sh
+
 git add .
 
 git commit -m "Initial commit"
 
+git checkout -b main
 
+DELETE FROM properties WHERE atomic_number = 1000;
+DELETE FROM elements WHERE atomic_number = 1000;
 
-
+alter table properties drop column type;
 
 
 
