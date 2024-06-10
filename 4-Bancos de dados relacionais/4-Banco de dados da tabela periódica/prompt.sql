@@ -32,6 +32,16 @@ alter table properties add constraint fk_type_id foreign key (type_id) reference
 
 update elements set symbol = initcap(symbol);
 
+UPDATE properties SET atomic_mass = atomic_mass::REAL;
+alter table properties alter column atomic_mass type real;
+
+insert into elements(atomic_number, symbol, name) values(10, 'Ne', 'Neon');
+
+insert into elements(atomic_number, symbol, name) values(9, 'F', 'Fluorine');
+
+insert into properties(atomic_number, type, atomic_mass, melting_point_celsius, boiling_point_celsius, type_id) values(10,'nonmetal','20.18','-248.6','-246.1',1);
+
+insert into properties(atomic_number, type, atomic_mass, melting_point_celsius, boiling_point_celsius, type_id) values(9,'nonmetal','18.998','-220','-188.1',1);
 
 
 
