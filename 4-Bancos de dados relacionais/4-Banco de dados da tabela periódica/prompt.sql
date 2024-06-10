@@ -50,5 +50,13 @@ git init
 
 
 
+
+
+
+
+#! /bin/bash
+
+PSQL="psql -U postgres -t --no-align --dbname=periodic_table"
+
 touch element.sh
 */
