@@ -46,9 +46,9 @@ insert into properties(atomic_number, type, atomic_mass, melting_point_celsius, 
 
 mkdir periodic_table
 
-git init
+cd periodic_table
 
-git branch -b main
+git init
 
 touch element.sh
 
@@ -59,6 +59,11 @@ git add .
 git commit -m "Initial commit"
 
 git checkout -b main
+
+git commit -m "feat: msg"
+
+git commit -m "refactor: one chance"
+
 
 DELETE FROM properties WHERE atomic_number = 1000;
 DELETE FROM elements WHERE atomic_number = 1000;
