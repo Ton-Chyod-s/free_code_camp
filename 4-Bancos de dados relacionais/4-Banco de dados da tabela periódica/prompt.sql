@@ -24,7 +24,7 @@ insert into types (type_id, type) values (1, 'nonmetal');
 insert into types (type_id, type) values (2, 'metal');
 insert into types (type_id, type) values (3, 'metalloid');
 
-alter table 
+alter table properties add columns type_id int not null add constraint fk_type_id foreign key (type_id) references types(type_id);
 
 
 
