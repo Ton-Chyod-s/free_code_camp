@@ -35,5 +35,6 @@ update elements set symbol = initcap(symbol);
 
 
 
+
 touch element.sh
 */
