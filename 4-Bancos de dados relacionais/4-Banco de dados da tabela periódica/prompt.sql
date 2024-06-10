@@ -20,10 +20,12 @@ alter table properties ADD CONSTRAINT fk_atomic_number foreign key (atomic_numbe
 
 create table types( type_id int primary key, type varchar not null);
 
-insert into types (type_id, type) values (1, 'Physical');
-insert into types (type_id, type) values (2, 'Visual');
-insert into types (type_id, type) values (3, 'Sensory');
+insert into types (type_id, type) values (1, 'nonmetal');
+insert into types (type_id, type) values (2, 'metal');
+insert into types (type_id, type) values (3, 'metalloid');
 
 alter table 
+
+
 
 */
