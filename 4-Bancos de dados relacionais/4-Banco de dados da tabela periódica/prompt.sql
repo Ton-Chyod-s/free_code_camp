@@ -30,7 +30,7 @@ alter table properties alter column type_id set not null;
 
 alter table properties add constraint fk_type_id foreign key (type_id) references types(type_id);
 
-
+update elements set symbol = initcap(symbol);
 
 
 
