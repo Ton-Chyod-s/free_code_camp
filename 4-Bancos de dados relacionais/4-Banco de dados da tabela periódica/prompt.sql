@@ -1,5 +1,5 @@
 /*
-psql -U postgres < periodic_table.sql
+psql -U postgres
 \c periodic_table
 
 alter table properties rename column weight to atomic_mass;
