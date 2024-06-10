@@ -44,7 +44,16 @@ insert into properties(atomic_number, type, atomic_mass, melting_point_celsius, 
 insert into properties(atomic_number, type, atomic_mass, melting_point_celsius, boiling_point_celsius, type_id) values(9,'nonmetal','18.998','-220','-188.1',1);
 
 mkdir periodic_table
+
 git init
+
+git branch -b main
+
+touch element.sh
+
+git add .
+
+git commit -m "Initial commit"
 
 
 
@@ -58,5 +67,5 @@ git init
 
 PSQL="psql -U postgres -t --no-align --dbname=periodic_table"
 
-touch element.sh
+
 */
