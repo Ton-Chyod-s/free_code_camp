@@ -22,7 +22,6 @@ if [[ ! -z $ELEMENT ]]; then
       ATOMIC_NUMBER=$($PSQL -c "SELECT atomic_number FROM elements WHERE name = '$ELEMENT';")
 
     fi
-
   fi
 
   if [[ ! -z $ATOMIC_NUMBER ]]; then
