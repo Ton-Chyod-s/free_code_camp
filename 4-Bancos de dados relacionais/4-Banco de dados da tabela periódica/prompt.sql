@@ -1,6 +1,4 @@
 /*
-touch element.sh
-
 \c periodic_table
 
 alter table properties rename column weight to atomic_mass;
@@ -28,4 +26,9 @@ alter table properties add columns type_id int not null add constraint fk_type_i
 
 
 
+
+
+
+
+touch element.sh
 */
