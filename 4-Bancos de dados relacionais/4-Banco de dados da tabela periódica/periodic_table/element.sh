@@ -17,10 +17,10 @@ if [[ ! -z $ELEMENT ]]; then
     if [[ $ELEMENT =~ ^[A-Z][a-z]*$ ]]; then
       ATOMIC_NUMBER=$($PSQL -c "SELECT atomic_number FROM elements WHERE symbol = '$ELEMENT';")
     fi
+
+
+
   fi
-
-
-
   echo "The element with atomic number $ATOMIC_NUMBER is Hydrogen (H). It's a nonmetal, with a mass of 1.008 amu. Hydrogen has a melting point of -259.1 celsius and a boiling point of -252.9 celsius."
 fi
 
