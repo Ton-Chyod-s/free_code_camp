@@ -24,6 +24,11 @@ insert into types (type_id, type) values (3, 'metalloid');
 
 alter table properties add columns type_id int not null add constraint fk_type_id foreign key (type_id) references types(type_id);
 
+ALTER TABLE Properties ADD COLUMN type_id INT;
+UPDATE properties SET type_id = (SELECT type_id FROM types WHERE types.type = properties.type);
+alter table properties alter column type_id set not null;
+
+alter table properties add constraint fk_type_id foreign key (type_id) references types(type_id);
 
 
 
