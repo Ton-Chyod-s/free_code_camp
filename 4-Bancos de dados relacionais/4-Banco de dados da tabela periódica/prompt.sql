@@ -69,5 +69,6 @@ DELETE FROM elements WHERE atomic_number = 1000;
 
 alter table properties drop column type;
 
+select type from properties full join types on properties.type_id = types.type_id;
 
 */
