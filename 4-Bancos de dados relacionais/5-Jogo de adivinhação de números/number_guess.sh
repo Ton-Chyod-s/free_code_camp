@@ -22,8 +22,6 @@ function initialize_game {
 
     echo "Welcome back, $username! You have played $games_played games, and your best game took $best_game guesses."
   fi
-  
-  play_game
 }
 
 function play_game {
@@ -50,4 +48,4 @@ function play_game {
 }
 
 initialize_game
-
+play_game
