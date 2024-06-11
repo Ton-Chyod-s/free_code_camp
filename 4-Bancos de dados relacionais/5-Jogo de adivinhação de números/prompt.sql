@@ -28,8 +28,7 @@ create table name( id_name serial primary key, nome varchar(22) not null, create
 
 create table game( id_game serial primary key, numero int not null, tentativa int not null, created_at timestamp not null default current_timestamp, id_name int not null, foreign key (id_name) references name(id_name));
 
-
-
-
+drop table game;
+drop table name;
 
 */
