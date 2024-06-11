@@ -24,6 +24,8 @@ fi
 echo -e "\nGuess the secret number between 1 and 1000:"
 read SECRET_NUMBER
 
+
+
 # echo "You guessed it in <number_of_guesses> tries. The secret number was <secret_number>. Nice job!"
 
 if [[ $ELEMENT =~ ^(0|[1-9][0-9]?|1[01][0-8])$ ]]; then
