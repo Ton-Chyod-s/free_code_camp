@@ -8,7 +8,7 @@ read NAME
 
 function initialize_game {
   number_of_guesses=0
-  
+
   username=$($PSQL -c "SELECT nome FROM name WHERE nome = '$NAME';")
 
   if [[ -z $username ]]; then
@@ -47,4 +47,3 @@ function initialize_game {
 }
 
 initialize_game
-
