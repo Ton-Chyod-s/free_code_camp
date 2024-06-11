@@ -7,6 +7,8 @@ echo "Enter your username:"
 read NAME
 
 function initialize_game {
+  number_of_guesses=0
+  
   username=$($PSQL -c "SELECT nome FROM name WHERE nome = '$NAME';")
 
   if [[ -z $username ]]; then
@@ -22,8 +24,6 @@ function initialize_game {
 
     echo "Welcome back, $username! You have played $games_played games, and your best game took $best_game guesses."
   fi
-  
-  number_of_guesses=0
 
   while true; do
     echo -e "\nGuess the secret number between 1 and 1000:"
