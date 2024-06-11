@@ -34,7 +34,6 @@ function play_game {
         echo "It's higher than that, guess again:"
       elif (( SECRET_NUMBER < NUM_RANDOM )); then
         echo "It's lower than that, guess again:"
-
       else
         echo "You guessed it in $ATTEMPTS tries. The secret number was $NUM_RANDOM. Nice job!"
         INSERT_GAME=$($PSQL -c "INSERT INTO game(id_name, tentativa) VALUES ($ID_NAME, $ATTEMPTS);")
@@ -44,10 +43,6 @@ function play_game {
       echo "That is not an integer, guess again:"
     fi
   done
-
-  CONSULT_GUESES=$($PSQL -c "SELECT tentativa FROM game WHERE id_name = $ID_NAME ORDER BY tentativa ASC LIMIT 1;")
-  echo "You guessed it in $CONSULT_GUESES tries. The secret number was $SECRET_NUMBER. Nice job!"
-
 }
 
 check_name
