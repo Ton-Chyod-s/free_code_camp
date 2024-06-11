@@ -27,7 +27,7 @@ read SECRET_NUMBER
 if [[ $SECRET_NUMBER -eq $NUM_RANDOM ]]; then
   echo "It's lower than that, guess again:"
 else
-echo "It's higher than that, guess again:"
+  echo "It's higher than that, guess again:"
 fi
 
 
