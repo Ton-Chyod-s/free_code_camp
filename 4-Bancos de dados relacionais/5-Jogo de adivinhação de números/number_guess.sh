@@ -1,4 +1,4 @@
-# !/bin/bash
+#!/bin/bash
 
 PSQL="psql -U postgres -t --no-align --dbname=number_guess"
 
