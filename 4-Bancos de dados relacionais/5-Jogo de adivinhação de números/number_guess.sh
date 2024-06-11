@@ -6,7 +6,7 @@ NUM_RANDOM=$((RANDOM % 1000 + 1))
 echo "Enter your username:"
 read NAME
 
-function check_name {
+function initialize_game {
   ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';")
 
   if [[ -z $ID_NAME ]]; then
@@ -47,5 +47,5 @@ function play_game {
   done
 }
 
-check_name
+initialize_game
 
