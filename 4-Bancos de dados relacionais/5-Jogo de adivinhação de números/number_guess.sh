@@ -14,12 +14,11 @@ function initialize_game {
     echo "Welcome, $NAME! It looks like this is your first time here."
     ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';")
   else
-    ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';")
-    NAME_DATABASE=$($PSQL -c "SELECT nome FROM name WHERE id_name = $ID_NAME;")
+    ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME_BD';")
     GAMES_PLAYED=$($PSQL -c "SELECT count(tentativa) FROM game WHERE id_name = $ID_NAME;")
     BEST_GAME=$($PSQL -c "SELECT min(tentativa) FROM game WHERE id_name = $ID_NAME;")
 
-    echo "Welcome back, $NAME_DATABASE! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses."
+    echo "Welcome back, $NAME_BD! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses."
   fi
   
   play_game
@@ -49,4 +48,3 @@ function play_game {
 }
 
 initialize_game
-
