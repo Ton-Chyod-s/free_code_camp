@@ -25,20 +25,20 @@ function initialize_game {
 }
 
 function play_game {
-  ATTEMPTS=0
+  number_of_guesses=0
   while true; do
     echo -e "\nGuess the secret number between 1 and 1000:"
-    read SECRET_NUMBER
+    read secret_number
     
-    if [[ $SECRET_NUMBER =~ ^[0-9]+$ ]]; then
-      ((ATTEMPTS++))
-      if (( SECRET_NUMBER > NUM_RANDOM )); then
+    if [[ $secret_number =~ ^[0-9]+$ ]]; then
+      ((number_of_guesses++))
+      if (( secret_number > NUM_RANDOM )); then
         echo "It's higher than that, guess again:"
-      elif (( SECRET_NUMBER < NUM_RANDOM )); then
+      elif (( secret_number < NUM_RANDOM )); then
         echo "It's lower than that, guess again:"
       else
-        INSERT_GAME=$($PSQL -c "INSERT INTO game( numero, tentativa, id_name) VALUES ( $SECRET_NUMBER, $ATTEMPTS, $ID_NAME);")
-        echo -e "\nYou guessed it in $ATTEMPTS tries. The secret number was $NUM_RANDOM. Nice job!\n"
+        INSERT_GAME=$($PSQL -c "INSERT INTO game( numero, tentativa, id_name) VALUES ( $secret_number, $number_of_guesses, $ID_NAME);")
+        echo -e "\nYou guessed it in $number_of_guesses tries. The secret number was $secret_number. Nice job!\n"
         exit
       fi
     else
