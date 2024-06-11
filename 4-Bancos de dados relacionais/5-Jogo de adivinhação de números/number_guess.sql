@@ -1,7 +1,5 @@
 /*
 
-psql -U postgres
-
 mkdir number_guessing_game
 
 cd number_guessing_game
@@ -16,13 +14,19 @@ git add .
 
 git commit -m "Initial commit"
 
-#! /bin/bash
+echo "#! /bin/bash" > number_guess.sh
+
+git branch -M main
+
+git add .
 
 git commit -m "feat: start game"
 
-\c number_guess
+psql -U postgres
 
 create database number_guess; 
+
+\c number_guess
 
 create table name( id_name serial primary key, nome varchar(22) not null, created_at timestamp not null default current_timestamp );
 
