@@ -7,14 +7,14 @@ echo "Enter your username:"
 read NAME
 
 function initialize_game {
-  ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';")
-  NAME_BD=$($PSQL -c "SELECT name FROM name WHERE nome = '$NAME';")
+  NAME_BD=$($PSQL -c "SELECT nome FROM name WHERE nome = '$NAME';")
 
   if [[ -z $NAME_BD ]]; then
     $PSQL -c "INSERT INTO name(nome) VALUES ('$NAME');"
     echo "Welcome, $NAME! It looks like this is your first time here."
     ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';")
   else
+    ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';")
     NAME_DATABASE=$($PSQL -c "SELECT nome FROM name WHERE id_name = $ID_NAME;")
     GAMES_PLAYED=$($PSQL -c "SELECT count(tentativa) FROM game WHERE id_name = $ID_NAME;")
     BEST_GAME=$($PSQL -c "SELECT min(tentativa) FROM game WHERE id_name = $ID_NAME;")
