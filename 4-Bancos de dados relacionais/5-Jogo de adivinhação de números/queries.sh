@@ -2,7 +2,7 @@
 
 PSQL="psql -U postgres -t --no-align --dbname=number_guess"
 
-NUM_RANDOM=$RANDOM
+NUM_RANDOM=$((RANDOM % 1000 + 1))
 
 echo "Enter your username:"
 read NAME
@@ -29,16 +29,6 @@ if [[ $SECRET_NUMBER -eq $NUM_RANDOM ]]; then
 else
   echo "It's higher than that, guess again:"
 fi
-
-
-
-
-
-
-
-
-
-
 
 
 # echo "That is not an integer, guess again:"
