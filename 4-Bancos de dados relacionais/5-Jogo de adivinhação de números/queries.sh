@@ -43,6 +43,10 @@ function play_game {
       echo "That is not an integer, guess again:"
     fi
   done
+
+CONSULT_GUESES=$($PSQL -c "SELECT tentativa FROM game WHERE id_name = $ID_NAME ORDER BY tentativa ASC LIMIT 1;")
+echo "You guessed it in $CONSULT_GUESES tries. The secret number was $SECRET_NUMBER. Nice job!"
+
 }
 
 check_name
