@@ -11,17 +11,18 @@ ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';")
 
 if [[ -z $ID_NAME ]]; then
   echo "Welcome, $NAME! It looks like this is your first time here."
-  INSERT_NAME=$($PSQL "insert into name (nome) values ('$NAME') returning id_name;")
-
-  echo "Guess the secret number between 1 and 1000:"
-
+  INSERT_NAME=$($PSQL -c "insert into name(nome) values ('$NAME');")
 else
   GAMES_PLAYED=$($PSQL -c "SELECT count(tentativa) FROM game WHERE id_name = $ID_NAME;")
 
   BEST_GAME=$($PSQL -c "SELECT max(tentativa) FROM game WHERE id_name = $ID_NAME;")
 
   echo "Welcome back, $NAME! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses."
+
 fi
+
+echo -e "\nGuess the secret number between 1 and 1000:"
+read SECRET_NUMBER
 
 
 
