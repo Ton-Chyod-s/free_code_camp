@@ -22,10 +22,9 @@ function initialize_game {
 
     echo "Welcome back, $username! You have played $games_played games, and your best game took $best_game guesses."
   fi
-}
-
-function play_game {
+  
   number_of_guesses=0
+
   while true; do
     echo -e "\nGuess the secret number between 1 and 1000:"
     read secret_number
@@ -48,4 +47,4 @@ function play_game {
 }
 
 initialize_game
-play_game
+
