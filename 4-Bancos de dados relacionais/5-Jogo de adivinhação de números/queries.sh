@@ -24,13 +24,15 @@ fi
 echo -e "\nGuess the secret number between 1 and 1000:"
 read SECRET_NUMBER
 
-if [[ $SECRET_NUMBER -eq $NUM_RANDOM ]]; then
-  echo "It's lower than that, guess again:"
-else
-  echo "It's higher than that, guess again:"
-fi
-
-
-# echo "That is not an integer, guess again:"
-
 # echo "You guessed it in <number_of_guesses> tries. The secret number was <secret_number>. Nice job!"
+
+if [[ $ELEMENT =~ ^(0|[1-9][0-9]?|1[01][0-8])$ ]]; then
+    if [[ $SECRET_NUMBER -eq $NUM_RANDOM ]]; then
+        echo "It's lower than that, guess again:"
+    else
+        echo "It's higher than that, guess again:"
+    fi
+    else
+        echo "That is not an integer, guess again:"
+  fi
+fi
