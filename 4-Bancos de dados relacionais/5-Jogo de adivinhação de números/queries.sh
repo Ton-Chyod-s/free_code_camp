@@ -14,10 +14,11 @@ function check_name {
     INSERT_NAME=$($PSQL -c "INSERT INTO name(nome) VALUES ('$NAME');")
     ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';")
   else
-    GAMES_PLAYED=$($PSQL -c "SELECT count(tentativa) FROM game WHERE id_name = $ID_NAME;")
+    NAME_DATABASE=$($PSQL -c "SELECT nome FROM name WHERE id_name = $ID_NAME;")
+    GAMES_PLAYED=$($PSQL -c "SELECT count(tentativa) FROM game WHERE id_name = $ID_NAME;" s)
     BEST_GAME=$($PSQL -c "SELECT min(tentativa) FROM game WHERE id_name = $ID_NAME;")
 
-    echo "Welcome back, $NAME! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses."
+    echo "Welcome back, $NAME_DATABASE! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses."
   fi
 }
 
