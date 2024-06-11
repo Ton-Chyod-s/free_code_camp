@@ -1,5 +1,7 @@
 /*
 
+psql -U postgres
+
 mkdir number_guessing_game
 
 cd number_guessing_game
@@ -17,6 +19,8 @@ git commit -m "Initial commit"
 #! /bin/bash
 
 git commit -m "feat: start game"
+
+\c number_guess
 
 create database number_guess; 
 

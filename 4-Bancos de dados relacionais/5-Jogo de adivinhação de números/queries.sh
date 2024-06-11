@@ -3,7 +3,6 @@
 PSQL="psql -U postgres -t --no-align --dbname=number_guess"
 
 NUM_RANDOM=$((RANDOM % 1000 + 1))
-
 echo "Enter your username:"
 read NAME
 
@@ -25,6 +24,7 @@ function check_name {
 function play_game {
   ATTEMPTS=0
   while true; do
+    echo $NUM_RANDOM
     echo -e "\nGuess the secret number between 1 and 1000:"
     read SECRET_NUMBER
 
@@ -36,8 +36,8 @@ function play_game {
         echo "It's lower than that, guess again:"
       else
         echo "You guessed it in $ATTEMPTS tries. The secret number was $NUM_RANDOM. Nice job!"
-        INSERT_GAME=$($PSQL -c "INSERT INTO game(id_name, tentativa) VALUES ($ID_NAME, $ATTEMPTS);")
-        break
+        INSERT_GAME=$($PSQL -c "INSERT INTO game( numero, tentativa, id_name) VALUES ( $SECRET_NUMBER, $ATTEMPTS, $ID_NAME);")
+        exit
       fi
     else
       echo "That is not an integer, guess again:"
