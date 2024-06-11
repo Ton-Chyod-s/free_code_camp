@@ -24,10 +24,9 @@ function check_name {
 function play_game {
   ATTEMPTS=0
   while true; do
-    echo $NUM_RANDOM
     echo -e "\nGuess the secret number between 1 and 1000:"
     read SECRET_NUMBER
-
+    
     if [[ $SECRET_NUMBER =~ ^[0-9]+$ ]]; then
       ((ATTEMPTS++))
       if (( SECRET_NUMBER > NUM_RANDOM )); then
@@ -35,8 +34,8 @@ function play_game {
       elif (( SECRET_NUMBER < NUM_RANDOM )); then
         echo "It's lower than that, guess again:"
       else
-        echo "You guessed it in $ATTEMPTS tries. The secret number was $NUM_RANDOM. Nice job!"
         INSERT_GAME=$($PSQL -c "INSERT INTO game( numero, tentativa, id_name) VALUES ( $SECRET_NUMBER, $ATTEMPTS, $ID_NAME);")
+        echo -e "\nYou guessed it in $ATTEMPTS tries. The secret number was $NUM_RANDOM. Nice job!\n"
         exit
       fi
     else
