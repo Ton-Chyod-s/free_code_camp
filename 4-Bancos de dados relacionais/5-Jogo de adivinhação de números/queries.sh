@@ -10,8 +10,8 @@ function check_name {
   ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';")
 
   if [[ -z $ID_NAME ]]; then
+    $PSQL -c "INSERT INTO name(nome) VALUES ('$NAME');"
     echo "Welcome, $NAME! It looks like this is your first time here."
-    INSERT_NAME=$($PSQL -c "INSERT INTO name(nome) VALUES ('$NAME');")
     ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';")
   else
     NAME_DATABASE=$($PSQL -c "SELECT nome FROM name WHERE id_name = $ID_NAME;")
@@ -20,6 +20,8 @@ function check_name {
 
     echo "Welcome back, $NAME_DATABASE! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses."
   fi
+  
+  play_game
 }
 
 function play_game {
@@ -46,4 +48,4 @@ function play_game {
 }
 
 check_name
-play_game
+
