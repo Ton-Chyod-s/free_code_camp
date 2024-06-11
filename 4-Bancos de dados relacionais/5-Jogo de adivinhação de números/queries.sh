@@ -24,6 +24,11 @@ fi
 echo -e "\nGuess the secret number between 1 and 1000:"
 read SECRET_NUMBER
 
+if [[ $SECRET_NUMBER -eq $NUM_RANDOM ]]; then
+  echo "It's lower than that, guess again:"
+else
+echo "It's higher than that, guess again:"
+fi
 
 
 
@@ -34,9 +39,7 @@ read SECRET_NUMBER
 
 
 
-# echo "It's lower than that, guess again:"
 
-# echo "It's higher than that, guess again:"
 
 # echo "That is not an integer, guess again:"
 
