@@ -2,4 +2,7 @@
 
 PSQL="psql -U postgres -t --no-align --dbname=periodic_table"
 
-ELEMENT=$(initcap "$1")
+NUM_RANDOM=$RANDOM
+
+echo "Enter your username:"
+read name
