@@ -8,8 +8,9 @@ read NAME
 
 function initialize_game {
   ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';")
+  NAME_BD=$($PSQL -c "SELECT name FROM name WHERE nome = '$NAME';")
 
-  if [[ -z $ID_NAME ]]; then
+  if [[ -z $NAME_BD ]]; then
     $PSQL -c "INSERT INTO name(nome) VALUES ('$NAME');"
     echo "Welcome, $NAME! It looks like this is your first time here."
     ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';")
