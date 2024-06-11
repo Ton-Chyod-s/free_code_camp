@@ -7,7 +7,17 @@ NUM_RANDOM=$RANDOM
 echo "Enter your username:"
 read NAME
 
-echo "Welcome back, $NAME! You have played <games_played> games, and your best game took <best_game> guesses."
+ID_NAME=$($PSQL -c "SELECT id_name FROM players WHERE name = '$NAME';")
+
+GAMES_PLAYED=$($PSQL -c "SELECT count(tentativa) FROM game WHERE id_name = $ID_NAME;")
+
+BEST_GAME=$($PSQL -c "SELECT max(tentativa) FROM game WHERE id_name = $ID_NAME;")
+
+if [[ ! -z $ID_NAME ]]; then
+    echo "Welcome back, $NAME! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses."
+fi
+
+
 
 echo "Welcome, $NAME! It looks like this is your first time here."
 
