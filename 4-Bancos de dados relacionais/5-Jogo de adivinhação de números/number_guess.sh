@@ -7,18 +7,20 @@ echo "Enter your username:"
 read NAME
 
 function initialize_game {
-  NAME_BD=$($PSQL -c "SELECT nome FROM name WHERE nome = '$NAME';")
+  username=$($PSQL -c "SELECT nome FROM name WHERE nome = '$NAME';")
 
-  if [[ -z $NAME_BD ]]; then
-    $PSQL -c "INSERT INTO name(nome) VALUES ('$NAME');"
+  if [[ -z $username ]]; then
+    INSERT_NAME=$($PSQL -c "INSERT INTO name(nome) VALUES ('$NAME');")
+
     echo "Welcome, $NAME! It looks like this is your first time here."
+
     ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';")
   else
-    ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME_BD';")
-    GAMES_PLAYED=$($PSQL -c "SELECT count(tentativa) FROM game WHERE id_name = $ID_NAME;")
-    BEST_GAME=$($PSQL -c "SELECT min(tentativa) FROM game WHERE id_name = $ID_NAME;")
+    ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$username';")
+    games_played=$($PSQL -c "SELECT count(tentativa) FROM game WHERE id_name = $ID_NAME;")
+    best_game=$($PSQL -c "SELECT min(tentativa) FROM game WHERE id_name = $ID_NAME;")
 
-    echo "Welcome back, $NAME_BD! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses."
+    echo "Welcome back, $username! You have played $games_played games, and your best game took $best_game guesses."
   fi
   
   play_game
@@ -48,3 +50,4 @@ function play_game {
 }
 
 initialize_game
+
