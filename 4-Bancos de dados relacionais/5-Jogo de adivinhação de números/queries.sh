@@ -30,9 +30,9 @@ function play_game {
 
     if [[ $SECRET_NUMBER =~ ^[0-9]+$ ]]; then
       ((ATTEMPTS++))
-      if (( SECRET_NUMBER < NUM_RANDOM )); then
+      if (( SECRET_NUMBER > NUM_RANDOM )); then
         echo "It's higher than that, guess again:"
-      elif (( SECRET_NUMBER > NUM_RANDOM )); then
+      elif (( SECRET_NUMBER < NUM_RANDOM )); then
         echo "It's lower than that, guess again:"
       else
         echo "You guessed it in $ATTEMPTS tries. The secret number was $NUM_RANDOM. Nice job!"
