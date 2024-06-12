@@ -28,9 +28,9 @@ create database number_guess;
 
 \c number_guess
 
-create table name( id_name serial primary key, nome varchar(22) not null, created_at timestamp not null default current_timestamp );
+create table name( id_name serial primary key, username varchar(22) not null, created_at DATE NOT NULL DEFAULT CURRENT_DATE );
 
-create table game( id_game serial primary key, numero int not null, tentativa int not null, created_at timestamp not null default current_timestamp, id_name int not null, foreign key (id_name) references name(id_name));
+create table game( id_game serial primary key, number_of_guesses int not null, guesses int not null, created_at DATE NOT NULL DEFAULT CURRENT_DATE, id_name int not null, foreign key (id_name) references name(id_name));
 
 drop table game;
 drop table name;

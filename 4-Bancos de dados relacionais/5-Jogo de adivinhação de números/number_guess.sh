@@ -12,19 +12,18 @@ username=$($PSQL -c "SELECT nome FROM name WHERE nome = '$NAME';" | xargs)
 
 if [[ ! -z $username ]]; then
   ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$username';" | xargs)
-  games_played=$($PSQL -c "SELECT count(*) FROM game WHERE id_name = $ID_NAME;" | xargs)
-  best_game=$($PSQL -c "SELECT min(tentativa) FROM game WHERE id_name = $ID_NAME;" | xargs)
+  games_played=$($PSQL -c "select sum(tentativa) from game join name on game.id_name = name.id_name where nome = '$username';" | xargs)
+  best_game=$($PSQL -c "select min(tentativa) from game join name on game.id_name = name.id_name where nome = '$username';" | xargs)
 
   echo "Welcome back, $username! You have played $games_played games, and your best game took $best_game guesses."
 else
-  INSERT_NAME=$($PSQL -c "INSERT INTO name(nome) VALUES ('$NAME');")
-
   echo "Welcome, $NAME! It looks like this is your first time here."
-
+  INSERT_NAME=$($PSQL -c "INSERT INTO name(nome) VALUES ('$NAME');")
   ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';" | xargs)
 fi
 
 while true; do
+  # echo $NUM_RANDOM
   echo -e "\nGuess the secret number between 1 and 1000:"
   read secret_number
   
