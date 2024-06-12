@@ -12,7 +12,7 @@ username=$($PSQL -c "SELECT nome FROM name WHERE nome = '$NAME';" | xargs)
 
 if [[ ! -z $username ]]; then
   ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$username';" | xargs)
-  games_played=$($PSQL -c "select sum(tentativa) from game join name on game.id_name = name.id_name where nome = '$username';" | xargs)
+  games_played=$($PSQL -c "select count(tentativa) from game join name on game.id_name = name.id_name where nome = '$username';" | xargs)
   best_game=$($PSQL -c "select min(tentativa) from game join name on game.id_name = name.id_name where nome = '$username';" | xargs)
 
   echo "Welcome back, $username! You have played $games_played games, and your best game took $best_game guesses."
