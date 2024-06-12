@@ -48,5 +48,4 @@ while true; do
   fi
 done
 
-MSG="You guessed it in $number_of_guesses tries. The secret number was $NUM_RANDOM. Nice job!"
-echo $MSG
+echo -e "\nYou guessed it in $number_of_guesses tries. The secret number was $NUM_RANDOM. Nice job!\n"
