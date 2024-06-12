@@ -28,6 +28,7 @@ fi
 
 ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE username = '$username';" | xargs)
 
+
 while true; do
   echo $NUM_RANDOM 
   echo "Guess the secret number between 1 and 1000:"
