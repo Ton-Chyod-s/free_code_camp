@@ -8,18 +8,18 @@ read NAME
 
 declare -i number_of_guesses=0
 
-username=$($PSQL -c "SELECT nome FROM name WHERE nome = '$NAME';" | xargs)
+username=$($PSQL -c "SELECT username FROM name WHERE username = '$NAME';" | xargs)
 
 if [[ ! -z $username ]]; then
-  ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$username';" | xargs)
-  games_played=$($PSQL -c "select count(tentativa) from game join name on game.id_name = name.id_name where nome = '$username';" | xargs)
-  best_game=$($PSQL -c "select min(tentativa) from game join name on game.id_name = name.id_name where nome = '$username';" | xargs)
+  ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE username = '$username';" | xargs)
+  games_played=$($PSQL -c "select count(tentativa) from game join name on game.id_name = name.id_name where username = '$username';" | xargs)
+  best_game=$($PSQL -c "select min(tentativa) from game join name on game.id_name = name.id_name where username = '$username';" | xargs)
 
   echo "Welcome back, $username! You have played $games_played games, and your best game took $best_game guesses."
 else
   echo "Welcome, $NAME! It looks like this is your first time here."
-  INSERT_NAME=$($PSQL -c "INSERT INTO name(nome) VALUES ('$NAME');")
-  ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE nome = '$NAME';" | xargs)
+  INSERT_NAME=$($PSQL -c "INSERT INTO name(username) VALUES ('$NAME');")
+  ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE username = '$NAME';" | xargs)
 fi
 
 while true; do
@@ -34,7 +34,7 @@ while true; do
     elif (( secret_number < NUM_RANDOM )); then
       echo "It's lower than that, guess again:"
     else
-      INSERT_GAME=$($PSQL -c "INSERT INTO game( numero, tentativa, id_name) VALUES ( $secret_number, $number_of_guesses, $ID_NAME);")
+      INSERT_GAME=$($PSQL -c "INSERT INTO game( number_of_guesses, guesses, id_name) VALUES ( $secret_number, $number_of_guesses, $ID_NAME);")
       echo -e "\nYou guessed it in $number_of_guesses tries. The secret number was $secret_number. Nice job!\n"
       exit
     fi
