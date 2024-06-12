@@ -4,23 +4,30 @@ PSQL="psql -U postgres -t --no-align --dbname=number_guess"
 
 NUM_RANDOM=$((RANDOM % 1000 + 1))
 echo "Enter your username:"
-read NAME
+read username
 
 declare -i number_of_guesses=0
 
-username=$($PSQL -c "SELECT username FROM name WHERE username = '$NAME';" | xargs)
+CHECK_NAME=$($PSQL -c "SELECT username FROM name WHERE username = '$username';" | xargs)
 
-if [[ ! -z $username ]]; then
-  ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE username = '$username';" | xargs)
-  games_played=$($PSQL -c "select count(tentativa) from game join name on game.id_name = name.id_name where username = '$username';" | xargs)
-  best_game=$($PSQL -c "select min(tentativa) from game join name on game.id_name = name.id_name where username = '$username';" | xargs)
+if [[ ! -z $CHECK_NAME ]]; then
+  games_played=$($PSQL -c "select count(guesses) from game join name on game.id_name = name.id_name where username = '$username';" | xargs)
+  if [[ -z $games_played ]]; then
+    games_played=0
+  fi
 
-  echo "Welcome back, $username! You have played $games_played games, and your best game took $best_game guesses."
+  best_game=$($PSQL -c "select min(guesses) from game join name on game.id_name = name.id_name where username = '$username';" | xargs)
+  if [[ -z $best_game ]]; then
+    best_game=0
+  fi
+  
+  echo "Welcome back, $CHECK_NAME! You have played $games_played games, and your best game took $best_game guesses."
 else
-  echo "Welcome, $NAME! It looks like this is your first time here."
-  INSERT_NAME=$($PSQL -c "INSERT INTO name(username) VALUES ('$NAME');")
-  ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE username = '$NAME';" | xargs)
+  echo "Welcome, $username! It looks like this is your first time here."
+  INSERT_NAME=$($PSQL -c "INSERT INTO name(username) VALUES ('$username');")
 fi
+
+ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE username = '$username';" | xargs)
 
 while true; do
   # echo $NUM_RANDOM
