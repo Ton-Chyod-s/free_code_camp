@@ -2,7 +2,7 @@
 
 PSQL="psql -U postgres -t --no-align --dbname=number_guess"
 
-NUM_RANDOM=$((1 + RANDOM % 1000))
+NUM_RANDOM=$((1 + RANDOM % 1000)) 
 echo "Enter your username:"
 read username
 
@@ -29,8 +29,8 @@ fi
 ID_NAME=$($PSQL -c "SELECT id_name FROM name WHERE username = '$username';" | xargs)
 
 while true; do
-  echo $NUM_RANDOM
-  echo -e "\nGuess the secret number between 1 and 1000:"
+  echo $NUM_RANDOM 
+  echo "Guess the secret number between 1 and 1000:"
   read secret_number
   
   if [[ $secret_number =~ ^[0-9]+$ ]]; then
@@ -48,4 +48,5 @@ while true; do
   fi
 done
 
-echo -e "\nYou guessed it in $number_of_guesses tries. The secret number was $NUM_RANDOM. Nice job!\n"
+MSG="You guessed it in $number_of_guesses tries. The secret number was $NUM_RANDOM. Nice job!"
+echo $MSG
