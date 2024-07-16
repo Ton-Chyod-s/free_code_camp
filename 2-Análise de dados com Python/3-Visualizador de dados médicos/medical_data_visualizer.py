@@ -75,7 +75,7 @@ def draw_heat_map():
     fig.savefig('heatmap.png')
     return fig
 
-# if __name__ == "__main__":
-#     # 17
-#     draw_cat_plot()
-#     draw_heat_map()
+if __name__ == "__main__":
+    # 17
+    draw_cat_plot()
+    draw_heat_map()
