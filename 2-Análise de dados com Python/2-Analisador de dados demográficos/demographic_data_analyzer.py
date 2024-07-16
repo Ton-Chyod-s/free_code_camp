@@ -12,7 +12,7 @@ def calculate_demographic_data(print_data=True):
     man_df_sex = df[df['sex'] == 'Male']
     num_sex = man_df_sex.age.count()
     num_sum = man_df_sex.age.sum()
-    average_age_men =  round(num_sum / num_sex,2)
+    average_age_men =  round(num_sum / num_sex,3)
 
     #Qual é a porcentagem de pessoas que têm um diploma de bacharel?
     educ = df[df['education'] == 'Bachelors']
@@ -83,5 +83,7 @@ def calculate_demographic_data(print_data=True):
 
 
 if __name__ == "__main__":
-    lol = calculate_demographic_data()
-    lol
+    calculate_demographic_data()
+
+
+    
