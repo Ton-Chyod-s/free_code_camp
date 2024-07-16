@@ -18,12 +18,19 @@ for i in range(len(df)):
         df.iloc[[14, i]] = 1
     else:
         df.iloc[[14, i]] = 0
-
-print(df.head())
-
+        
 # 4
 def draw_cat_plot():
     # 5
+    cholesterol = df['cholesterol']
+    gluc = df['gluc']
+    smoke = df['smoke']
+    alco = df['alco']
+    active = df['active']
+    overweight = df['overweight']
+
+
+
     df_cat = None
 
 
