@@ -9,27 +9,17 @@ df = pd.read_csv('2-Análise de dados com Python\\3-Visualizador de dados médic
 # 2
 df['overweight'] = ''
 
-for i in df['id']:
+#3
+for i in range(len(df)):
     numColesterol = df['cholesterol'][i]
     numGluc = df['gluc'][i]
 
-    print(numColesterol, numGluc)
-    print(df.head(50))
     if numColesterol == 1 or numGluc == 1:
         df.iloc[[14, i]] = 1
     else:
         df.iloc[[14, i]] = 0
 
 print(df.head())
-
-
-
-
-
-
-
-
-
 
 # 4
 def draw_cat_plot():
