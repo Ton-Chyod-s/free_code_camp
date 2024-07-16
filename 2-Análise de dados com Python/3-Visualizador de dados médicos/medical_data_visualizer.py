@@ -5,20 +5,26 @@ import numpy as np
 
 # 1
 df = pd.read_csv('2-Análise de dados com Python\\3-Visualizador de dados médicos\\medical_examination.csv')
-print(df.head())
+
 # 2
+df['overweight'] = ''
+
 for i in df['id']:
     numColesterol = df['cholesterol'][i]
     numGluc = df['gluc'][i]
 
-    
-    print(numColesterol)
-    print(numGluc)
+    if numColesterol == 1 or numGluc == 1:
+        df.iloc[[14, i]] = 1
+    else:
+        df.iloc[[14, i]] = 0
+
+print(df.head())
 
 
 
 
-df['overweight'] = ''
+
+
 
 
 
