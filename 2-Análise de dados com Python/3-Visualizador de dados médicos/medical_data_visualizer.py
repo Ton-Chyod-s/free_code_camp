@@ -20,14 +20,26 @@ def draw_cat_plot():
     variables = ['cholesterol', 'gluc', 'smoker', 'alco', 'active', 'overweight']
 
     # Create a FacetGrid with multiple plots
-    grafico = sns.catplot(data=df, kind='count', x='cardio', hue='overweight')
-    
-    grafico2 = sns.catplot(data=df, kind='count', x='cardio', hue='cholesterol')
+    # Assuming df is your DataFrame containing the data
 
-    grafico3 = sns.catplot(data=df, kind='count', x='cardio', hue='gluc')
-    
+    # Create a FacetGrid with multiple plots
+    fig, axes = plt.subplots(1, 3, figsize=(20, 5))
 
+    # Plot 1: Overweight vs. Cardio
+    sns.countplot(data=df, x='cardio', hue='overweight', ax=axes[0])
+    axes[0].set_title('Overweight')
 
+    # Plot 2: Cholesterol vs. Cardio
+    sns.countplot(data=df, x='cardio', hue='cholesterol', ax=axes[1])
+    axes[1].set_title('Cholesterol')
+
+    # Plot 3: Gluc vs. Cardio
+    sns.countplot(data=df, x='cardio', hue='gluc', ax=axes[2])
+    axes[2].set_title('Gluc')
+
+    # Adjust layout
+    plt.tight_layout()
+    plt.show()
 
     df_cat = None
 
@@ -42,10 +54,10 @@ def draw_cat_plot():
 
 
     # 9
-    grafico.savefig('2-Análise de dados com Python\\3-Visualizador de dados médicos\\catplot.png')
+    plt.savefig('2-Análise de dados com Python\\3-Visualizador de dados médicos\\catplot.png')
    
 
-    return grafico
+    return 
 
 
 # 10
