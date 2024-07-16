@@ -13,6 +13,8 @@ for i in df['id']:
     numColesterol = df['cholesterol'][i]
     numGluc = df['gluc'][i]
 
+    print(numColesterol, numGluc)
+    print(df.head(50))
     if numColesterol == 1 or numGluc == 1:
         df.iloc[[14, i]] = 1
     else:
