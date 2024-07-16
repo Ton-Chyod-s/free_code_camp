@@ -21,9 +21,11 @@ def draw_cat_plot():
 
     # Create a FacetGrid with multiple plots
     grafico = sns.catplot(data=df, kind='count', x='cardio', hue='overweight')
-        
-    grafico.set_ylabels('')
-    grafico.set_xlabels('')
+    
+    grafico2 = sns.catplot(data=df, kind='count', x='cardio', hue='cholesterol')
+
+    grafico3 = sns.catplot(data=df, kind='count', x='cardio', hue='gluc')
+    
 
 
 
