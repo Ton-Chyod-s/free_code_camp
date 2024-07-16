@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # 1
-df = None
+df = pd.read_csv('2-Análise de dados com Python\\3-Visualizador de dados médicos\\medical_examination.csv')
 
 # 2
 df['overweight'] = None
@@ -58,3 +58,8 @@ def draw_heat_map():
     # 16
     fig.savefig('heatmap.png')
     return fig
+
+# if __name__ == "__main__":
+#     # 17
+#     draw_cat_plot()
+#     draw_heat_map()
