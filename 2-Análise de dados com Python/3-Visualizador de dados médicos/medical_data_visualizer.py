@@ -5,11 +5,22 @@ import numpy as np
 
 # 1
 df = pd.read_csv('2-Análise de dados com Python\\3-Visualizador de dados médicos\\medical_examination.csv')
-
+print(df.head())
 # 2
-df['overweight'] = None
+for i in df['id']:
+    numColesterol = df['cholesterol'][i]
+    numGluc = df['gluc'][i]
 
-# 3
+    
+    print(numColesterol)
+    print(numGluc)
+
+
+
+
+df['overweight'] = ''
+
+
 
 
 # 4
